@@ -66,6 +66,7 @@
     const salary = document.querySelector('.uname')
     const city = document.querySelector('.city')
     const tbody = document.querySelector('tbody')
+    const items = document.querySelectorAll('[name]')
     //创建一个空数组，表单的增加和删除都是对数组的操作
     const arr = []
     //  1.表单提交事件
@@ -74,6 +75,15 @@
       //阻止表单默认行为
       e.preventDefault()
       // console.log(11);
+
+      // 这里进行表单验证  如果不通过， 直接中断，不需要添加数据
+      // 先遍历循环
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].value === '') {
+          return alert('输入内容不能为空')
+        }
+      }
+
       const obj = {
         Id: arr.length + 1,
         uname: uname.value,
@@ -86,15 +96,16 @@
       arr.push(obj)
       // console.log(arr);
       this.reset()
-      render() 
+      render()
     })
 
     // 2.将数据渲染到表单中
     function render() {
+      tbody.innerHTML = ''
       // 遍历数组arr
       for (let i = 0; i < arr.length; i++) {
         // 生成tr
-        const tr = document.querySelector('tr')
+        const tr = document.createElement('tr')
         tr.innerHTML = `
           <td>${arr[i].Id}</td>
           <td>${arr[i].uname}</td>
@@ -103,7 +114,7 @@
           <td>${arr[i].salary}</td>
           <td>${arr[i].city}</td>
           <td>
-            <a href="javascript:">删除</a>
+            <a href="javascript:" data-id=${i}>删除</a>
           </td>
         
         `
@@ -111,7 +122,18 @@
         tbody.appendChild(tr)
       }
     }
-
+    // 3. 事件委托 tbody
+    tbody.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        // 得到当前元素的自定义属性 data-id
+        // console.log(e.target.dataset.id);
+        // 删除arr 数组里面对应的数据
+        arr.splice(e.target.dataset.id, 1)
+        // console.log(arr);
+        // 数组清空后，重新渲染一次
+        render()
+      }
+    })
   </script>
 
 </body>
