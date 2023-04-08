@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var year = 2008
+        var month = 8
+        var date = 8
+        var total = 0
+         switch(month) {
+             case 12 :total +=  30
+             case 11 :total += 31
+             case 10 :total += 30
+             case 9 :total += 31
+             case 8 :total += 31
+             case 7 :total += 30
+             case 6 :total += 31
+             case 5 :total += 30
+             case 4 :total += 31
+             case 3 :
+             if (year % 4 == 0 && year % 100 == !0 || year%400 == 0 ) {
+                 total += 29
+             }else {
+                 total += 28
+             }
+             case 2 :total += 31
+         }
+         total += date
+          console.log(total)
+     
+     
+         </script>
+</head>
+<body>
+    
+</body>
+</html>

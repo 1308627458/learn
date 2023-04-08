@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <style>
+       
+        /* .box {
+            width: 200px;
+            height: 200px;
+            color: blue;
+        } */
+        .active {
+            width: 300px;
+            height: 300px;
+            background-color: lightyellow;
+        }
+    </style> -->
+
+<!-- 
+    <style>
+    body{
+        background: url(./images/desktop_2.jpg) no-repeat top center
+    }
+    </style> -->
+    <!-- <style>
+        .box {
+            position: relative;
+            width: 1000px;
+            height: 300px;
+            background-color: pink;
+            text-align: center;
+            line-height: 200px;
+            font-size: 50px;
+            font-weight: 700;
+
+        }
+        .close {
+            position: absolute;
+            cursor: pointer;
+            right: 20px;
+            top: 10px;
+            text-align: center;
+            width: 30px;
+            height: 30px;
+            line-height: 20px;
+            background-color: lightyellow;
+           
+
+        }
+    </style> -->
+    <!-- <style>
+        .father {
+            width: 500px;
+            height: 500px;
+            background-color: pink;
+        }
+        .son {
+            width: 300px;
+            height: 300px;
+            background-color: lightblue;
+        }
+    </style> -->
+
+    <style>
+        body {
+            height: 2000px;
+        }
+        div {
+            display: none;
+            overflow: scroll;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- <ul class="nav">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        const hh = document.querySelector('#nav')
+        const a = document.querySelector('ul li')
+        console.log(hh);
+        console.log(a);
+    </script> -->
+
+
+    <!-- <div class="box">我是你爸爸</div>
+    <script>
+        const box = document.querySelector('.box')
+        console.log(box.innerHTML);
+        box.innerHTML = '我是你爷爷'
+    </script> -->
+
+    <!-- <img src="./images/1.webp" alt="">
+    <script>
+        // 1.获取元素
+         const img = document.querySelector('img')
+        function getRandom(M,N) {
+           return Math.floor(Math.random()*(N - M + 1)  + M)
+        }
+        const random = getRandom(1, 6)
+      
+        img.src = `./images/${random}.webp`
+    </script> -->
+
+
+    <!-- <div class="box"></div>
+    <script>
+        const box = document.querySelector('.box')
+        box.style.width = '300px'
+        box.style.backgroundColor = 'lightblue'
+        box.style.border = '2px solid yellow'
+    </script> -->
+
+
+   <!-- <script>
+    // 1.获取元素
+   
+        function getRandom(M,N) {
+           return Math.floor(Math.random()*(N - M + 1)  + M)
+        }
+        const random = getRandom(1, 10)
+       document.body.style.backgroundImgae = `url(./images/desktop_${random}.jpg)`
+   </script> -->
+
+
+<!-- <div calss="active">123</div>
+
+    <script>
+        const div = document.querySelector('div')
+        div.classList.add= 'active'
+    </script> -->
+
+
+    <!-- <div class="box" data-id="1">123</div>
+    <script>
+        const wq = document.querySelector('.box')
+       console.log( wq.dataset.id);
+    </script> -->
+
+    <!-- <script>
+        // function a () {
+        //     console.log('我爱你');
+        // }
+        // let b = setInterval(a,1000)
+        // console.log(b);
+        // clearInterval(b)
+
+            // setInterval(function fn() {
+            //     console.log('我爱你');
+            // },1000)
+</script> -->
+
+<!-- let btn = document.querySelector('button')
+  btn.addEventListener('click',function () {
+    alert('我丢')
+ }) -->
+
+<!-- <div class="box">我是广告
+<div class="close">X</div> -->
+<!-- </div> -->
+
+
+
+<!-- 事件流 -->
+<!-- <div class="father">
+    <div class="son"></div>
+</div>
+<script>
+const fa = document.querySelector('.father')
+const son = document.querySelector('.son')
+document.addEventListener('click', function () { // 捕获阶段要写 true 默认 false 为冒泡
+alert('我是爷爷');
+})
+fa.addEventListener('click', function () {
+alert('我是爸爸');
+})
+son.addEventListener('click', function (e) {
+alert('我是儿子');
+e.stopPropagation() // 阻止传播  
+}) -->
+<!-- </script> -->
+
+
+
+
+<!-- <button>点击</button>
+<script>
+const btn = document.querySelector('button') 
+function fn () {
+alert('点击了')
+}
+btn.addEventListener('click', fn )
+btn.removeEventListener('click', fn)
+</script> -->
+<!-- 
+    <ul>
+        <li>第1个孩子</li>
+        <li>第2个孩子</li>
+        <li>第3个孩子</li>
+        <li>第4个孩子</li>
+        <li>第5个孩子</li>
+        <p>哈哈</p>
+    </ul> -->
+
+
+<!-- <script>
+// const ul = document.querySelector('ul')
+// ul.addEventListener('click', function (e) {
+// if(e.target.tagName === 'LI') {
+//     e.target.style.color = 'red' 
+    
+// }
+// })
+</script> -->
+<div>我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+    我是滚动事件
+</div>
+<script>
+    // const div = document.querySelector('div')
+    // div.addEventListener('scroll',function () {
+    //     console.log(div.scrollTop)
+    // })
+    const div = document.querySelector('div')
+    window.addEventListener('scroll', function () {
+        const n = document.documentElement.scrollTop
+        if (n >= 100) {
+            div.style.display = 'block'
+        }else {
+            div.style.display = 'none'
+        }
+    })
+       
+</script>
+
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <style>
+        span {
+            width: 100px;
+            display: inline-block;
+            padding: 5px 10ox;
+            border: 1px solid  pink;
+            margin: 2px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 2px rgb(255, 192, 203, .4);
+            background-color: rgb(255, 192, 203, .3);
+            text-align: center;
+            color: hotpink;
+        }
+    </style> -->
+    <!-- <style>
+        h2 {
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            height: 80px;
+            margin: 0 auto;
+        }
+        th {
+            padding: 5px 30px;
+        }
+        th{
+            border: 1px solid #000;
+        }
+    </style> -->
+<!-- </head>
+
+<body> 
+    <h2>确认订单</h2>
+    <table>
+        <tr>
+            <th>商品名称</th>
+            <th>商品价格</th>
+            <th>商品数量</th>
+            <th>总价</th>
+            <th>收货地址</th>
+        </tr>
+        <tr>
+            <th>苹果14pro</th>
+            <th>6999</th>
+            <th>5</th>
+            <th>34995</th>
+            <th>东华理工</th>
+        </tr>
+    </table> -->
+    <script> 
+    // alert('你好js')
+    // document.write('JavaScript 我来了！')
+    // console.log('它~会魔法吧');
+    // prompt('请输入你的名字')
+    // let num = 20
+    // let name = '张三'
+    // console.log(num)
+    // console.log(name)
+//     let num1 = 10
+//     let num2 = 20
+//     let temp
+//    temp = num1
+//    num1 = num2
+//    num2 = temp
+//    console.log(num1, num2)
+// let price = +prompt ('请输入商品的价格')
+// let num = +prompt ('请输入商品的数量')
+// let address= prompt ('请输入收货地址')
+// let total = num*price
+// document.write(`   
+//      <h2>确认订单</h2>
+//     <table>
+//         <tr>
+//             <th>商品名称</th>
+//             <th>商品价格</th>
+//             <th>商品数量</th>
+//             <th>总价</th>
+//             <th>收货地址</th>
+//         </tr>
+//         <tr>
+//             <th>苹果14pro</th>
+//             <th>${price}元</th>
+//             <th>${num}</th>
+//             <th>${total}元</th>
+//             <th>${address}</th>
+//         </tr>
+//     </table> 
+   
+//          `)
+// document.write(gender)
+// let arr = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六' , '星期天']
+// console.log(arr[6])
+// let r = prompt('请输入圆的半径')
+// let PI = 3.14
+// let e = PI*r*r
+// document.write(e)
+// let uname = prompt('请输入您的姓名')
+// let age = prompt('请输入您的年龄')
+// // let gender = prompt('请输入您的性别')
+// let a = +age + 5
+// console.log(a);
+// let year = +prompt('请输入年份')
+
+// if (year % 4 === 0 && year %100 !== 0 || year % 400 ===0) {
+//     alert(`${year}年是闰年`)
+// }else {
+//     alert(`${year}是平年`)
+// }
+
+// let score = +prompt('请输入得分')
+// if (score >= 90) {
+//     alert('优秀')
+// }else if (score >= 70 ) {
+//     alert('良好')
+// }else if (score >= 60 ) {
+//     alert('及格')
+// }else  {
+//     alert ('不及格')
+// }
+
+// let a = prompt('请输入两个数')
+// let b = prompt('请输入第二个数')
+// a > b ? alert(`最大的数为${a}`): alert(`最大的数为${b}`)
+
+// let num = +prompt('请输入一个数：')
+// num < 10 ? alert(0 + `${num}`) : alert(`${num}`)
+
+// let num = prompt('请输入一个数：')
+// num = num < 10 ? 0 + num : num
+// alert(num)
+
+// let num1 = +prompt('请输入第一个数字')
+// let num2 = +prompt('请输入第二个数字')
+// let p = prompt('请输入想要进行的运算 + - * /')
+// switch(p) {
+//     case '+':
+//     alert(`您选择的操作结果为${num1 + num2}`)
+//     break
+//     case '-':
+//     alert(`您选择的操作结果为${num1 - num2}`)
+//     break
+//     case '*':
+//     alert(`您选择的操作结果为${num1 * num2}`)
+//     break 
+//     case '/':
+//     alert(`您选择的操作结果为${num1 / num2}`)
+//     break
+//     default:
+//     alert('请输入正确的操作符合')
+// }
+
+// let num1 = +prompt('请输入第一个数')
+// let num2 = +prompt('请输入第二个数')
+// let sp = prompt('请输入+ - * /')
+
+//  switch(sp) {
+//     case '+':
+//     alert(`结果为${num1 + num2}`) 
+//     break   
+//     case '-':
+//     alert(`结果为${num1 - num2}`) 
+//     break  
+//     case '*':
+//     alert(`结果为${num1 * num2}`) 
+//     break  
+//     case '/':
+//     alert(`结果为${num1 / num2}`) 
+//     break  
+//     default:
+//     alert ('请输入正确的运算符')
+//  }
+
+// let i = 1 ,sum = 0
+// while (i <= 100 ) {
+//    if (i % 2 === 0) {
+//     sum = sum + i
+//    }
+//    i++
+// } 
+// document.write(sum)
+
+// let balance = 500
+// while(true) {
+//    let a = +prompt(`
+//             请输入您要进行的操作
+//             1.存钱
+//             2.取钱
+//             3.查看余额
+//             4.退出
+//     `)
+//     if (a === 4) {
+//         break
+//     }
+//     switch(a) {
+//         case 1: 
+//         let cun = +prompt('请输入你要存的金额')
+//         balance += cun
+//         alert(`存款成功,余额为${balance}`)
+//         break
+//         case 2: 
+//         let qu = +prompt('请输入你要取的金额')
+//         balance -= qu
+//         alert(`取款成功,余额为${balance}`)
+//         break
+//         case 3:
+//         alert(`余额为${balance }`)
+//         break
+//     }
+//  }
+
+
+
+// for ( let i = 100; i <= 200;  i++) {
+//     if (i % 6 === 0) {
+//         document.write(i + '<br>')
+//     }
+// }
+
+// let num = +prompt ('请输入一个数字')
+// let i = 1
+// let sum = 0
+// while( i <= num) {
+//     sum = sum + i
+//     i++
+// }
+// document.write(sum)
+// let row = +prompt('请输入行数')
+// // let col = +prompt('请输入列数')
+
+// function chengFaBiao() {
+// for (i = 1; i <= 9; i++) {
+    
+//     for (j = 1; j <= i; j++) {
+//         document.write(`<span>${j} x ${i} = ${i * j}</span>`)
+//     }
+//     document.write('<br>')
+// }
+// }
+// chengFaBiao() 
+//     for (let i = 1; i <=3; i++) {
+
+//     }
+// }
+// let arr = [2, 6, 1, 21, 52, 25, 7]
+// let max = arr[0]
+// for (i = 1; i <= arr.length; i++) {
+//     // if (max < arr[i]) {
+//     //    max = arr[i]
+// //     // }
+// // max < arr[i] ? max = arr[i]: max 
+// // }
+// document.write(max)
+
+
+// let arr = [2, 6, 1, 21, 52, 25, 7]
+// let newArr = []
+// for (let i = 0; i <= arr.length; i++) {
+//     if (arr[i] <= 10) {
+//         newArr.push(arr[i])
+//     }
+// }
+// document.write(newArr)
+
+
+// let arr = [2,0,6,1,77,0,52,0,25,7]
+// let newArr = []
+// for (let i = 0; i <= arr.length; i++) {
+//     if (arr[i] !== 0) {
+//         newArr.push(arr[i])
+//     }
+// }
+// document.write(newArr)
+// 冒泡排序
+// let arr = [45, 50 ,3, 78, 34]
+// for (let i = 0; i < arr.length - 1; i++) {
+//     for (let j = 0; j < arr.length - i -1; j++) {
+//         if (arr[j] < arr[j + 1]) {
+//             let temp = arr[j]
+//             arr[j] = arr[j + 1]
+//             arr[j + 1] = temp
+//          }
+//     }
+// }
+// arr.sort(function(a,b) {
+//    return  b - a
+// })
+// document.write(arr)
+
+// function sayHi () {
+//     document.write('hai~')
+// }
+// sayHi()
+
+// function getArre(num1, num2) {
+//   document.write(num1 + num2)
+// }
+// getArre(1,2)
+
+// function getArr (arr = 0) {
+//     let sum = 0
+//     for (let i = 0; i < arr.length; i++) {
+//         sum  += arr[i]
+//     }
+//     document.write(sum)
+// }
+// getArr([1,2,3,4,5])
+// getArr([22,33,44])
+// getArr()
+
+// function getMax (num1 ,num2) {
+//     // if (num1 > num2) {
+//     //     return num1
+//     // }else {
+//     //     return num2
+//     // }
+//     // 三元表达式
+
+//     // return num1 > num2 ? num1 : num2
+// }
+//  let max = getMax(66, 9)
+//  document.write(max)
+
+// function getArrMax (arr) {
+//     let max = arr[0]
+//     for (let i = 0; i < arr.length; i++) {
+//        if (max < arr[i]) {
+//          max = arr[i]
+//        }
+//     }
+//     return max
+// }
+//  let max = getArrMax([1,2,5,6,8,9])
+//  document.write(max)
+
+// function getMax(arr) {
+//     let max = arr[0]
+//     let min = arr[0]
+//     for (let i = 0; i < arr.length; i++) {
+//         if (max < arr[i]) {
+//             max = arr[i]
+//         }
+//         if (min > arr[i]) {
+//             min = arr[i]
+//         }
+//     }
+//     return [max, min]
+// }
+// let newArr = getMax([45,5,12,62,34,1,87])
+// // document.write(newArr)
+// document.write(`最大的数为:${newArr[0]}`)
+// document.write(`最小的数为:${newArr[1]}`)
+
+
+// 立即执行函数
+// (function(x, y) {
+// console.log(x + y)
+// }(1 ,8));
+// (function(x, y) {
+// console.log(x + y)
+// }(1 ,7));
+
+
+// let second = +prompt('请输入秒数')
+// function getTime(t) {
+//   let = s = parseInt(t % 60) 
+//   let = m = parseInt(t / 60 % 60) 
+//   let = h = parseInt(t / 3600 % 24) 
+//     s = s < 10 ? '0' + s : s
+//     m = m < 10 ? '0' + m : m
+//     h= h < 10 ? '0' + h : h
+//     console.log(h, m, s);
+//     return (`最后的结果为：${h}时${m}分${s}秒`)
+//  }
+//  let result = getTime(second)
+// document.write(result)
+
+// function change(a, b) {
+//    let  temp = a 
+//     a = b
+//     b = temp
+    //    document.write(`第一个值的结果为${a} <br> 第二个值的结果为${b}`)
+    //    change(1, 2)
+
+
+
+
+// function count (x, y, z) {
+// let a = +prompt('请输入银行卡余额')
+// let b = +prompt('请输入当月食宿消费金额')
+// let c = +prompt('请输入当月生活消费金额')
+//     let balance = x - y -z
+//     return balance
+// }
+// let res = count(a, b, c)
+// document.write(res)
+
+
+// function handleData(arr, flag = true) {
+//     let sum = 0
+//     let ave = 0
+//     for (let i = 0; i < arr.length; i++) {
+//         sum += arr[i] 
+//         ave = sum / arr.length 
+//     }
+//     if (flag) {
+//         return sum
+//     }else {
+//         return ave
+//     }
+// }
+// let res = handleData([1,2,3,4],false)
+// document.write(res)
+
+
+// function some (ele, arr = []) {
+//     let flag = false
+//     for (let i = 0; i < arr.length; i++) {
+//         if (ele === arr[i]) {
+//             flag = true
+//             break
+//         }
+//     }
+//     return flag
+// }
+// let re = some('荔枝', ['苹果', '香蕉', '橘子', '荔枝', '梨子'])
+// console.log(re) // true
+// let re1 = some('榴莲', ['苹果', '香蕉', '橘子', '荔枝', '梨子'])
+// console.log(re1) // false
+
+
+  // 封装函数返回元素的下标  [1, 5, 10, 22, 8, 7]
+    // 1. 封装函数 findIndex，传递2个参数 元素、数组
+    // function findIndex(ele, arr = []) {
+    //      // 里面写业务逻辑
+    //      let flag = -1
+    //     for (let i = 0; i < arr.length; i++) {
+    //         if (ele === arr[i]) {
+    //             flag = i 
+    //             break
+    //         }
+    //     }
+    //     return flag
+    // }
+    // let index1 = findIndex(10, [1, 5, 10, 22, 8, 7])
+    // console.log(index1) // 2
+    // let index2 = findIndex(8, [1, 5, 10, 22, 8, 7])
+    // console.log(index2) // 4
+    // let index3 = findIndex(88, [1, 5, 10, 22, 8, 7])
+    // console.log(index3) // -1
+       
+    //    let b = +prompt ('请输入您的年龄')
+    //     let c = b + 5
+    //   alert(`我估计您5年之后${c}岁了`);
+    
+
+    // let goods = {
+    //     name: '卫龙',
+    //     num: 12345,
+    //     weight: 222,
+    //     address: '南昌'
+    // }
+    
+    // console.log(goods);
+    // goods.name = '鸽鸽'
+    // goods.color = 'red'
+    // console.log(goods.name, goods.color);
+
+    // let obj = {
+    //     // song: function () {
+    //     //     document.write('鸡你太美')
+    //     // },
+    //     // dance: function () {
+    //     //     document.write('太空步')
+    //     // }
+    //     uname: '邹宇',
+    //     age: '18',
+    //     gender: '男',
+    //     hobby: '唱跳rap篮球'
+    // }
+    // for (let k in obj) {
+    //     console.log(obj[k]);
+    // }
+
+
+    // let obj = [
+    //     {uname: '小明', age: '18', 家乡: '上饶'},
+    //     {uname: '小红', age: '19', 家乡: '南京'},
+    //     {uname: '小军', age: '20', 家乡: '上海'},
+    //     {uname: '小刚', age: '20', 家乡: '北京'}
+    // ]
+    // for (let i = 0; i < obj.length; i++) {
+    //   console.log(obj[i]);
+    //     document.write(obj[i].uname)
+    // }
+
+
+    // let arr = ['赵云', '黄忠', '关羽', '刘备', '马超', '曹操']
+    // let randomName = Math.floor(Math.random() * arr.length)
+    // console.log(arr[randomName]);
+    // arr.splice(randomName, 1)
+    // console.log(arr);
+
+
+   
+    // function randomColor (flag = true) {
+    //     if(flag) {
+    //         let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd','e','f']
+    //         let str = '#'
+    //         for (let i = 1; i <= 6; i++) {
+    //             let random = Math.floor(Math.random()*arr.length)
+    //             str += arr[random]
+    //         }
+    //         return str
+//         }else{
+//             let r =Math.floor(Math.random()*256)
+//             let g =Math.floor(Math.random()*256)
+//             let b =Math.floor(Math.random()*256)
+//             return `rgb(${r},${g},${b})`
+//         }
+//     }
+//    console.log( randomColor(true));
+//    console.log( randomColor(false));
+//    console.log( randomColor());
+
+// let str = '#'
+// let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd','e','f']
+// function getColor (flag = true) {
+//     if (flag) {
+//         for (let i = 1; i <= 6; i++) {
+//             let random = Math.floor(Math.random()*arr.length)
+//             str += arr[random]
+//         }
+//         return str
+//     }else {
+//         let r = Math.floor(Math.random()*256)
+//         let g = Math.floor(Math.random()*256)
+//         let b = Math.floor(Math.random()*256)
+//         return `rgb(${r},${g},${b})`
+//     }
+// }
+// console.log(getColor(true));
+// console.log(getColor(false));
+// console.log(getColor());
+
+
+
+//  </script>
+</body>
+
+</html>
