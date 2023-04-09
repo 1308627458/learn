@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    height: 100vh;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center; /* 在主轴上居中 */
+    align-items: center;   /* 在副轴上居中 */
+    background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202107%2F31%2F20210731221046_20287.thumb.1000_0.png&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1683640896&t=5400d7f2699503cd9535a4e27c5f3d2a)no-repeat; 
+    /* background-size: 100% auto; */
+    background-size: cover;
+}
+video{
+   width: 765px;
+   height: 430px;
+   box-shadow: 0 0 50px #fff;
+}
+.wrapper{
+    width: 850px;
+    display: flex;
+}
+.speed{
+    flex:1;
+    background-color: #efefef;
+    margin: 10px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.speed-bar{
+    width: 100%;
+    height: 16%;
+    background: linear-gradient(-170deg,#2376ae 0%,#c16ecf 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
