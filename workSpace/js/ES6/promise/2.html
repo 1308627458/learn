@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">
+        <audio src="" id="audio" controls></audio>
+    </div>
+
+    <script>
+        // ajax
+        let url = ''
+        function getSong(cb) {
+            $.ajax({
+                url: 'https://www.fastmock.site/mock/c024e8920dd6003c63dcd9ed2bbf6cb9/music/music',
+                dataType: 'json',
+                success(res) {
+                    console.log(res);
+                    url = res[0].url
+                    playSong()
+                }
+            })
+        }
+
+        getSong()
+        
+        function playSong() {
+            let audio = document.querySelector('audio')
+            audio.src = url
+           
+            window.onclick = function(){
+                audio.play()
+            }
+        }
+
+        
+        
+    </script>
+</body>
+
+</html>
