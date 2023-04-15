@@ -1,0 +1,17 @@
+<scroll-view scroll-y class="root-wrap" scroll-top="0">
+  <view class="wrapper">
+
+    <view class="info">
+      <view class="info-title">{{detailData.title}}</view>
+      <view class="info-desc">
+        <text class="info-desc-author">{{detailData.author}}</text>
+        <text class="info-desc-date">{{detailData.formatDate}}</text>
+      </view>
+    </view>
+
+    <view class="content">
+      <rich-text class="content-desc" nodes="{{detailData.content}}" user-select></rich-text>
+    </view>
+
+  </view>
+</scroll-view>

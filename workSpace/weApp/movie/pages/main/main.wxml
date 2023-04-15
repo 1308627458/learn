@@ -1,0 +1,24 @@
+<view class="container">
+<!-- 头部 -->
+<view class="header">
+<view class="header_hd">
+<text>{{city}}</text>
+<view class="downtips"></view>
+</view>
+<view class="header_bd"></view>
+<view class="header_ft">
+<image src="/images/icon_magnifier.png" mode="widthFix"/>
+</view>
+
+</view>
+<!-- 轮播图 -->
+<view class="swiper">
+
+</view>
+
+<!-- 电影列表 -->
+<view class="movies">
+
+</view>
+
+</view>

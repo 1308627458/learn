@@ -1,0 +1,41 @@
+/* pages/detail/detail.wxss */
+page{
+  background: #fbfbfb;
+  height: 100%;
+}
+.root-wrap{
+  height: 100%;
+}
+.wrapper{
+
+}
+.info{
+  padding: 0 36rpx;
+}
+.info-title{
+  line-height: 60rpx;
+  font-size: 44rpx;
+  font-weight: 500;
+  color: #333;
+  padding: 40rpx 0;
+}
+.info-desc{
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  line-height: 30rpx;
+  color: #c1c1c1;
+}
+.info-desc-author{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 65%;
+}
+.content{
+  padding: 36rpx;
+}
+.content-desc .pic{
+  width: 100%;
+  height: 470rpx;
+}

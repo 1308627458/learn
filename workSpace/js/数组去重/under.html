@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://underscorejs.org/underscore-min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let arr = [5, 4, 3, 2, 1]
+        // // let res = _.first(arr,3)
+        // let res = first(arr, 3)
+        // console.log(res);
+
+
+        // //自己封装一个first
+        // function first(arr, n = 1) {
+        //     if(n === 1){
+        //         return arr[0]
+        //     }
+        //     let res = []
+        //     for (let i = 0; i < n; i++) {
+        //         res.push(arr[i])
+        //     }
+        //     return res
+        // }
+
+        
+
+        let arr = [1,1,5,3,8,2,2,3,3,4,4]
+        console.log(_.uniq(arr)); 
+
+        let arr2 = [1,1,2,2,3,3]
+        console.log(_.uniq(arr,true));  // 若数组为排序后的数组，传第二个参数true，会调用运行更快的方法
+
+        let arr3 = [{a:1},{a:1},{a:2},{a:2},{a:4}]
+        console.log(_.uniq(arr, false, 'a'))
+    </script>
+</body>
+
+</html>

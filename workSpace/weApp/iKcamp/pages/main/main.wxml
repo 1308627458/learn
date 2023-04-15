@@ -1,0 +1,22 @@
+<view class="wrapper">
+<view class="group" wx:for="{{articleList}}" wx:key="index">
+
+<view class="group-bar">
+<view class="group-title">{{item.formatDate}}</view>
+</view>
+
+<view class="group-content">
+<view class="group-content-item" 
+wx:for="{{item.articles}}"
+wx:key="index"
+bindtap="goDetail"
+data-id="{{item.contentId}}"
+  >
+<view class="group-content-item-desc">{{item.title}}</view>
+<image class="group-content-item-img" src="{{item.cover}}" mode=""/>
+</view>
+</view>
+
+
+</view>
+</view>
