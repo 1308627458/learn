@@ -46,6 +46,7 @@ Page({
     let arr = dateStr.split('-')
     return `${arr[0]}年${arr[1]}月${arr[2]}日`
   },
+  
   goDetail(e){
     // console.log(e.currentTarget.dataset.id);
     let id = e.currentTarget.dataset.id

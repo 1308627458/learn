@@ -1,4 +1,5 @@
 // pages/detail/detail.js
+import util from '../../utils/index.js'
 Page({
 
   /**
@@ -14,20 +15,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
     
-    wx.request({
+    util.request({
       url: 'https://www.fastmock.site/mock/e39e6b4180ca7bb2b79e2e56d30b217e/IKcamp/detail',
-      method:'GET',
-      success:(res) => {
-        console.log(res);
-        // detailData = res.data.data
-      }
+    }).then((res) => {
+       console.log(res.data);
+      let detailData = this.formatArticleDate(res.data)
+     
+       this.setData({
+         detailData: res.data
+       })
     })
+    
+  },
+  formatArticleDate(data) {
+    let formatData = null
+    if(data && data.length){
+        formatData =  this.dateConvert(res.data.lastUpdateTime)
+    }
+    return formatData
+    
+  },
+  dateConvert(dateStr){
+    if(!dateStr) return
+      let arr = dateStr.split('-')
+      return `${arr[0]}年${arr[1]}月${arr[2]}日`
+    },
     // console.log(options);
     // let id = options.contentId
     // 拿这个id去获取对应的文章的数据
-
-  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
