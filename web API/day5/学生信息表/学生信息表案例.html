@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>学生信息管理</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+
+<body>
+  <h1>新增学员</h1>
+  <form class="info" autocomplete="off">
+    姓名：<input type="text" class="uname" name="uname" />
+    年龄：<input type="text" class="age" name="age" />
+    性别:
+    <select name="gender" class="gender">
+      <option value="男">男</option>
+      <option value="女">女</option>
+    </select>
+    薪资：<input type="text" class="salary" name="salary" />
+    就业城市：<select name="city" class="city">
+      <option value="北京">北京</option>
+      <option value="上海">上海</option>
+      <option value="广州">广州</option>
+      <option value="深圳">深圳</option>
+      <option value="曹县">曹县</option>
+    </select>
+    <button class="add">录入</button>
+  </form>
+
+  <h1>就业榜</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>薪资</th>
+        <th>就业城市</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 
+        <tr>
+          <td>1001</td>
+          <td>欧阳霸天</td>
+          <td>19</td>
+          <td>男</td>
+          <td>15000</td>
+          <td>上海</td>
+          <td>
+            <a href="javascript:">删除</a>
+          </td>
+        </tr> 
+        -->
+    </tbody>
+  </table>
+  <script>
+
+    const initData = [
+      {
+        stuId: 1001,
+        uname: '欧阳霸天',
+        age: 19,
+        gender: '男',
+        salary: '20000',
+        city: '上海',
+      }
+    ]
+
+    // 1.转为 JSON 格式读取本地存储的数据
+    // localStorage.setItem('data', JSON.stringify(initData))
+    // 2.本地存储的数据转换为对象存储在变量中,后期用于渲染页面
+    // 如果有数据则转为对象，没有就输出一个空数组
+    const arr = JSON.parse(localStorage.getItem('data')) || []
+    console.log(arr);
+    const tbody = document.querySelector('tbody')
+    function render() {
+      // 1.利用map遍历数组，返回对应的数组
+      const newArray = arr.map(function (ele, index) {
+        return `
+        <tr>
+          <td>${ele.stuId}</td>
+          <td>${ele.uname}</td>
+          <td>${ele.age}</td>
+          <td>${ele.gender}</td>
+          <td>${ele.salay}</td>
+          <td>${ele.city}</td>
+          <td>
+            <a href="javascript:" data-id="${index}">删除</a>
+          </td>
+        </tr> 
+        `
+      })
+      
+      console.log(newArray);
+      //  2.把数组转换为字符串 join，再把生成的字符串追加给tbody
+      const tbody = document.querySelector('tbody')
+      tbody.innerHTML = newArray.join('')
+
+    }
+    render();
+    // 2.1form 表单注册提交事件，阻止默认行为
+
+    const info = document.querySelector('.info')
+    const uname = document.querySelector('.uname')
+    const age = document.querySelector('.age')
+    const salary = document.querySelector('.salary')
+    const gender = document.querySelector('.gender')
+    const city = document.querySelector('.city')
+    
+    info.addEventListener('submit', function (e) {
+      e.preventDefault()
+      if (!uname.value || !age.value || !salary.value) {
+        return alert('输入内容不能为空')
+      }
+      arr.push({
+        stuId: arr.length ? arr[arr.length - 1].stuId + 1 : 1,
+        uname: uname.value,
+        age: age.value,
+        gender: gender.value,
+        salary: salary.value,
+        city: city.value,
+        time: new Date().toLocaleString()
+      })
+      render()
+      this.reset()
+      // 把数组重新存入本地存储里面，记得转换为JSON字符串存储
+      localStorage.setItem('data',JSON.stringify(arr))
+  })
+
+      // 3.删除业务
+      // 3.1 采用事件委托的形式，给 tbody 注册点击事件
+      
+      tbody.addEventListener('click', function(e) {
+        // 判断是否点击的是删除按钮 A 链接
+       if(e.target.tagName === 'A')  {
+        // 3.2 得到当前点击链接的索引号。渲染数据的时候，动态给啊链接添加自定义属性 data-id = "${index}"
+        console.log(e.target.dataset.id);
+        // 3.3 根据索引号， 利用 splice 删除数组这条数据
+        if(confirm('您确定要删除这条数据吗？')){
+          arr.splice(e.target.tagName.id,1)
+        // 3.4 重新渲染页面
+        render()
+        // 3.5 把最新 arr 数组存入本地存储
+        localStorage.setItem('data',JSON.stringify(arr))
+        }
+        }
+      })
+    
+    
+  </script>
+</body>
+
+</html>
