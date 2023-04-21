@@ -1,14 +1,17 @@
 const koa = require('koa')
-const fs = require('fs')
+const fs = require('fs').promises
 
 
 const app = new koa()
 
-const main = (ctx) => {
+const main = async(ctx) => {
     if(ctx.request.url == '/home'){
-        ctx.body = fs.createReadStream('./template.html')  // 创建可读流 
+        ctx.response.type = 'html'
+        ctx.body = await fs.readFile('./template.html')
     }
 }
+
+
 app.use(main)
 
 

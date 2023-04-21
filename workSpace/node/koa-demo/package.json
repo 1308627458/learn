@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "@koa/cors": "^4.0.0",
-    "koa": "^2.14.2"
+    "koa": "^2.14.2",
+    "koa-route": "^3.2.0"
   }
 }
