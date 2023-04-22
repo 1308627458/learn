@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M-V-VM</title>
+</head>
+<body>
+  <div id="app">哈哈哈哈哈哈</div>
+
+  <template id="temp">
+    <div>
+      <h2>{{message}}</h2>
+      <h3>{{count}}</h3>
+      <button @click="add">+1</button>
+      <button @click="decrease">-1</button>
+      <button @click="handle">按钮</button>
+    </div>
+  </template>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    Vue.createApp({
+      template: '#temp',
+      data: function() {
+        return {
+          message: '你好呀！',
+          count: 0
+        }
+      },
+      methods: {
+        add() {
+          this.count++
+        },
+        decrease() {
+          this.count--
+        },
+        handle: () => {
+          // this.add()
+          console.log(this);
+        }
+      },
+    }).mount('#app')
+  </script>
+
+</body>
+</html>

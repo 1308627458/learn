@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <template id="my-app">
+    <!-- <input type="text" v-model="account">
+    <input type="text" v-model="password">
+    <button @click="submit">登录</button> -->
+
+    <!-- <input type="text" name="" id="" v-model="msg">
+    <p>{{msg}}</p> -->
+
+    <div>
+      <p>我喜欢的水果：{{fruit}}</p>
+      <select name="" id="" v-model="fruit" multiple size="2">
+        <option value="apple">苹果</option>
+        <option value="orange">橘子</option>
+        <option value="banana">香蕉</option>
+      </select>
+
+    </div>
+  </template>
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+      template: '#my-app',
+      data() {
+        return {
+          account: '',
+          password: '',
+          msg: '111',
+          fruit: ''
+        }
+      },
+      methods: {
+        submit() {
+          console.log(this.account, this.password);
+        }
+      },
+
+    }).mount('#app')
+  </script>
+</body>
+</html>

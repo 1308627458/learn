@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+
+</style>
+
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+
+        <p>今天温度: {{temp}}</p>
+        <p>建议穿: {{cloth}}</p>
+        <button @click="add">+</button>
+        <button @click="sub">-</button>
+    </template>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            template: '#my-app',
+            data() {
+                return {
+                    temp:0,
+                    cloth:''
+
+                }
+            },
+           watch: { // 监听
+                temp(newVal, oldVal) {
+                    // console.log(newVal,oldVal);
+                    if(newVal <= 0) {
+                        this.cloth = '羽绒服'
+                    }else if(newVal > 30) {
+                       this.cloth = '短袖'
+                    }else {
+                       this.cloth = '衬衣'
+                    }
+                }
+
+           },
+            methods: {
+                add() {
+                    this.temp += 5
+                },
+                sub() {
+                    this.temp -= 5
+                }
+            },
+
+
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

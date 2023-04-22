@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <template id="my-app">
+    <div>
+      <h2>电影列表</h2>
+      <ul>
+        <li v-for="(movie, index) in movies">
+          <span>{{index + 1}} -- {{movie}}</span>
+        </li>
+      </ul>
+
+      <h2>个人信息</h2>
+      <ul>
+        <li v-for="(a, b, c) in info">
+          {{a}} -- {{b}} -- {{c}}
+        </li>
+      </ul>
+
+      <h2>遍历数字</h2>
+      <ul>
+        <li v-for="(num, index) in 10">{{num}} -- {{index}}</li>
+      </ul>
+
+    </div>
+  </template>
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+      template: '#my-app',
+      data() {
+        return {
+          movies: [
+            '肖申克的救赎',
+            '霸王别姬',
+            '大话西游',
+            '绿皮书',
+            '阿凡达'
+          ],
+          info: {
+            name: '蜗牛',
+            age: 18,
+            sex: 'boy'
+          }
+        }
+      },
+      methods: {
+
+      },
+
+    }).mount('#app')
+  </script>
+</body>
+</html>

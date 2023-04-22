@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+
+</style>
+
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <!-- <div>
+            <input type="text" v-model="num1">
+            <input type="text" v-model="num2">
+            <input type="text" v-model="num3">
+            <h2>{{total}}</h2>
+        </div> -->
+
+        <p>今天温度: {{temp}}</p>
+        <p>建议穿: {{cloth}}</p>
+        <button @click="add">+</button>
+        <button @click="sub">-</button>
+    </template>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            template: '#my-app',
+            data() {
+                return {
+                    num1: '',
+                    num2: '',
+                    nmu3: '',
+                    temp:0,
+                    
+
+                }
+            },
+            computed: { // 所依赖的那个数据源变化的时候生效
+                // total() {
+                //     return +this.num1 + +this.num2 + +this.num3
+                   
+                // }
+                cloth() {
+                    let val = '羽绒服'
+                    if(this.temp <= 0) {
+                        val = '羽绒服'
+                    }else if(this.temp > 30) {
+                        val = '短袖'
+                    }else {
+                        val = '衬衣'
+                    }
+                    return val
+                }
+            },
+            methods: {
+                add() {
+                    this.temp += 5
+                },
+                sub() {
+                    this.temp -= 5
+                }
+            },
+
+
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

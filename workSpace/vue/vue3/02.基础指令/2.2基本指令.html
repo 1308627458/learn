@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <template id="my-app">
+    <!-- <h2 v-text="message"></h2> -->
+    <!-- <h2 v-html="msg"></h2>
+
+    <h2 v-once>{{count}}</h2>
+    <button v-on:click="onChange">change</button> -->
+
+    <!-- <h2 v-pre>{{message}}</h2> -->
+
+    <!-- <h2 v-cloak>{{message}}</h2> -->
+
+    <h1 v-show="isShow">{{message}}</h1>
+    <!-- <h2 v-else>{{count}}</h2> -->
+
+  </template>
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    Vue.createApp({
+      template: '#my-app',
+      data() {
+        return {
+          message: 'Hello World',
+          msg: '<h3>标题</h3><p>这是一篇文章</p>',
+          count: 1,
+          isShow: false
+        }
+      },
+      methods: {
+        onChange() {
+          this.count++
+          console.log(this.count);
+        }
+      },
+
+    }).mount('#app')
+  </script>
+</body>
+</html>
