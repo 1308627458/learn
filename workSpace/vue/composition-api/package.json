@@ -1,5 +1,5 @@
 {
-  "name": "todo-list",
+  "name": "composition-api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "todomvc-app-css": "^2.4.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {
