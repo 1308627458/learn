@@ -3,40 +3,44 @@
     <header class="top_tips">
       <span class="num_tip" v-if="fatherComponent === 'home'">第一周</span>
       <span class="num_tip" v-if="fatherComponent === 'item'">题目一</span>
-
     </header>
+
     <!-- 首页 -->
     <div v-if="fatherComponent === 'home'">
       <div class="home_logo item_container_style"></div>
       <router-link to="/item" class="start button_style"></router-link>
     </div>
 
-    <!-- item 问答页面 -->
+    <!-- item 问答页面-->
     <div v-if="fatherComponent === 'item'">
       <div class="item_back item_container_style">
         <div class="item_list_container" v-if="ques && ques.length > 0">
           <header class="item_title">{{ ques[itemNum].topic_name }}</header>
           <ul>
-            <li class="item_list" @click="choosed(index, item.topic_answer_id)"
-              v-for="(item, index) in ques[itemNum].topic_answer" :key="index">
+            <li 
+              class="item_list" 
+              @click="choosed(index, item.topic_answer_id)" 
+              v-for="(item, index) in ques[itemNum].topic_answer"
+              :key="index"
+            >
               <span class="option_style" :class="{ 'has_choosed': chooseNum === index }">{{ chooseType(index) }}</span>
               <span class="option_detail">{{ item.answer_name }}</span>
             </li>
           </ul>
-
         </div>
 
       </div>
       <span class="next_item button_style" @click="nextItem" v-if="itemNum < ques.length - 1"></span>
-      <span class="submit_item button_style" v-else></span>
+      <span class="submit_item button_style" v-else @click="submitAnswer"></span>
     </div>
 
   </section>
 </template>
 
 <script>
-import { questions } from '@/mock'  // 没有default 需要 {}
+import { questions } from '@/mock'
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router'
 export default {
   props: {
     fatherComponent: String
@@ -44,8 +48,9 @@ export default {
   setup(props, context) {
     const ques = reactive(questions)
     // console.log(ques);
-    let chooseNum = ref(null) // 选中答案
+    let chooseNum = ref(null) // 选中的答案
     let itemNum = ref(0) // 第几题
+
     let result = [] // 记录用于选中的答案
 
     const chooseType = (type) => {
@@ -57,6 +62,7 @@ export default {
         case 4: return 'E';
       }
     }
+
     const choosed = (index, id) => {
       // console.log(index);
       chooseNum.value = index
@@ -65,21 +71,34 @@ export default {
 
     const nextItem = () => {
       if (chooseNum.value === null) {
-        alert('您还没有选择答案')
+        alert('您还没有选择答案哦')
         return
       }
-      // 切换题目数据
+      console.log(result);
       chooseNum.value = null
+      // 切换题目数据
       itemNum.value++
+    }
+    // 提交
+    const router = useRouter()
+    const submitAnswer = () => {
+      if (chooseNum.value === null) {
+        alert('您还没有选择答案哦')
+        return
+      }
+      // 跳去score页面
+      // router.push({name:'score', params: {answer: JSON.stringify(result)}})
+      router.push({path:'/score', query: {answer: result}})
     }
 
     return {
       chooseNum,
       itemNum,
-      choosed,
       ques,
+      choosed,
       chooseType,
-      nextItem
+      nextItem,
+      submitAnswer
     }
   }
 }
@@ -120,13 +139,12 @@ export default {
 .home_logo {
   background: url('@/assets/images/1-2.png') no-repeat;
   background-size: 100% 100%;
-
 }
 
 .button_style {
   display: block;
   width: 4.35rem;
-  height: 2.1em;
+  height: 2.1rem;
   position: absolute;
   top: 16.5rem;
   left: 50%;
@@ -164,7 +182,6 @@ export default {
         display: inline-block;
         font-size: 0.6rem;
         color: #fff;
-
       }
 
       .option_style {
@@ -180,17 +197,15 @@ export default {
       .has_choosed {
         background-color: #ffd400;
         color: #575757;
-        background-color: #ffd400;
+        border-color: #ffd400;
       }
     }
   }
 }
-
-.next_item {
+.next_item{
   background-image: url(@/assets/images/2-2.png);
 }
-
-.submit_item {
+.submit_item{
   background-image: url(@/assets/images/3-1.png);
 }
 </style>

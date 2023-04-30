@@ -6,16 +6,21 @@ const routes = [
     path: '/',
     redirect: '/home',
   },
- {
-  path: '/home',
-  name: 'home',
-  component: Home
- },
- {
-  path: '/item',
-  name: 'item',
-  component: () => import('@/views/item')  // 按需加载
- }
+  {
+    path: '/home',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/item',
+    name: 'item',
+    component: () => import('@/views/item')  // 按需加载
+  },
+  {
+    path: '/score',
+    name: 'score',
+    component: () => import('@/views/score')
+  }
 ]
 
 const router = createRouter({
