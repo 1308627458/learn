@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app"></div>
+  <script>
+    let dom = document.getElementById('app')
+    // let obj = {}
+    // obj.a = 1
+    // obj.b = 2
+    // obj.b = 3
+    // obj[4] = '4'
+    // obj.dom = 'app'
+    // obj[dom] = 5
+    // console.log(obj); 
+
+
+    let m = new Map([
+      [c , 1]
+    ])
+    m.set('a', 1)
+    m.set('b', 2)
+    m.set('b', 3)
+    m.set(4, '4')
+    m.set(dom, 'app')
+    let arr = [1, 2, 3]
+    m.set(arr, 'arr')
+    // console.log(m.get(arr));
+
+    // m.forEach((val,key,m) => {
+    //   console.log(key + '-' +val );
+    // })
+
+    // for (let key of m.keys()) {
+    //   console.log(key);
+    // }
+
+    console.log([...m.keys()]);
+    
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
