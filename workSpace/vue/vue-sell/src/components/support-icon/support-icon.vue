@@ -69,7 +69,7 @@ watchEffect(() => {
     .bg-image('decrease_2')
   }
 
-  &.descount {
+  &.discount {
     .bg-image('discount_2')
   }
 

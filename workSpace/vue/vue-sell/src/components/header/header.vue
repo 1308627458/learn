@@ -1,26 +1,26 @@
 <template>
-  <div class="header">
-    <div class="content-wrapper">
+  <div class="header"  @click="detailShow = true">
+    <div class="content-wrapper" >
 
       <div class="avatar">
-        <img src="http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg" alt="">
+        <img :src="sellerData.avatar" alt="">
       </div>
 
       <div class="content">
         <div class="title">
           <span class="brand"></span>
-          <span class="name"> 店铺名字</span>
+          <span class="name"> {{ sellerData.name }}</span>
         </div>
-        <div class="description">蜂鸟专送/38分钟送达</div>
-        <div class="support">
-          <SupportIcon size="1" type="2" />
-          <span class="text">在线支付满10减9</span>
+        <div class="description">{{sellerData.description}}/38分钟送达</div>
+        <div class="support" v-if="sellerData.supports">
+          <SupportIcon size="1" :type="sellerData.supports[0].type" />
+          <span class="text">{{  sellerData.supports[0].description}}</span>
         </div>
       </div>
 
 
-      <div class="support-count">
-        <span class="count">5个</span>
+      <div class="support-count" v-if="sellerData.supports">
+        <span class="count">{{sellerData.supports.length}}个</span>
         <i class="iconfont icon-arrow-right"></i>
       </div>
     </div>
@@ -28,18 +28,50 @@
     <div class="bulletin-wrapper">
       <span class="bulletin-title"></span>
       <span
-        class="bulletin-text">粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。</span>
+        class="bulletin-text">{{ sellerData.bulletin }}</span>
       <i class="iconfont icon-arrow-right"></i>
     </div>
     <div class="bg"></div>
+
+    <headerDetail :sellerData="sellerData" v-show="detailShow" @hidden="handle"></headerDetail>
   </div>
+  
 </template>
 
 <script setup>
 import SupportIcon from '@/components/support-icon/support-icon.vue'
-import { ref } from 'vue';
+import {  ref, toRefs, watch, } from 'vue';
+import headerDetail from '@/components/header-detail/header-detail.vue'
 
-const bg = ref('url(http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg)')
+const bg = ref('')
+const props = defineProps({
+  seller: {
+    type: Object,
+    default: () => { }
+
+  }
+})
+
+const { seller } = toRefs(props)
+
+const sellerData = ref({})
+watch(
+  () => props.seller,
+  (newVal) =>{
+    console.log(newVal);
+    sellerData.value = newVal
+    bg.value = `url(${newVal.avatar})`
+  }
+)
+
+let detailShow = ref(false)
+const handle = (e) => {
+  // detailShow.value = false
+  detailShow.value = e
+}
+
+console.log(seller);
+
 
 
 </script>
@@ -178,4 +210,5 @@ const bg = ref('url(http://static.galileo.xiaojukeji.com/static/tms/seller_avata
     filter: blur(10px);
     z-index: -1;
   }
-}</style>
+}
+</style>
