@@ -58,7 +58,7 @@ const sellerData = ref({})
 watch(
   () => props.seller,
   (newVal) =>{
-    console.log(newVal);
+    // console.log(newVal);
     sellerData.value = newVal
     bg.value = `url(${newVal.avatar})`
   }
@@ -70,7 +70,7 @@ const handle = (e) => {
   detailShow.value = e
 }
 
-console.log(seller);
+// console.log(seller);
 
 
 

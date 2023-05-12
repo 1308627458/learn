@@ -10,7 +10,7 @@ const props = defineProps({
     default: '1'
   },
   type: {
-    type: String,
+    type: Number,
     default: '0'
   }
 })
@@ -95,7 +95,7 @@ watchEffect(() => {
     .bg-image('decrease_3')
   }
 
-  &.descount {
+  &.discount {
     .bg-image('discount_3')
   }
 
@@ -121,7 +121,7 @@ watchEffect(() => {
     .bg-image('decrease_4')
   }
 
-  &.descount {
+  &.discount {
     .bg-image('discount_4')
   }
 
