@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn">获取数据</button>
+  <script>
+    let btn = document.querySelector('button');
+    btn.addEventListener('click', function () {
+      $.ajax({
+        url: 'http://localhost:3000',
+        method:'get',
+        data:{
+          name: '红红'
+        },
+        success(res){
+          console.log(res);
+        }
+      })
+    })
+  </script>
+</body>
+</html>
