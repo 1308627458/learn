@@ -1,0 +1,5 @@
+/* 修改 vant 的主题颜色 */
+:root:root{
+  --van-nav-bar-icon-color: #2c3e50;
+  --van-primary-color: #1baeae
+}
