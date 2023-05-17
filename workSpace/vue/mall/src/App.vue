@@ -10,7 +10,7 @@
 
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 html, body {
   height: 100%;
   overflow-x: hidden;

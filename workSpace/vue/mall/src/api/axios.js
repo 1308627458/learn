@@ -14,19 +14,19 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 // 拦截后端返回的响应数据 
 
 axios.interceptors.response.use(res => {
+  
   if (typeof res.data !== 'object') {
-    showFailToast('服务器异常');
+    showFailToast('服务器异常')
     return Promise.reject(res)
   }
-  if(res.data.resultCode != 200) {
-    if (res.data.message) showFailToast('res.data.message');
+  if (res.data.resultCode != 200) {
+    if (res.data.message) showFailToast(res.data.message)
     if (res.data.resultCode == 416) { // 登录失效
       router.push('/login')
     }
-    return Promise.reject(res.data) 
+    return Promise.reject(res.data)
   }
-  return res.data // 正常  
-
+  return res.data // 正常
 })
 
 export default axios 

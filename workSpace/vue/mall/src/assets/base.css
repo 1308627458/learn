@@ -21,7 +21,7 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
-/* semantic color variables for this project */
+
 :root {
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
@@ -71,4 +71,41 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+html,body{
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input{
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+textarea{
+  border: none;
+  outline: none;
+}
+button{
+  border: none;
+  outline: none;
+}
+a{
+  text-decoration: none;
+  color: #333;
+}
+li{
+  list-style-type: none;
+}
+
+body.dialog-open {
+  position: fixed;
+  width: 100%;
+}
+.page{
+  padding: 0 50px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
