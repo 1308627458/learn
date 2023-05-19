@@ -9,7 +9,12 @@ import {
   Button,
   NavBar,
   Icon,
-  Form, Field, CellGroup
+  Form, Field, CellGroup,
+  Swipe, SwipeItem,
+  Dialog,
+  Skeleton,
+  Tabbar, TabbarItem,
+  ActionBar, ActionBarIcon, ActionBarButton,
  } from 'vant';
 
 import 'vant/lib/index.css'; // 全局引入 vant
@@ -24,4 +29,13 @@ app.use(Icon)
 app.use(Form)
 app.use(Field)
 app.use(CellGroup)
+app.use(Swipe)
+app.use(SwipeItem)
+app.use(Dialog)
+app.use(Skeleton)
+app.use(Tabbar)
+app.use(TabbarItem)
+app.use(ActionBar)
+app.use(ActionBarIcon);
+app.use(ActionBarButton);
 app.mount('#app')
