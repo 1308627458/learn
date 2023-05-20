@@ -114,7 +114,7 @@ nextTick(() => {
 })
 
 const tips = () => {
-  showDialog({ message: '不能看了，因为再多看一眼就要爆炸' });
+  showDialog({ message: '开发中，敬请期待' });
 }
 
 </script>

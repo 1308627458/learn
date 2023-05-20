@@ -21,9 +21,9 @@ axios.interceptors.response.use(res => {
   }
   if (res.data.resultCode != 200) {
     if (res.data.message) showFailToast(res.data.message)
-    if (res.data.resultCode == 416) { // 登录失效
-      router.push('/login')
-    }
+    // if (res.data.resultCode == 416) { // 登录失效
+    //   router.push('/login')
+    // }
     return Promise.reject(res.data)
   }
   return res.data // 正常

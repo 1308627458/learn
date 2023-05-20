@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
-
+import { createPinia } from 'pinia'
 import 'lib-flexible/flexible'
 import './assets/main.css'
 
@@ -15,6 +15,11 @@ import {
   Skeleton,
   Tabbar, TabbarItem,
   ActionBar, ActionBarIcon, ActionBarButton,
+  SwipeCell,Card,
+  Checkbox, CheckboxGroup,
+  Stepper,
+  SubmitBar,
+ 
  } from 'vant';
 
 import 'vant/lib/index.css'; // 全局引入 vant
@@ -22,6 +27,7 @@ import 'vant/lib/index.css'; // 全局引入 vant
 createApp(App).mount('#app')
 
 const app = createApp(App)
+app.use(createPinia()) // pinia 生效
 app.use(router)
 app.use(Button)
 app.use(NavBar)
@@ -38,4 +44,11 @@ app.use(TabbarItem)
 app.use(ActionBar)
 app.use(ActionBarIcon);
 app.use(ActionBarButton);
+app.use(SwipeCell);
+app.use(Card);
+app.use(Checkbox);
+app.use(CheckboxGroup);
+app.use(Stepper);
+app.use(SubmitBar);
+
 app.mount('#app')

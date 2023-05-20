@@ -28,9 +28,9 @@
       <div class="product-content" v-html="state.detail.goodsDetailContent"></div>
       <van-action-bar>
         <van-action-bar-icon icon="chat-o" text="客服" />
-        <van-action-bar-icon icon="cart-o" badge="5" text="购物车" />
-        <van-action-bar-button  type="warning" text="加入购物车" @click="addCart"/>
-        <van-action-bar-button  type="danger" text="立即购买"  @click="goToCart"/>
+        <van-action-bar-icon icon="cart-o" :badge="cart.badge ? cart.badge : ''" text="购物车" @click="goToCart" />
+        <van-action-bar-button type="warning" text="加入购物车" @click="HandleaddCart" />
+        <van-action-bar-button type="danger" text="立即购买" @click="goToAddCart" />
       </van-action-bar>
 
     </div>
@@ -38,11 +38,18 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { onMounted, reactive } from 'vue';
 import { getDetail } from '@/api/service/goods.js'
 import Header from '../components/Header.vue';
+import { addCart } from '@/api/service/cart.js'
+import { showSuccessToast, showFailToast } from 'vant';
+import { useCartStore } from '@/store/cart.js'
+
 const route = useRoute()
+const router = useRouter()
+const cart = useCartStore()
+
 console.log(route.params.id);
 
 
@@ -54,16 +61,34 @@ onMounted(async () => {
   const { id } = route.params
   const { data } = await getDetail(id)
   state.detail = data
-  console.log(data);
+  cart.initBadge()
+  // console.log(data);
 })
 
-const goToCart = () => {
+const goToAddCart = async() => {
   // 先往购物车数据中植入一条数据
   // 再跳转到购物车页面
+  await addCart({ goodsCount: 1, goodsId: state.detail.goodsId })
+  cart.initBadge()
+  router.push('/cart')
+
 }
 
-const addCart = () => {
+const HandleaddCart = async () => {
   // 往购物车数据中植入一条数据
+  const { resultCode, message } = await addCart({ goodsCount: 1, goodsId: state.detail.goodsId })
+  if (resultCode === 200) {
+    showSuccessToast('添加成功');
+  } else {
+    showFailToast(message);
+  }
+  // 更新角标
+  cart.initBadge()
+
+}
+
+const goToCart = () => {
+  router.push('/cart')
 }
 </script>
 
@@ -146,4 +171,5 @@ const addCart = () => {
     }
 
   }
-}</style>
+}
+</style>
