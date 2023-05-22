@@ -12,13 +12,9 @@
 
         </van-card>
         <template #right>
-
-          <van-button square text="删除" type="danger" class="delete-button" />
+          <van-button @click="deleteGoods(item.cartItemId)" square text="删除" type="danger" class="delete-button" />
         </template>
       </van-swipe-cell>
-
-
-
     </van-checkbox-group>
   </div>
 
@@ -32,8 +28,12 @@
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/Header.vue'
 import { reactive, onMounted, computed, watch } from 'vue'
-import { getCart, modifyCart } from '@/api/service/cart.js'
-import { showLoadingToast, closeToast } from 'vant';
+import { getCart, modifyCart, deleteCartItem } from '@/api/service/cart.js'
+import { showLoadingToast, closeToast, showFailToast  } from 'vant';
+import { useCartStore } from '@/store/cart.js'
+import { useRouter } from 'vue-router';
+const router = useRouter()
+const cartStore = useCartStore()
 const state = reactive({
   result: [],
   cartList: [],
@@ -49,6 +49,7 @@ const init = async () => {
   console.log(data);
   state.cartList = data
   closeToast()
+ 
 }
 
 const onChange = async (value, detail) => {
@@ -60,6 +61,7 @@ const onChange = async (value, detail) => {
   await modifyCart(params)
   closeToast()
 }
+
 const totalPrice = computed(() => {
   let sum = 0
   let _list = state.cartList.filter(item => state.result.includes(item.cartItemId))
@@ -70,12 +72,13 @@ const totalPrice = computed(() => {
 })
 
 
+// 全选按钮
 const allChecked = (checked) => {
   if (!state.checkedAll) {
-      state.result = []
-    } else {
-      state.result = state.cartList.map(item => item.cartItemId)
-    }
+    state.result = []
+  } else {
+    state.result = state.cartList.map(item => item.cartItemId)
+  }
 }
 
 
@@ -83,7 +86,21 @@ const groupChange = (result) => {
   state.checkedAll = result.length === state.cartList.length ? true : false
 }
 
+// 购物车删除按钮
+const deleteGoods =  async (id) => {
+  await deleteCartItem(id)
+   cartStore.initBadge()
+   init()
+}
 
+// 提交订单
+const onSubmit = () => {
+  if (state.result.length == 0) {
+    showFailToast('请选择商品进行结算');
+    return
+  }
+  router.push({path:'/create-order', query:{cartItemIds: state.result ,price:totalPrice, } })
+}
 </script>
 
 <style lang="less" scoped>

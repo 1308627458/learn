@@ -1,9 +1,6 @@
 import { createRouter,createWebHistory } from "vue-router";
 import Home from '@/views/Home.vue'
-import Category from '@/views/Category.vue'
-import Cart from '@/views/Cart.vue'
-import User from '@/views/User.vue'
-import ProductDetail from '@/views/ProductDetail.vue'
+
 const routes = [
 { // 重定向
   path: '/',
@@ -40,6 +37,16 @@ const routes = [
   name : 'product',
   component: () => import('@/views/ProductDetail.vue')
 },
+{
+  path: '/create-order',
+  name: 'create-order',
+  component: () => import('@/views/CreateOrder.vue')
+},
+{
+  path: '/address',
+  name : 'address',
+  component: () => import('@/views/Address.vue')
+}
 
 ]
 

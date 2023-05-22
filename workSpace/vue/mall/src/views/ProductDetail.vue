@@ -90,6 +90,8 @@ const HandleaddCart = async () => {
 const goToCart = () => {
   router.push('/cart')
 }
+
+
 </script>
 
 <style lang="less" scoped>

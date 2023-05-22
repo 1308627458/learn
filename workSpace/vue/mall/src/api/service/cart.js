@@ -11,3 +11,11 @@ export function addCart(params) {
 export function modifyCart(params) {
   return axios.put('/shop-cart',  params)
 }
+
+export function deleteCartItem(id) {
+  return axios.delete(`/shop-cart/${id}` )
+}
+
+export function getOrderByCartItemId(params) {
+  return axios.get('/shop-cart/settle', { params })
+}
