@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #model {
+      width: 200px;
+      height: 200px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1 solid #f343;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="open">打开</div>
+  <div id="close">关闭</div>
+  <script>
+  const Model = (function() {
+    let model = null
+    return function(){
+      if(!model) {
+        model = document.createElement('div')
+        model.innerHTML = ' 我是弹出框'
+        model.id = 'model'
+        model.style.display = 'none'
+        document.body.appendChild(model)
+      }
+      return model
+    }
+  })()
+
+  document.querySelector('#open').addEventListener('click', function () {
+    const model = Model()
+    model.style.display = 'block'
+  })
+  document.querySelector('#close').addEventListener('click', function () {
+    const model = Model()
+    model.style.display = 'none'
+  })
+  </script>
+</body>
+</html>
