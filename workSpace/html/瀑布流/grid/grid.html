@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <title>Document</title>
+
+  <style>
+    #app {
+      display: grid;
+      /* grid-auto-rows: 10px; */
+      /* grid-template-rows: 1fr 1fr 1fr ; */
+      grid-template-columns: 1fr 1fr 1fr;
+      column-gap: 10px;
+      height: 540px;
+      row-gap: 10px;
+    }
+    .item{
+      /* grid-row-start: auto; */
+      height: 100%!important; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      border: 1px solid #999;
+      border-radius: 3px;
+    }
+    .item:nth-child(1) {
+      grid-row-start: 1;
+      grid-row-end: span 3;
+      grid-column-start: 1;
+      grid-column-end: span 2;
+    }
+    .item:nth-child(3) {
+      grid-row-end: span 3;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="item" v-for="i in 9" :key="i" :style="setStyle(i)">{{i}}</div>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          heights: [150, 160, 170, 180, 140, 155, 165, 180, 175],
+          colors: [
+            "#ef3429",
+            "#f68f25",
+            "#4ba846",
+            "#0476c2",
+            "#c077af",
+            "#f8d29d",
+            "#b4a87f",
+            "#d0e4a8",
+            "#4dc7ec"
+          ]
+        }
+      },
+      methods: {
+        setStyle(index) {
+          return {
+            height: this.heights[index - 1] + 'px',
+            background: this.colors[index - 1]
+          }
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <title>Document</title>
+  <style>
+    .box{
+      display: flex;
+    }
+    .clomun{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="box">
+      <div class="clomun">
+        <img :src="item.img" alt="" v-for="item in list1">
+      </div>
+      <div class="clomun">
+        <img :src="item.img" alt="" v-for="item in list2">
+      </div>
+      <div class="clomun">
+        <img :src="item.img" alt="" v-for="item in list3">
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    const { createApp } = Vue
+    createApp({
+      data() {
+        return {
+          list1: [],
+          list2: [],
+          list3: [],
+          list: [
+            {
+              id: 0,
+              content: '出或属及然立物区际团干林品号界织声政自青',
+              img: 'https://picsum.photos/200/335?random=58'
+            },
+            {
+              id: 1,
+              content: '规社需别至打她南气提现身记指今化油百积体',
+              img: 'https://picsum.photos/200/349?random=761'
+            },
+            {
+              id: 2,
+              content: '许题状世声程管么物社社同圆了而备公所料青',
+              img: 'https://picsum.photos/200/442?random=71'
+            },
+            {
+              id: 3,
+              content: '然立物区际团干林品号界织声政自青参从运统',
+              img: 'https://picsum.photos/200/322?random=312'
+            },
+            {
+              id: 4,
+              content: '团干林品号界织声政自青参从运统类半口识高',
+              img: 'https://picsum.photos/200/399?random=460'
+            },
+            {
+              id: 5,
+              content: '例导向王活中叫社就江工外以气图专律北多建',
+              img: 'https://picsum.photos/200/446?random=898'
+            },
+            {
+              id: 6,
+              content: '六思断名过增思复许石查再生斯法派带改叫向',
+              img: 'https://picsum.photos/200/495?random=460'
+            },
+            {
+              id: 7,
+              content: '可定开京出或属及然立物区际团干林品号界织',
+              img: 'https://picsum.photos/200/451?random=389'
+            },
+            {
+              id: 8,
+              content: '定开京出或属及然立物区际团干林品号界织声',
+              img: 'https://picsum.photos/200/374?random=216'
+            },
+            {
+              id: 9,
+              content: '提现身记指今化油百积体量但国参根书为影从',
+              img: 'https://picsum.photos/200/339?random=426'
+            },
+            {
+              id: 10,
+              content: '问任写主速情及极需和始亲点酸七建红放周养',
+              img: 'https://picsum.photos/200/400?random=22'
+            },
+            {
+              id: 11,
+              content: '参从运统类半口识高多选石空改流通工来万北',
+              img: 'https://picsum.photos/200/468?random=373'
+            },
+            {
+              id: 12,
+              content: '习七准导离每见里可求产着影却响百产际片院',
+              img: 'https://picsu m.photos/200/442?random=903'
+            },
+            {
+              id: 13,
+              content: '划子要步百图引美须成展党复任场走许就素受',
+              img: 'https://picsum.photos/200/416?random=874'
+            },
+            {
+              id: 14,
+              content: '上是题快而被己老制米制往例导向王活中叫社',
+              img: 'https://picsum.photos/200/421?random=219'
+            },
+            {
+              id: 15,
+              content: '开京出或属及然立物区际团干林品号界织声政',
+              img: 'https://picsum.photos/200/427?random=909'
+            },
+            {
+              id: 16,
+              content: '题快而被己老制米制往例导向王活中叫社就江',
+              img: 'https://picsum.photos/200/490?random=87'
+            },
+            {
+              id: 17,
+              content: '复许石查再生斯法派带改叫向派更织证果克长',
+              img: 'https://picsum.photos/200/481?random=643'
+            },
+            {
+              id: 18,
+              content: '产张声很那响备育然际看离面市用大平张律般',
+              img: 'https://picsum.photos/200/375?random=612'
+            },
+            {
+              id: 19,
+              content: '石空改流通工来万北林向小府万就八往得白证',
+              img: 'https://picsum.photos/200/431?random=16'
+            },
+            {
+              id: 20,
+              content: '备公所料青反要看万采如指组更产张声很那响',
+              img: 'https://picsum.photos/200/449?random=444'
+            },
+            {
+              id: 21,
+              content: '图专律北多建战器解然才料只根维光者率把律',
+              img: 'https://picsum.photos/200/311?random=625'
+            },
+            {
+              id: 22,
+              content: '石南至构严九题可定开京出或属及然立物区际',
+              img: 'https://picsum.photos/200/324?random=523'
+            },
+            {
+              id: 23,
+              content: '很那响备育然际看离面市用大平张律般那意县',
+              img: 'https://picsum.photos/200/341?random=443'
+            },
+            {
+              id: 24,
+              content: '图引美须成展党复任场走许就素受事多观界立',
+              img: 'https://picsum.photos/200/477?random=799'
+            },
+            {
+              id: 25,
+              content: '际看离面市用大平张律般那意县对门并议省取',
+              img: 'https://picsum.photos/200/459?random=62'
+            },
+            {
+              id: 26,
+              content: '社同圆了而备公所料青反要看万采如指组更产',
+              img: 'https://picsum.photos/200/361?random=105'
+            },
+            {
+              id: 27,
+              content: '知片具加其许题状世声程管么物社社同圆了而',
+              img: 'https://picsum.photos/200/321?random=569'
+            },
+            {
+              id: 28,
+              content: '南至构严九题可定开京出或属及然立物区际团',
+              img: 'https://picsum.photos/200/431?random=788'
+            },
+            {
+              id: 29,
+              content: '往得白证易习七准导离每见里可求产着影却响',
+              img: 'https://picsum.photos/200/328?random=462'
+            },
+            {
+              id: 30,
+              content: '京出或属及然立物区际团干林品号界织声政自',
+              img: 'https://picsum.photos/200/391?random=918'
+            },
+            {
+              id: 31,
+              content: '照酸但明片种设音规地白声那火半省上是题快',
+              img: 'https://picsum.photos/200/426?random=989'
+            },
+            {
+              id: 32,
+              content: '件型各离性格术五织做圆界位为经员间阶知片',
+              img: 'https://picsum.photos/200/430?random=505'
+            },
+            {
+              id: 33,
+              content: '件型各离性格术五织做圆界位为经员间阶知片',
+              img: 'https://picsum.photos/200/317?random=542'
+            },
+            {
+              id: 34,
+              content: '界位为经员间阶知片具加其许题状世声程管么',
+              img: 'https://picsum.photos/200/471?random=355'
+            },
+            {
+              id: 35,
+              content: '属及然立物区际团干林品号界织声政自青参从',
+              img: 'https://picsum.photos/200/432?random=552'
+            },
+            {
+              id: 36,
+              content: '感近度产数直华名车书细先值山不口问任写主',
+              img: 'https://picsum.photos/200/395?random=497'
+            },
+            {
+              id: 37,
+              content: '际团干林品号界织声政自青参从运统类半口识',
+              img: 'https://picsum.photos/200/327?random=773'
+            },
+            {
+              id: 38,
+              content: '界真离气建各划音感近度产数直华名车书细先',
+              img: 'https://picsum.photos/200/331?random=640'
+            },
+            {
+              id: 39,
+              content: '改流通工来万北林向小府万就八往得白证易习',
+              img: 'https://picsum.photos/200/348?random=187'
+            },
+            {
+              id: 40,
+              content: '叫向派更织证果克长商统八规社需别至打她南',
+              img: 'https://picsum.photos/200/484?random=777'
+            },
+            {
+              id: 41,
+              content: '八规社需别至打她南气提现身记指今化油百积',
+              img: 'https://picsum.photos/200/355?random=535'
+            },
+            {
+              id: 42,
+              content: '通工来万北林向小府万就八往得白证易习七准',
+              img: 'https://picsum.photos/200/400?random=173'
+            },
+            {
+              id: 43,
+              content: '离性格术五织做圆界位为经员间阶知片具加其',
+              img: 'https://picsum.photos/200/306?random=741'
+            },
+            {
+              id: 44,
+              content: '圆界位为经员间阶知片具加其许题状世声程管',
+              img: 'https://picsum.photos/200/302?random=605'
+            },
+            {
+              id: 45,
+              content: '种设音规地白声那火半省上是题快而被己老制',
+              img: 'https://picsum.photos/200/312?random=120'
+            },
+            {
+              id: 46,
+              content: '题状世声程管么物社社同圆了而备公所料青反',
+              img: 'https://picsum.photos/200/484?random=768'
+            },
+            {
+              id: 47,
+              content: '八规社需别至打她南气提现身记指今化油百积',
+              img: 'https://picsum.photos/200/459?random=661'
+            },
+            {
+              id: 48,
+              content: '用大平张律般那意县对门并议省取空万酸至名',
+              img: 'https://picsum.photos/200/303?random=329'
+            },
+            {
+              id: 49,
+              content: '高多选石空改流通工来万北林向小府万就八往',
+              img: 'https://picsum.photos/200/463?random=885'
+            }
+          ]
+        }
+      },
+      mounted() {
+        let num = ~~(this.list.length / 3)
+        this.list1 = this.list.slice(0, num)
+        this.list2 = this.list.slice(num, num*2)
+        this.list3 = this.list.slice(num*2, this.list.length)
+        console.log(this.list2);
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
