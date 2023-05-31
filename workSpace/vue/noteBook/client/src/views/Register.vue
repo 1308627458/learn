@@ -45,6 +45,8 @@
 <script setup>
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from '@/api';
+import { showSuccessToast } from 'vant';
 const router = useRouter()
 const state = reactive({
   username: '',
@@ -56,9 +58,20 @@ const login = () => {
   router.push('/login')
 }
 
-const onSubmit = () => {
+const onSubmit = async () => {
   // 发注册请求，将昵称，账号，密码，传给后端
-  
+const data = await axios.post('/users/register',{
+    username: state.username,
+    password: state.password,
+    nickname: state.nickname
+  })
+  if(data.code === '80000'){
+   showSuccessToast(data.msg);
+   setTimeout(() => {
+    router.push('/login')
+  },1500)
+  } 
+  console.log(data);
 }
 </script>
 

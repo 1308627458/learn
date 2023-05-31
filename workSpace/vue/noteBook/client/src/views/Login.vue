@@ -45,15 +45,17 @@ const state = reactive({
   password: '',
 })
 const onSubmit = async() => {
-  console.log(state.password, state.username);
+  // console.log(state.password, state.username);
   // 发接口请求，把用户输入的账号和密码传给后端
   const res = await axios.post('/users/login', {
     username: state.username,
     password: state.password
   })
   console.log(res);
-  sessionStorage.setItem('userInfo', JSON.stringify(res.data))
-  router.push({path:'/noteClass'})
+  if(res.code ==='80000'){
+    sessionStorage.setItem('userInfo', JSON.stringify(res.data))
+    router.push({path:'/noteClass'})
+  }
 }
 
 const register = () => {
