@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   { // 重定向
     path: '/',
-    redirect: '/login'
+    redirect: '/noteClass'
   },
  {
   path: '/login',
@@ -28,6 +28,30 @@ const routes = [
   component: () => import('@/views/NoteClass.vue'),
   meta:{
     title:'笔记分类'
+  }
+ },
+ {
+  path: '/noteList',
+  name: 'noteList',
+  component: () => import('@/views/NoteList.vue'),
+  meta:{
+    title:'笔记列表'
+  }
+ },
+ {
+  path: '/noteDetail',
+  name: 'noteDetail',
+  component: () => import('@/views/NoteDetail.vue'),
+  meta:{
+    title:'笔记详情'
+  }
+ },
+ {
+  path: '/notePublish',
+  name: 'notePublish',
+  component: () => import('@/views/NotePublish.vue'),
+  meta:{
+    title:'发布笔记'
   }
  }
 

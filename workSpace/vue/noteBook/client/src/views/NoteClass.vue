@@ -6,6 +6,7 @@
           <van-icon name="wap-nav" size="20px" />
         </div>
         <div>
+          <van-icon name="edit" size="20px" @click="goPublish"/>
           <van-icon name="like-o" size="20px" />
           <van-icon name="search" size="20px" />
         </div>
@@ -14,7 +15,9 @@
         <div class="note-item" 
         v-for="(item,index) in noteClassList"
         :key="index"
-        :style="`background-image:url(${item.img})`">
+        :style="`background-image:url(${item.img})`"
+        @click="goNoteList(item.title)"
+        >
           <span class="title">{{ item.title }}</span>
         </div>
       </section>
@@ -28,6 +31,8 @@
 <script setup>
 import { reactive } from 'vue';
 import Menu from '@/components/Menu.vue'
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const noteClassList = [
   { img: require("@/assets/img/raw_1512446214.jpeg"), title: "美食" },
   { img: require("@/assets/img/raw_1512446225.jpeg"), title: "旅行" },
@@ -41,6 +46,15 @@ const state = reactive({
 
 const hideMenu = (e) => {
   state.isMenuShow = e
+}
+
+const goNoteList = (title) => {
+  router.push({path:'/noteList', query: {'title': title}})
+}
+
+
+const goPublish =() => {
+  router.push('/notePublish')
 }
 </script>
 
@@ -70,8 +84,8 @@ const hideMenu = (e) => {
       line-height: 1.2rem;
       margin: 10px 0;
 
-      .van-icon-like-o {
-        margin-right: 10px;
+      .van-icon {
+        margin-left: 10px;
       }
     }
 

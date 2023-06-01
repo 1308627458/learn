@@ -8,7 +8,7 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
-
+const note = require('./routes/note')
 const cors = require('koa2-cors')
 
 
@@ -39,6 +39,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(note.routes(), note.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
