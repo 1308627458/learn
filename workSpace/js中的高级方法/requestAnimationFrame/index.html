@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box{
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 50px;
+    }
+    #box2{
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <div id="box2"></div>
+  <script>
+    let distance = 0
+    let time = 5
+    let box = document.querySelector('#box');
+    let box2 = document.querySelector('#box2');
+    window.addEventListener('click', function() {
+      // this.style.transform = `translateX(${distance}px)`
+      // this.style.transition = `linear ${time}s`
+
+      requestAnimationFrame(function move()  {
+        box.style.transform = `translateX(${distance++}px)`
+        requestAnimationFrame(move)
+      })
+
+      setInterval(() => {
+        box2.style.transform = `translateX(${distance++}px)`
+      },16)
+    })
+
+   
+  </script>
+</body>
+</html>
