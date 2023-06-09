@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_4114449_imnj3fia9ga.css">
+  <title>简约版终端</title>
+</head>
+<body>
+  <div id="app">
+    <div class="main-class">
+      <!-- 当前输入的命令 -->
+      <div class="command-action command-action-editor">
+        <i class="iconfont icon-arrowRight"></i>
+        <!-- 执行地址 -->
+        <span class="command-action-path">{{path}} $</span>
+        <span 
+          class="command-action-content"
+          :contenteditable="'plaintext-only'"
+          @input="onDivInput($event)"
+          @keydown="keyFn"
+        ></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { spawn } = require('child_process')
+    const { createApp } = Vue
+    
+    createApp({
+      data() {
+        return {
+          path: '', // 命令目录
+          command: '', // 输入的命令
+          handleCommand: '', // 处理过的命令
+          addPath: 'pwd' // chdir
+        }
+      },
+      mounted() {
+        this.path = process.cwd()
+      },
+      methods: {
+        onDivInput(e) { // 保存命令
+          // console.log(e.target.textContent);
+          this.command = e.target.textContent
+        },
+        keyFn(e) {
+          if (e.keyCode === 13) {
+            this.actionCommand()
+            e.preventDefault()
+          }
+        },
+        actionCommand() {
+          const command = this.command.trim()
+          if (command === '') return
+          this.handleCommand = this.cdCommand(command)
+          const ls = spawn(this.handleCommand, {
+            encoding: 'utf8',
+            cwd: this.path,
+            shell: true
+          })
+          ls.stdout.on('data', (data) => {
+            const value = data.toString().trim()
+            console.log(`stdout: ${value}`);
+          })
+          // 执行命令后的结果展示给用户看
+
+        },
+        cdCommand(command) {
+          let pathCommand = ''
+          if (this.command.startsWith('cd ')) {
+            pathCommand = this.addPath
+          } else if (this.command.indexOf(' cd') !== -1) {
+            pathCommand = this.addPath
+          }
+          return command + pathCommand
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>、
