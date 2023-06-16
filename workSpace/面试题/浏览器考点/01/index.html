@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .a{
+      width: 200px;
+      height: 200px;
+      background-color: lightpink;
+    }
+    .b{
+      width: 100px;
+      height: 100px;
+      background-color: lightblue;
+    }
+  </style>
+</head>
+<body>
+  <div class="a">
+    <div class="b" id="b">bb</div>
+    <div class="b" id="c">cc</div>
+    <div class="b" id="d">dd</div>
+  </div>
+
+  <!-- <script>
+    let a = document.getElementById('a')
+    let b = document.getElementById('b')
+    
+    a.addEventListener('click', function(e) {
+      console.log('this is a');
+      e.stopPropagation();
+    },true) // 开启了捕获事件
+
+    b.addEventListener('click', function(e) {
+      console.log('this is b');
+      // e.stopPropagation(); // 阻止冒泡
+      // e.stopImmediatePropagation() // 阻止自身的其他事件
+    })
+
+    // b.addEventListener('click', function(e) {
+    //   console.log('this is bbb');
+    //   // e.stopPropagation(); // 阻止冒泡
+    // })
+  </script> -->
+
+  <script>
+    // let childs = document.querySelectorAll('.b')
+    // Array.from(childs).forEach( e => {
+    //   e.addEventListener('click', () => {
+    //     console.log(e.innerHTML);
+    //   })
+    // })
+  let a = document.querySelector('.a')
+    a.addEventListener('click', (e) => {
+      console.log(e.target.innerHTML);
+    })
+  </script>
+</body>
+</html>

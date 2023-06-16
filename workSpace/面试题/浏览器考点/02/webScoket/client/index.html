@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <script>
+      function myWebScoket(url, params) {
+        return new Promise(function(resolve, reject) {
+          const scoket = new WebSocket(url) // 对这个url建立scoket连接
+          scoket.onopen = () => { // 向发送数据
+            scoket.send(JSON.stringify(params));
+          } 
+          // 接收数据
+          scoket.onmessage = () => {  
+            console.log(res.data);
+            resolve(res.data)
+          }
+        })
+      }
+
+      myWebScoket('ws://localhost:3000',{name: '老宋', age: 20}).then(data => {
+        console.log(data);
+      })
+    </script>
+</body>
+</html>
