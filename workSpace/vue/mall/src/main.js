@@ -19,7 +19,8 @@ import {
   Checkbox, CheckboxGroup,
   Stepper,
   SubmitBar,
-  AddressList  ,
+  AddressList ,
+  AddressEdit ,
  } from 'vant';
 
 import 'vant/lib/index.css'; // 全局引入 vant
@@ -51,4 +52,5 @@ app.use(CheckboxGroup);
 app.use(Stepper);
 app.use(SubmitBar);
 app.use(AddressList);
+app.use(AddressEdit);
 app.mount('#app')
