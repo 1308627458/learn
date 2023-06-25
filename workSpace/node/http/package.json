@@ -1,0 +1,12 @@
+{
+  "name": "http",
+  "version": "1.0.0",
+  "description": "1. 物理层\r 2. 数据链路层\r 3. 网络层\r 4. 传输层\r 5. 会话层\r 6. 表示层\r 7. 应用层",
+  "main": "tcp-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
