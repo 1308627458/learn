@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Header title="添加地址" />
+  <div> 
     <van-address-edit
   :area-list="areaList"
   show-delete
@@ -16,7 +17,7 @@
 </template>
 
 <script setup>
-
+import Header from '../components/Header.vue';
 </script>
 
 <style lang="less" scoped></style>

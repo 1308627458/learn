@@ -99,7 +99,8 @@ const onSubmit = () => {
     showFailToast('请选择商品进行结算');
     return
   }
-  router.push({path:'/create-order', query:{cartItemIds: state.result ,price:totalPrice, } })
+  router.push({path:'/create-order', query:{cartItemIds: state.result ,price:totalPrice._value, } })
+  // console.log(totalPrice._value);
 }
 </script>
 

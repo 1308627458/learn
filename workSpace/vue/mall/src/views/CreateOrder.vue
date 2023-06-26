@@ -2,7 +2,7 @@
   <Header title="生成订单" />
   <div class="address-wrap">
     <div class="name">
-      <span>芋头</span>
+      <span>小新</span>
       <span>18679139120</span>
     </div>
     <div class="address">
@@ -32,7 +32,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { getOrderByCartItemId } from '../api/service/cart.js'
 const route = useRoute()
 const router = useRouter()
-console.log(route.query);
+// console.log(route.query.price);
 const state = reactive({
   orderList: []
 })
