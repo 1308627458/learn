@@ -2,7 +2,9 @@
   <!-- <Primitives></Primitives> -->
   <!-- <Material></Material> -->
   <!-- <Shadow></Shadow> -->
-  <Scene></Scene>
+  <!-- <Scene></Scene> -->
+  <!-- <Texture></Texture> -->
+  <Light></Light>
 </template>
 
 <script setup>
@@ -11,7 +13,10 @@
 
 // import Shadow from './components/03_material/shadow.vue'
 
-import Scene from './components/02_scene/index.vue';
+// import Scene from './components/02_scene/index.vue';
+// import Texture from './components/04_texture/index.vue'
+import Light from './components/05_light/index4.vue'
+
 </script>
 
 <style lang="css" scoped>
