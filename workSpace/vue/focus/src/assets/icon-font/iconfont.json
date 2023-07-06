@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8288873",
+      "name": "设置",
+      "font_class": "shezhi1",
+      "unicode": "e851",
+      "unicode_decimal": 59473
+    },
+    {
+      "icon_id": "23961488",
+      "name": "成就",
+      "font_class": "chengjiu1",
+      "unicode": "ec72",
+      "unicode_decimal": 60530
+    },
+    {
+      "icon_id": "32066032",
+      "name": "成就",
+      "font_class": "chengjiu2",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "8875699",
       "name": "分类",
       "font_class": "fenlei",
@@ -74,13 +95,6 @@
       "font_class": "jindu_shalou",
       "unicode": "e65d",
       "unicode_decimal": 58973
-    },
-    {
-      "icon_id": "24736940",
-      "name": "成就",
-      "font_class": "chengjiu",
-      "unicode": "ed0a",
-      "unicode_decimal": 60682
     },
     {
       "icon_id": "25228423",

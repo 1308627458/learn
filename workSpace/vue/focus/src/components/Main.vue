@@ -1,0 +1,280 @@
+<template>
+  <div class="main-wrapper">
+    <div class="main-header">
+      <span>种植设置</span>
+    </div>
+
+    <!-- 选择树种 -->
+    <div class="main-chooseTrees">
+      <span class="title">树种 (最近使用)</span>
+      <div class="treesBox">
+        <div class="Box-wrapper">
+          <div class="item" v-for="item in trees" :key="item.id"><img :src="item.url" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 选择时间 -->
+    <div class="main-chooseTime">
+      <span class="title">专注时长</span>
+      <div></div>
+      <div class="timePicker">
+
+        <van-picker :columns="columns" :allow-html="true" :option-height="55" :show-toolbar="false"
+          :visible-option-num="7" @change="choosed">
+        </van-picker>
+      </div>
+    </div>
+
+
+    <!-- 选择标签 -->
+    <div class="main-chooseLable">
+      <span class="title">项目标签</span>
+      <div class="lableBox">
+        <ul>
+          <li class="item" v-for="item in lables" :key="item.id" @click="ChooseLable(item)"
+            :class="{ 'highlight': item.id === activeId }">
+            <span class="littleCircle"></span>
+            <span class="text">{{ item.name }}</span>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="main-bottomBar">
+
+    </div>
+  </div>
+</template>
+
+<script setup>
+
+import { ref } from 'vue'
+
+const activeId = ref(null)
+
+const columns = [
+  { text: '10', value: '10' },
+  { text: '15', value: '15' },
+  { text: '20', value: '20' },
+  { text: '25', value: '25' },
+  { text: '30', value: '30' },
+  { text: '35', value: '35' },
+  { text: '40', value: '40' },
+  { text: '45', value: '45' },
+  { text: '50', value: '50' },
+  { text: '55', value: '55' },
+  { text: '60', value: '60' },
+  { text: '65', value: '65' },
+  { text: '70', value: '70' },
+  { text: '75', value: '75' },
+  { text: '80', value: '80' },
+  { text: '85', value: '85' },
+  { text: '90', value: '90' },
+  { text: '95', value: '95' },
+  { text: '100', value: '100' },
+  { text: '105', value: '105' },
+  { text: '110', value: '110' },
+  { text: '100', value: '100' },
+  { text: '120', value: '120' },
+
+];
+
+const lables = [
+  { name: "学习", id: 1 },
+  { name: "运动", id: 2 },
+  { name: "其他", id: 3 },
+  { name: "娱乐", id: 4 },
+  { name: "休息", id: 5 },
+  { name: "社交", id: 6 },
+  { name: "工作", id: 7 },
+  { name: "未设置", id: 8 },
+]
+
+const trees = [
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+]
+
+const emit = defineEmits(['SettingTime', 'SettingLabel'])
+
+
+// 选择时间
+const choosed = ({ selectedOptions }) => {
+  // console.log(selectedOptions[0].text);
+  emit('SettingTime', selectedOptions[0].text)
+}
+
+// 选择标签
+const ChooseLable = (res) => {
+  activeId.value = res.id
+  emit('SettingLabel', res.name)
+}
+
+
+
+
+
+</script>
+
+<style lang="less" >
+.main-wrapper {
+  width: 100%;
+  height: 80%;
+  background: #fff;
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+  .main-header {
+    height: 8%;
+    background: #059f92;
+    overflow: hidden;
+
+    span {
+      width: 4rem;
+      height: 0.6rem;
+      line-height: 0.6rem;
+      background: #fff;
+      display: block;
+      margin: 0.3rem auto;
+      text-align: center;
+      font-size: 0.35rem;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+  }
+
+  .main-chooseTrees {
+    height: 48%;
+
+    .title {
+      line-height: 1rem;
+      margin-left: 0.4rem;
+      font-weight: 600;
+    }
+
+    .treesBox {
+      height: 84%;
+     
+      border-bottom: 1px solid #fff;
+      display: inline-block;
+      
+      .Box-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+          width: 1.7rem;
+          height: 1.7rem;
+          margin-left: 0.4rem;
+          margin-bottom: 0.2rem;
+          background: #dc8d8d;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 1.2rem;
+            height: 1.2rem;
+          }
+        }
+      }
+
+    }
+  }
+
+  .main-chooseTime {
+    height: 18%;
+    // background: #f6f8f9;
+
+    .title {
+      line-height: 0.8rem;
+      margin-left: 0.4rem;
+      font-weight: 600;
+    }
+
+    .timePicker {
+      height: 74%;
+      width: 20%;
+      transform: rotate(-90deg);
+
+      .van-ellipsis {
+        transform: rotate(90deg);
+      }
+    }
+
+  }
+
+  .main-chooseLable {
+    height: 13%;
+    // background: lightslategrey;
+
+    .title {
+      line-height: 0.8rem;
+      margin-left: 0.4rem;
+      font-weight: 600;
+    }
+
+    .lableBox {
+      height: 55%;
+      white-space: nowrap;
+      overflow-x: auto;
+      display: flex;
+
+      ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 0.6rem;
+          background: rgba(227, 221, 221, 0.4);
+          border-radius: 9px;
+          margin: 0 0.15rem;
+
+          .text {
+            margin-right: 0.2rem;
+          }
+        }
+
+        .littleCircle {
+          width: 0.2rem;
+          height: 0.2rem;
+          border-radius: 50%;
+          background-color: orange;
+          margin: 0 0.2rem;
+        }
+
+      }
+    }
+
+    .lableBox::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  .main-bottomBar {
+    height: 13%;
+    background: lightpink;
+  }
+}
+
+.highlight {
+  background: rgb(210, 210, 216) !important;
+}
+</style>

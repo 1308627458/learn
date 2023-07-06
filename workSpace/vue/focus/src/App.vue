@@ -9,9 +9,5 @@
 </script>
 
 <style lang="less" scoped>
-#app{
-  .asdsd{
-    color: red
-  }
-}
+
 </style>
