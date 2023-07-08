@@ -41,8 +41,29 @@
         </ul>
       </div>
     </div>
-    <div class="main-bottomBar">
 
+    <!-- 底部 -->
+    <div class="main-bottomBar">
+      <div class="statusBar_wrapper">
+        <div class="pic">
+        </div>
+
+        <div class="status">
+          <div class="status_time">
+            <span class="iconfont icon-jindu_shalou"></span>
+            <span class="time">50</span>
+          </div>
+          <div class="status_lable">
+            <span class="littleCircle"></span>
+            <span class="text">开始</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="btn">
+        <van-button type="primary" size="small" color="#35d8bf">开始</van-button>
+      </div>
     </div>
   </div>
 </template>
@@ -135,13 +156,15 @@ const ChooseLable = (res) => {
   position: fixed;
   bottom: 0;
   left: 0;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
 
   .main-header {
     height: 8%;
     background: #059f92;
     overflow: hidden;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
 
     span {
       width: 4rem;
@@ -160,6 +183,7 @@ const ChooseLable = (res) => {
   .main-chooseTrees {
     height: 48%;
 
+
     .title {
       line-height: 1rem;
       margin-left: 0.4rem;
@@ -168,13 +192,14 @@ const ChooseLable = (res) => {
 
     .treesBox {
       height: 84%;
-     
-      border-bottom: 1px solid #fff;
+
       display: inline-block;
-      
+
       .Box-wrapper {
         display: flex;
         flex-wrap: wrap;
+        border-bottom: 1.3px solid rgb(232, 234, 237, 0.3);
+
         .item {
           width: 1.7rem;
           height: 1.7rem;
@@ -185,6 +210,7 @@ const ChooseLable = (res) => {
           display: flex;
           justify-content: center;
           align-items: center;
+
           img {
             width: 1.2rem;
             height: 1.2rem;
@@ -196,6 +222,8 @@ const ChooseLable = (res) => {
   }
 
   .main-chooseTime {
+    border-bottom: 1.3px solid rgb(232, 234, 237, 0.3);
+
     height: 18%;
     // background: #f6f8f9;
 
@@ -207,7 +235,7 @@ const ChooseLable = (res) => {
 
     .timePicker {
       height: 74%;
-      width: 20%;
+      width: 16%;
       transform: rotate(-90deg);
 
       .van-ellipsis {
@@ -219,7 +247,6 @@ const ChooseLable = (res) => {
 
   .main-chooseLable {
     height: 13%;
-    // background: lightslategrey;
 
     .title {
       line-height: 0.8rem;
@@ -270,7 +297,72 @@ const ChooseLable = (res) => {
 
   .main-bottomBar {
     height: 13%;
-    background: lightpink;
+    display: flex;
+    justify-content: space-between;
+
+
+    .statusBar_wrapper {
+      // background: lightpink;
+      margin-left: 0.4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .pic {
+        width: 1.5rem;
+        height: 1.5rem;
+        background: rgb(148, 148, 214);
+        border-radius: 50px;
+      }
+
+      .status {
+        margin-left: 0.3rem;
+
+        .status_time {
+          line-height: 0.35rem;
+
+          .icon-jindu_shalou {
+            font-size: 0.2rem;
+            margin-right: 0.1rem;
+          }
+
+          .time {
+            font-size: 0.35rem;
+          }
+
+        }
+
+        .status_lable {
+          margin-top: 0.2rem;
+
+          .text {
+            font-size: 0.3rem;
+          }
+
+          .littleCircle {
+            width: 0.2rem;
+            height: 0.2rem;
+            border-radius: 50%;
+            background-color: orange;
+            display: inline-block;
+            margin-right: 0.15rem;
+          }
+        }
+
+      }
+
+    }
+
+    .btn {
+      margin: 0.5rem 0.4rem 0.4rem;
+
+      .van-button {
+        width: 2.2rem;
+        display: block;
+        margin: 0 auto;
+        
+      }
+    }
   }
 }
 
