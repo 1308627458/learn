@@ -1,32 +1,59 @@
 <template>
   <!-- 环形进度条 -->
-  <div class="circle" >
-      <van-circle 
-      v-model:current-rate="currentRate" 
-      :rate="rate" 
-      :stroke-width="40" 
-      stroke-linecap="square" 
-      size="240px"
-      layer-color="#d0ce79" 
-      color="#8cc924" />
+  <div class="circle">
+    <van-circle v-model:current-rate="currentRate" :rate="rate" :stroke-width="40" stroke-linecap="square" size="240px"
+      layer-color="#d0ce79" color="#8cc924" />
+  </div>
+
+  <div class="startBtn"  @touchmove="drag">
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-
-
+// import Math from 'math';
 // 进度条的值
 const rate = ref(0)
 const currentRate = ref(0)
 
 
-//根据鼠标位置，更新进度
 
-const drag = () => {
-  rate.value = 50
+
+// 计算角度的函数
+const getAngle = (x, y) => {
+  const k = (x - 187.5) / (y - 300)
+  const radian = Math.atan(k);
+  // console.log(k, radian);
+  const angle = -(180 / Math.PI) * radian
+  // console.log(angle);
+  return angle;
 }
-drag()
+
+
+//根据鼠标位置，更新进度
+const drag = (e) => {
+  // console.log(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+  const angle = getAngle(e.changedTouches[0].clientX, e.changedTouches[0].clientY)
+  let finallAngle = 0
+  if (e.changedTouches[0].clientX > 187.5) {
+    finallAngle = angle > 0 ? angle : 180 + angle
+  }
+  if (e.changedTouches[0].clientX < 187.5) {
+    finallAngle = angle > 0 ? angle + 180 : 360 + angle
+  }
+  console.log(finallAngle);
+
+  rate.value = finallAngle / 360 * 100
+}
+
+
+
+
+
+
+
+
 
 
 </script>
@@ -38,5 +65,15 @@ drag()
   justify-content: center;
   align-items: center;
 
+}
+
+.startBtn {
+  position: fixed;
+  top: 4.53rem;
+  left: 4.45rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50px;
+  background: rgba(210, 30, 30, 0.3);
 }
 </style>
