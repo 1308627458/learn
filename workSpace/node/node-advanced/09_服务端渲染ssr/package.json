@@ -1,0 +1,6 @@
+{
+  "description": "",
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}
