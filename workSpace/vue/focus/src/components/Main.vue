@@ -51,11 +51,11 @@
         <div class="status">
           <div class="status_time">
             <span class="iconfont icon-jindu_shalou"></span>
-            <span class="time">50</span>
+            <span class="time">{{time}}</span>
           </div>
           <div class="status_lable">
             <span class="littleCircle"></span>
-            <span class="text">开始</span>
+            <span class="text">{{ label }}</span>
           </div>
         </div>
 
@@ -72,7 +72,11 @@
 
 import { ref } from 'vue'
 
+
 const activeId = ref(null)
+
+const time = ref(10)
+const label = ref('学习')
 
 const columns = [
   { text: '10', value: '10' },
@@ -113,8 +117,8 @@ const lables = [
 ]
 
 const trees = [
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '松树', id: 1, url: './src/assets/treesPic/songshu.png' },
+  { name: '灌木', id: 1, url: './src/assets/treesPic/guanmu.png' },
   { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
   { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
   { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
@@ -131,17 +135,16 @@ const emit = defineEmits(['SettingTime', 'SettingLabel'])
 
 // 选择时间
 const choosed = ({ selectedOptions }) => {
-  // console.log(selectedOptions[0].text);
+  time.value = selectedOptions[0].text
   emit('SettingTime', selectedOptions[0].text)
 }
 
 // 选择标签
 const ChooseLable = (res) => {
   activeId.value = res.id
+  label.value = res.name
   emit('SettingLabel', res.name)
 }
-
-
 
 
 

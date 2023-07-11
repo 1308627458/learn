@@ -18,8 +18,10 @@
 
     <!-- 环形进度条 -->
    
-    <CircleProgress @click.stop="ChangeSettings"></CircleProgress>
-
+    <CircleProgress @click.stop="ChangeSettings" @DragSettingTime="DragSetTime"></CircleProgress>
+    <div class="trees">
+      <img src="../assets/treesPic/main.png" alt="">
+    </div>
 
     <!-- 标签 -->
     <div class="lable" @click.stop="ChangeSettings">
@@ -58,10 +60,18 @@ const isfogged = ref(false)
 const showLeft = ref(false)
 const showMain = ref(false)
 
-const time = ref(60 * 30 * 1000);
+const time = ref(60 * 10 * 1000);
 
+// 通过滑动选择时间
 const SetTime = (res) =>{
   time.value = (60 * res * 1000) 
+}
+
+// 通过拖拽调整时间
+const DragSetTime = (res) => {
+  const num = Math.floor(Math.round(res) / (100/22.5)) * 5 + 10
+  // console.log(Math.round(res));
+  time.value = (60 * num * 1000)
 }
 
 const SetLabel = (res) => {
@@ -196,6 +206,17 @@ const ChangeSettings = () => {
       border-radius: 50%;
       background-color: orange;
       margin-right: 0.2rem;
+    }
+  }
+  .trees{
+    position: fixed;
+    top: 25.2%;
+    left: -6.2%;
+    z-index: 1;
+    img{
+      width: 11.85rem;
+      height: 7.6rem;
+      
     }
   }
 

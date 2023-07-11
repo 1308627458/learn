@@ -5,7 +5,7 @@
       layer-color="#d0ce79" color="#8cc924" />
   </div>
 
-  <div class="startBtn"  @touchmove="drag">
+  <div class="startBtn"   @touchmove="drag" >
 
   </div>
 </template>
@@ -17,7 +17,7 @@ import { ref } from 'vue';
 const rate = ref(0)
 const currentRate = ref(0)
 
-
+const emit = defineEmits(['DragSetTime'])
 
 
 // 计算角度的函数
@@ -42,15 +42,11 @@ const drag = (e) => {
   if (e.changedTouches[0].clientX < 187.5) {
     finallAngle = angle > 0 ? angle + 180 : 360 + angle
   }
-  console.log(finallAngle);
-
+  // console.log(finallAngle);
   rate.value = finallAngle / 360 * 100
+
+  emit('DragSettingTime', rate.value)
 }
-
-
-
-
-
 
 
 
@@ -64,16 +60,17 @@ const drag = (e) => {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
 }
 
 .startBtn {
   position: fixed;
   top: 4.53rem;
-  left: 4.45rem;
+  left: 45.5%;
   width: 0.85rem;
   height: 0.85rem;
   border-radius: 50px;
-  background: rgba(210, 30, 30, 0.3);
+  background: #8cc924;
+  z-index: 2;
 }
 </style>

@@ -25,7 +25,7 @@
 .SortWrapper{
   width: 45%;
   height: 100vh;
-  background: rgb(67, 215, 173);
+  background:#059f92;
   position: fixed;
   top: 0;
   left: 0;
