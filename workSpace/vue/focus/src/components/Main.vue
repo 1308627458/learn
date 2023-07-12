@@ -9,7 +9,7 @@
       <span class="title">树种 (最近使用)</span>
       <div class="treesBox">
         <div class="Box-wrapper">
-          <div class="item" v-for="item in trees" :key="item.id"><img :src="item.url" alt=""></div>
+          <div class="item" @click="myChoice(item)" v-for="item in trees" :key="item.id" :class="{'highlight2': item.id === treeActiveId}"><img :src="item.url" alt=""></div>
         </div>
       </div>
     </div>
@@ -28,12 +28,12 @@
 
 
     <!-- 选择标签 -->
-    <div class="main-chooseLable">
+    <div class="main-chooseLabel">
       <span class="title">项目标签</span>
       <div class="lableBox">
         <ul>
-          <li class="item" v-for="item in lables" :key="item.id" @click="ChooseLable(item)"
-            :class="{ 'highlight': item.id === activeId }">
+          <li class="item" v-for="item in lables" :key="item.id" @click="chooseLabel(item)"
+            :class="{ 'highlight': item.id === LabelActiveId }">
             <span class="littleCircle"></span>
             <span class="text">{{ item.name }}</span>
           </li>
@@ -45,9 +45,11 @@
     <!-- 底部 -->
     <div class="main-bottomBar">
       <div class="statusBar_wrapper">
-        <div class="pic">
+        <div class="myTrees">
+          
         </div>
-
+     
+      
         <div class="status">
           <div class="status_time">
             <span class="iconfont icon-jindu_shalou"></span>
@@ -65,18 +67,22 @@
         <van-button type="primary" size="small" color="#35d8bf">开始</van-button>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
 
 import { ref } from 'vue'
+// import Trees from '../components/Trees.vue';
 
-
-const activeId = ref(null)
-
+const LabelActiveId = ref(null)
+const treeActiveId = ref(null)
+// const myTree = ref('')
 const time = ref(10)
 const label = ref('学习')
+
+
 
 const columns = [
   { text: '10', value: '10' },
@@ -118,20 +124,26 @@ const lables = [
 
 const trees = [
   { name: '松树', id: 1, url: './src/assets/treesPic/songshu.png' },
-  { name: '灌木', id: 1, url: './src/assets/treesPic/guanmu.png' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
-  { name: '松树', id: 1, url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2F5b342386-43ce-4ab5-bf30-c1bb7e2d85d8%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1691241502&t=cbd5741ae02aac485d0f858227999e04' },
+  { name: '灌木', id: 2, url: './src/assets/treesPic/guanmu.png' },
+  { name: '珊瑚', id: 3, url: './src/assets/treesPic/shanhu.png' },
+  { name: '草', id: 4, url: './src/assets/treesPic/cao.png' },
+  { name: '咕咕钟', id: 5, url: './src/assets/treesPic/guguzhong.png' },
+  { name: '石像', id: 6, url: './src/assets/treesPic/shixiang.png' },
+  { name: '屋树', id: 7, url: './src/assets/treesPic/shuwu.png' },
+  { name: '仙人球', id: 8, url: './src/assets/treesPic/xianrenqiu.png' },
+  { name: '章鱼', id: 9, url: './src/assets/treesPic/zhangyu.png' },
+  { name: '蘑菇', id: 10, url: './src/assets/treesPic/mogu.png' },
+  { name: '花树', id: 11, url: './src/assets/treesPic/huashu.png' },
+  { name: '南瓜', id: 12, url: './src/assets/treesPic/nangua.png' },
 ]
 
 const emit = defineEmits(['SettingTime', 'SettingLabel'])
 
+// 选择树种
+const myChoice = (res) => {
+  treeActiveId.value = res.id
+  
+}
 
 // 选择时间
 const choosed = ({ selectedOptions }) => {
@@ -140,11 +152,12 @@ const choosed = ({ selectedOptions }) => {
 }
 
 // 选择标签
-const ChooseLable = (res) => {
-  activeId.value = res.id
+const chooseLabel = (res) => {
+  LabelActiveId.value = res.id
   label.value = res.name
   emit('SettingLabel', res.name)
 }
+
 
 
 
@@ -208,15 +221,14 @@ const ChooseLable = (res) => {
           height: 1.7rem;
           margin-left: 0.4rem;
           margin-bottom: 0.2rem;
-          background: #dc8d8d;
           border-radius: 5px;
           display: flex;
           justify-content: center;
           align-items: center;
 
           img {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 2rem;
+            height: 1.7rem;
           }
         }
       }
@@ -226,7 +238,6 @@ const ChooseLable = (res) => {
 
   .main-chooseTime {
     border-bottom: 1.3px solid rgb(232, 234, 237, 0.3);
-
     height: 18%;
     // background: #f6f8f9;
 
@@ -248,7 +259,7 @@ const ChooseLable = (res) => {
 
   }
 
-  .main-chooseLable {
+  .main-chooseLabel {
     height: 13%;
 
     .title {
@@ -311,10 +322,11 @@ const ChooseLable = (res) => {
       justify-content: center;
       align-items: center;
 
-      .pic {
+      .myTrees {
         width: 1.5rem;
         height: 1.5rem;
-        background: rgb(148, 148, 214);
+        background: lightpink;
+        background-image: url(../assets/treesPic/main.png);
         border-radius: 50px;
       }
 
@@ -370,6 +382,9 @@ const ChooseLable = (res) => {
 }
 
 .highlight {
-  background: rgb(210, 210, 216) !important;
+  background: rgba(191, 195, 201, 0.8)!important;
+}
+.highlight2{
+  background: rgba(222, 225, 230,0.8);
 }
 </style>

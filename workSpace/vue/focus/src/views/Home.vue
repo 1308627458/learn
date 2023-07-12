@@ -17,11 +17,10 @@
     </div>
 
     <!-- 环形进度条 -->
-   
     <CircleProgress @click.stop="ChangeSettings" @DragSettingTime="DragSetTime"></CircleProgress>
-    <div class="trees">
-      <img src="../assets/treesPic/main.png" alt="">
-    </div>
+
+    <Trees/>
+
 
     <!-- 标签 -->
     <div class="lable" @click.stop="ChangeSettings">
@@ -49,7 +48,7 @@ import Middle_PopUp from '../components/Middle_PopUp.vue';
 import LeftSort from '../components/LeftSort.vue';
 import Main from '../components/Main.vue';
 import CircleProgress from '../components/CircleProgress.vue';
-
+import Trees from '../components/Trees.vue';
 
 const state = reactive({
   label:'学习'
@@ -90,7 +89,6 @@ const Animate = ref('')
 const ShowPopUp = () => {
   showPop.value = true,
     isfogged.value = true
-  // Animate.value = 'animate__animated  animate__bounceOutDown  animate__delay-0.2s'
   Animate.value = 'animate__animated  animate__bounceInDown  animate__delay-0.2s'
 }
 
@@ -208,17 +206,7 @@ const ChangeSettings = () => {
       margin-right: 0.2rem;
     }
   }
-  .trees{
-    position: fixed;
-    top: 25.2%;
-    left: -6.2%;
-    z-index: 1;
-    img{
-      width: 11.85rem;
-      height: 7.6rem;
-      
-    }
-  }
+ 
 
 
   .time {
