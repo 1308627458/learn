@@ -1,0 +1,17 @@
+body{
+	// background-color: #ccc;
+}
+
+view{
+	box-sizing: border-box;
+}
+
+.plr30{
+	padding: 0 30rpx;
+}
+.flex-box{
+	display: flex;
+	.flex-item{
+		flex: 1;
+	}
+}

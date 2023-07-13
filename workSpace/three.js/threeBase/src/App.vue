@@ -4,7 +4,8 @@
   <!-- <Shadow></Shadow> -->
   <!-- <Scene></Scene> -->
   <!-- <Texture></Texture> -->
-  <Light></Light>
+  <!-- <Light></Light> -->
+  <Hit></Hit>
 </template>
 
 <script setup>
@@ -15,7 +16,8 @@
 
 // import Scene from './components/02_scene/index.vue';
 // import Texture from './components/04_texture/index.vue'
-import Light from './components/05_light/index4.vue'
+// import Light from './components/05_light/index4.vue'
+import Hit from './components/06_碰撞/index.vue'
 
 </script>
 

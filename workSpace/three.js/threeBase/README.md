@@ -26,3 +26,6 @@ SceneA.add(SceneC)
 3. 
 
 # 纹理
+
+# connonJS
+1. 3D的物理引擎(计算三维场景中力的作用)

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.6/axios.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="file" @change="getVal" v-model="val">
+    <button @click="handleUpload">上传</button>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          fileObj: {
+            file: null
+          }
+        }
+      },
+      methods: {
+        getVal(e) {
+          console.log(e.target.files[0]);
+          this.fileObj.file = e.target.files[0]
+        },
+        handleUpload() {
+          const fileObj = this.fileObj.file
+          if(!fileObj.file)  return 
+          // 切片 
+          const chunks =  this.createChunk(fileObj,file)
+          // 传输前的数据整理
+        const chunkList = chunks.map(({file}, index) => {
+            return {
+              file,
+              size: file.size,
+              precent: 0,
+              chunkName: `${fileObj.file.name}-${index}`,
+              fileName: fileObj.file.name,
+              index
+            }
+          })
+
+          // 传输
+          this.uploadChunks()
+
+
+        },
+
+        uploadChunks(chunkList) {
+          if(!chunkList.length) return 
+          // 一个一个片段去上传
+          chunkList.forEach(({file, fileName, index, chunkName}) => {
+            // Blob转换成二进制
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('fileName', fileName)
+            formData.append('chunkName', chunkName)
+            return {formData, index}
+          })
+          this.axiosRequest({
+            url:'http://localhost:3000/upload',
+            data: formData,
+              onUploadProgress:this.createProgess()
+          })
+
+          // resList 全部到达后端后
+          Promise.all(resList).then(res => {
+            console.log(res);
+          })
+        },
+        axiosRequest({
+          url,
+          method = "post",
+          data,
+          headers: { },
+          onUploadProgress = (e) => e
+        }) {
+          return new Promise((resolve, reject) => {
+            axios[method](url, data, { headers, onUploadProgress }).then(res => {
+              resolve(res)
+            }).catch(err => {
+              reject(err)
+            })
+          })
+
+        },
+        createChunk(file, size = 5 * 1024 * 1024) {
+          const chunks = []
+          let cur = 0
+          while(cur < file.size) {
+            chunks.push({file: file.slice(cur, cur + size)})
+            cur += size
+          }
+          return chunks
+        }
+
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
