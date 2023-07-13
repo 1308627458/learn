@@ -1,5 +1,5 @@
 <template>
- <div class="SortWrapper">
+ <div class="SortWrapper ">
   <div class="top">
 
   </div>

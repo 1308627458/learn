@@ -1,5 +1,5 @@
 <template>
-  <LeftSort v-show="showLeft"></LeftSort>
+  
   <div class="wrapper" @click="ClickOtherPlace" :class="{ fog: isfogged }">
     <!-- 头部 -->
     <div class="header">
@@ -36,17 +36,19 @@
     <div class="button">
       <van-button type="primary" @click="start" size="small">开始</van-button>
     </div>
-
   </div>
-  <Middle_PopUp v-show="showPop" :class="Animate"></Middle_PopUp>
-  <Main v-show="showMain" @SettingTime="SetTime" @SettingLabel="SetLabel"></Main>
+  <!-- 中间弹出框 -->
+  <Middle_PopUp v-show="showPop" :class="Animate1"></Middle_PopUp>
+  <!-- 左侧菜单 -->
+  <LeftSort v-show="showLeft" :class="Animate2"></LeftSort>
+  <MainSet v-show="showMain" :class="Animate3" @SettingTime="SetTime" @SettingLabel="SetLabel"></MainSet>
 </template>
 
 <script setup>
 import { ref, reactive } from 'vue';
 import Middle_PopUp from '../components/Middle_PopUp.vue';
 import LeftSort from '../components/LeftSort.vue';
-import Main from '../components/Main.vue';
+import MainSet from '../components/MainSet.vue';
 import CircleProgress from '../components/CircleProgress.vue';
 import Trees from '../components/Trees.vue';
 
@@ -84,34 +86,34 @@ const start = () => {
   countDown.value.start();
 };
 
-const Animate = ref('')
+const Animate1 = ref('')
+const Animate2 = ref('')
+const Animate3 = ref('')
 // 控制中间弹出框
 const ShowPopUp = () => {
   showPop.value = true,
-    isfogged.value = true
-  Animate.value = 'animate__animated  animate__bounceInDown  animate__delay-0.2s'
+  isfogged.value = true
+  Animate1.value = 'animate__animated  animate__bounceInDown  animate__delay-0.2s'
 }
 
 // 控制左侧菜单弹窗
 const ShowLeftSort = () => {
   showLeft.value = true
   isfogged.value = true
-  
+  Animate2.value = 'animate__animated  animate__slideInLeft animate__delay-0.5s'
 }
 
 const ClickOtherPlace = () => {
-
   isfogged.value = false
-  showLeft.value = false
-  showMain.value = false
-  // Animate.value = ''
-  Animate.value = 'animate__animated  animate__bounceOutDown  animate__delay-0.2s'
+  Animate1.value = 'animate__animated  animate__bounceOutDown  animate__delay-0.3s'
+  Animate2.value = 'animate__animated  animate__slideOutLeft'
+  Animate3.value = 'animate__animated  animate__fadeOutDown'
 }
-
+// 控制MainSet.vue的出现
 const ChangeSettings = () => {
   showMain.value = true
   isfogged.value = true
-  
+  Animate3.value = 'animate__animated  animate__slideInUp'
 }
 
 
@@ -243,7 +245,7 @@ const ChangeSettings = () => {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 1;
+    z-index: 2;
     background-color: rgba(0, 0, 0, 0.3);
   }
 }
