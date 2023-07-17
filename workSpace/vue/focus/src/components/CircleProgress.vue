@@ -45,9 +45,9 @@ const drag = (e) => {
   }
   // console.log(finallAngle);
   rate.value = finallAngle / 360 * 100
+  // 根据鼠标位置，改变拖拽按钮的位置
   const startBtn = document.querySelector('.startBtn')
   startBtn.style.transform = `rotate(${finallAngle}deg)`
-  
 
   emit('DragSettingTime', rate.value)
 }
@@ -81,11 +81,6 @@ const drag = (e) => {
 }
 }
 
-@keyframes rotation {
-  to {
-    transform: rotate(360deg)
-  }
-}
 
 
 </style>

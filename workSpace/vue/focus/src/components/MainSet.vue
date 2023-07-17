@@ -56,7 +56,7 @@
             <span class="time">{{time}}</span>
           </div>
           <div class="status_lable">
-            <span class="littleCircle"></span>
+            <span class="littleCircle" :style="`background: ${labelColor}`"></span>
             <span class="text">{{ label }}</span>
           </div>
         </div>
@@ -84,7 +84,7 @@ const treeActiveId = ref(null)
 // const myTree = ref('')
 const time = ref(10)
 const label = ref('学习')
-
+const labelColor = ref('')
 
 
 const columns = [
@@ -158,7 +158,9 @@ const choosed = ({ selectedOptions }) => {
 const chooseLabel = (res) => {
   LabelActiveId.value = res.id
   label.value = res.name
-  emit('SettingLabel', res.name)
+  labelColor.value = res.color
+  
+  emit('SettingLabel', res)
 }
 
 

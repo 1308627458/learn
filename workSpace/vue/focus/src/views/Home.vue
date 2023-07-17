@@ -19,12 +19,12 @@
     <!-- 环形进度条 -->
     <CircleProgress @click.stop="ChangeSettings" @DragSettingTime="DragSetTime"></CircleProgress>
 
-    <Trees/>
+    <Trees @click.stop="ChangeSettings"/>
 
 
     <!-- 标签 -->
     <div class="lable" @click.stop="ChangeSettings">
-      <span class="littleCircle"></span>
+      <span class="littleCircle" :style="`background: ${state.labelColor}`"></span>
       <span>{{state.label}}</span>
     </div>
 
@@ -53,7 +53,8 @@ import CircleProgress from '../components/CircleProgress.vue';
 import Trees from '../components/Trees.vue';
 
 const state = reactive({
-  label:'学习'
+  label:'学习',
+  labelColor: ''
 })
 
 const showPop = ref(false)
@@ -76,8 +77,9 @@ const DragSetTime = (res) => {
 }
 
 const SetLabel = (res) => {
-  state.label = res
-  console.log(res);
+  state.label = res.name
+  state.labelColor  = res.color
+  
 }
 
 const countDown = ref(null);
