@@ -1,13 +1,18 @@
 <template>
   <div class="trees">
-      <img src="../assets/treesPic/songshu.png" alt="" class="plant">
+      <img :src="url " alt="" class="plant">
       <img src="../assets/treesPic/soil.png" alt="" class="soil">
-    </div>
+  </div>
 </template>
-
+<!-- ../assets/treesPic/songshu.png -->
 
 <script setup>
 
+import { useStore } from 'vuex';
+import { computed } from 'vue'
+
+const store = useStore()
+const url = computed(() => store.state.url)
 </script>
 
 <style lang="less" scoped>
@@ -18,7 +23,7 @@
     z-index: 1;
     .plant{
       position: fixed;
-      top: 5.2rem;
+      top: 5.3rem;
       left: 2.95rem;
       width: 4rem;
     }

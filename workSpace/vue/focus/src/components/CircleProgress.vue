@@ -3,11 +3,12 @@
   <div class="circle">
     <van-circle v-model:current-rate="currentRate" :rate="rate" :stroke-width="40" stroke-linecap="square" size="240px"
       layer-color="#d0ce79" color="#8cc924" />
-  </div>
 
   <div class="startBtn"   @touchmove="drag" >
-
   </div>
+  </div>
+
+
 </template>
 
 <script setup>
@@ -44,6 +45,9 @@ const drag = (e) => {
   }
   // console.log(finallAngle);
   rate.value = finallAngle / 360 * 100
+  const startBtn = document.querySelector('.startBtn')
+  startBtn.style.transform = `rotate(${finallAngle}deg)`
+  
 
   emit('DragSettingTime', rate.value)
 }
@@ -60,17 +64,28 @@ const drag = (e) => {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   
-}
-
-.startBtn {
-  position: fixed;
-  top: 4.53rem;
+  .startBtn {
+  position: absolute;
+  top: -0.3rem;
   left: 45.5%;
   width: 0.85rem;
   height: 0.85rem;
   border-radius: 50px;
   background: #8cc924;
   z-index: 2;
+  // animation: rotation linear infinite 10s;
+  animation: rotate 5s linear infinite;
+  transform-origin: center 3.5rem;
 }
+}
+
+@keyframes rotation {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+
 </style>

@@ -6,6 +6,7 @@ import './assets/main.css'
 import './assets/icon-font/iconfont.css'
 import 'animate.css';
 import 'vant/lib/index.css'; // 全局引入 vant
+import store from './store'
 import { 
   NavBar,
   Icon,
@@ -29,4 +30,5 @@ app.use(Popup);
 app.use(Switch);
 app.use(Picker);
 
+app.use(store)
 app.mount('#app')

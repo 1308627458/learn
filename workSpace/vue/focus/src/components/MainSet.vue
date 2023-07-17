@@ -34,7 +34,7 @@
         <ul>
           <li class="item" v-for="item in lables" :key="item.id" @click="chooseLabel(item)"
             :class="{ 'highlight': item.id === LabelActiveId }">
-            <span class="littleCircle"></span>
+            <span class="littleCircle" :style="`background: ${item.color}`"></span>
             <span class="text">{{ item.name }}</span>
           </li>
 
@@ -73,7 +73,10 @@
 
 <script setup>
 
-import { ref } from 'vue'
+import { ref } from 'vue';
+
+import { useStore } from 'vuex';
+const store = useStore()
 // import Trees from '../components/Trees.vue';
 
 const LabelActiveId = ref(null)
@@ -112,23 +115,23 @@ const columns = [
 ];
 
 const lables = [
-  { name: "学习", id: 1 },
-  { name: "运动", id: 2 },
-  { name: "其他", id: 3 },
-  { name: "娱乐", id: 4 },
-  { name: "休息", id: 5 },
-  { name: "社交", id: 6 },
-  { name: "工作", id: 7 },
-  { name: "未设置", id: 8 },
+  { name: "学习", id: 1, color: 'orange'},
+  { name: "运动", id: 2, color: '#e4745e'},
+  { name: "其他", id: 3, color: '#d68651'},
+  { name: "娱乐", id: 4, color: '#e474f0' },
+  { name: "休息", id: 5, color: '#e4749e' },
+  { name: "社交", id: 6, color: '#ffc75a' },
+  { name: "工作", id: 7, color: 'lightpink' },
+  { name: "未设置", id: 8, color: '#d8e1ec' },
 ]
 
 const trees = [
   { name: '松树', id: 1, url: './src/assets/treesPic/songshu.png' },
-  { name: '灌木', id: 2, url: './src/assets/treesPic/guanmu.png' },
+  { name: '石像', id: 2, url: './src/assets/treesPic/shixiang.png' },
   { name: '珊瑚', id: 3, url: './src/assets/treesPic/shanhu.png' },
   { name: '草', id: 4, url: './src/assets/treesPic/cao.png' },
   { name: '咕咕钟', id: 5, url: './src/assets/treesPic/guguzhong.png' },
-  { name: '石像', id: 6, url: './src/assets/treesPic/shixiang.png' },
+  { name: '灌木', id: 6, url: './src/assets/treesPic/guanmu.png' },
   { name: '屋树', id: 7, url: './src/assets/treesPic/shuwu.png' },
   { name: '仙人球', id: 8, url: './src/assets/treesPic/xianrenqiu.png' },
   { name: '章鱼', id: 9, url: './src/assets/treesPic/zhangyu.png' },
@@ -142,7 +145,7 @@ const emit = defineEmits(['SettingTime', 'SettingLabel'])
 // 选择树种
 const myChoice = (res) => {
   treeActiveId.value = res.id
-  
+  store.commit('updateUrl', res.url)
 }
 
 // 选择时间
