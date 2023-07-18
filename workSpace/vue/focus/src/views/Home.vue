@@ -19,7 +19,7 @@
     <!-- 环形进度条 -->
     <CircleProgress @click.stop="ChangeSettings" @DragSettingTime="DragSetTime"></CircleProgress>
 
-    <Trees @click.stop="ChangeSettings"/>
+    <Trees @click.stop="ChangeSettings"  :isGone="isGone" :className="className"/>
 
 
     <!-- 标签 -->
@@ -51,6 +51,8 @@ import LeftSort from '../components/LeftSort.vue';
 import MainSet from '../components/MainSet.vue';
 import CircleProgress from '../components/CircleProgress.vue';
 import Trees from '../components/Trees.vue';
+import { useStore } from 'vuex';
+const store = useStore()
 
 const state = reactive({
   label:'学习',
@@ -61,8 +63,14 @@ const showPop = ref(false)
 const isfogged = ref(false)
 const showLeft = ref(false)
 const showMain = ref(false)
+const Animate1 = ref('')
+const Animate2 = ref('')
+const Animate3 = ref('')
 
+const isGone = ref(false)
+const className = ref('')
 const time = ref(60 * 10 * 1000);
+
 
 // 通过滑动选择时间
 const SetTime = (res) =>{
@@ -79,18 +87,22 @@ const DragSetTime = (res) => {
 const SetLabel = (res) => {
   state.label = res.name
   state.labelColor  = res.color
-  
 }
 
-const countDown = ref(null);
 
+const countDown = ref(null);
+// 开始按钮
 const start = () => {
   countDown.value.start();
+  isGone.value = true
+  className.value = 'gone'
+  setTimeout(() => {
+    store.commit('updateUrl', './src/assets/treesPic/shumiao.png')
+    className.value = 'showUp'
+  },500)
 };
 
-const Animate1 = ref('')
-const Animate2 = ref('')
-const Animate3 = ref('')
+
 // 控制中间弹出框
 const ShowPopUp = () => {
   showPop.value = true,

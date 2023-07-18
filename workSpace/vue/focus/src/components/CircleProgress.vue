@@ -48,8 +48,11 @@ const drag = (e) => {
   // 根据鼠标位置，改变拖拽按钮的位置
   const startBtn = document.querySelector('.startBtn')
   startBtn.style.transform = `rotate(${finallAngle}deg)`
+  
 
+  // console.log(finallAngle);
   emit('DragSettingTime', rate.value)
+ 
 }
 
 
@@ -76,7 +79,7 @@ const drag = (e) => {
   background: #8cc924;
   z-index: 2;
   // animation: rotation linear infinite 10s;
-  animation: rotate 5s linear infinite;
+  // animation: rotate 5s linear infinite;
   transform-origin: center 3.5rem;
 }
 }

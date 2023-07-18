@@ -145,6 +145,7 @@ const emit = defineEmits(['SettingTime', 'SettingLabel'])
 // 选择树种
 const myChoice = (res) => {
   treeActiveId.value = res.id
+  
   store.commit('updateUrl', res.url)
 }
 
