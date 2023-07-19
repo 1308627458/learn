@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html{
+      height: 100%;
+      overflow: hidden;
+    }
+    body{
+      width: 100vw;
+      height: 200vh;
+      background: lightpink;
+      padding-top: 100px;
+    }
+    #app > div{
+      position: relative;
+    }
+    #app{
+      width: 1000px;
+    }
+    .one{
+      width: 30px;
+      height: 500px;
+      background: lightblue;
+      transform: translateZ(0px);
+    }
+    .two{
+      width: 30px;
+      height: 500px;
+      background: rgb(181, 226, 157);   
+      transform: translateZ(-10px);
+    }
+    .three{
+      width: 30px;
+      height: 500px;
+      background: rgb(70, 219, 152);
+      transform: translateZ(-201px);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="one">1</div>
+    <div class="two">2</div>
+    <div class="three">3</div>
+  </div>
+</body>
+</html>

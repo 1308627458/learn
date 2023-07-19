@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ul li {
+      list-style: none;
+      width: 200px;
+      height: 100px;
+    }
+    ul li:nth-child(1){
+      background: lightblue;
+    }
+    ul li:nth-child(2){
+      background: yellowgreen;
+    }
+    ul li:nth-child(3){
+      background: lightpink;
+    }
+    ul li:nth-child(4){
+      background: lightblue;
+    }
+    ul li:nth-child(5){
+      background: yellowgreen;
+    }
+    ul li:nth-child(6){
+      background: lightpink;
+    }
+    ul {
+      width: 800px;
+      height: 400px;
+      display: flex;
+      border: 1px solid #000;
+      /* line-height: 100px; */
+      /* flex-wrap: wrap; */
+      /* justify-content: flex-end;  */
+      /* align-items: stretch; 默认存在 */
+      align-content: space-between;
+      flex-wrap: nowrap; 
+
+      
+    }
+    li:nth-child(3) {
+      order: -1;
+    }
+    li {
+      flex-grow: 1;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+  </ul>
+</body>
+</html>
