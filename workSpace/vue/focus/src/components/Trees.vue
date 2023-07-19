@@ -30,7 +30,7 @@ const url = computed(() => store.state.url)
 <style lang="less" scoped>
 .trees {
   position: fixed;
-  top: 4.47rem;
+  top: 4.34rem;
   left: -0.64rem;
   z-index: 1;
 

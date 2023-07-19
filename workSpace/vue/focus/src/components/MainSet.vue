@@ -76,6 +76,7 @@
 import { ref } from 'vue';
 
 import { useStore } from 'vuex';
+
 const store = useStore()
 // import Trees from '../components/Trees.vue';
 
@@ -145,13 +146,14 @@ const emit = defineEmits(['SettingTime', 'SettingLabel'])
 // 选择树种
 const myChoice = (res) => {
   treeActiveId.value = res.id
-  
   store.commit('updateUrl', res.url)
 }
 
 // 选择时间
 const choosed = ({ selectedOptions }) => {
   time.value = selectedOptions[0].text
+  
+  // console.log(time.value);
   emit('SettingTime', selectedOptions[0].text)
 }
 

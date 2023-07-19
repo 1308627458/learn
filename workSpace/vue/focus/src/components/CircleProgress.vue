@@ -13,6 +13,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import store from '../store';
 // import Math from 'math';
 // 进度条的值
 const rate = ref(0)
@@ -43,16 +44,19 @@ const drag = (e) => {
   if (e.changedTouches[0].clientX < 187.5) {
     finallAngle = angle > 0 ? angle + 180 : 360 + angle
   }
+  
   // console.log(finallAngle);
+  // 根据鼠标位置，控制进度
   rate.value = finallAngle / 360 * 100
   // 根据鼠标位置，改变拖拽按钮的位置
   const startBtn = document.querySelector('.startBtn')
   startBtn.style.transform = `rotate(${finallAngle}deg)`
   
-
+  
+ 
   // console.log(finallAngle);
   emit('DragSettingTime', rate.value)
- 
+  
 }
 
 

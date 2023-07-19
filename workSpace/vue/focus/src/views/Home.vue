@@ -1,14 +1,17 @@
 <template>
-  
   <div class="wrapper" @click="ClickOtherPlace" :class="{ fog: isfogged }">
     <!-- 头部 -->
     <div class="header">
-      <span class="iconfont icon-fenlei" @click.stop="ShowLeftSort" :class="{ fog: isfogged }" ></span>
+      <!-- 左侧icon -->
+      <span v-show="showLeftIcon" class="iconfont icon-fenlei"  @click.stop="ShowLeftSort" :class="{ fog: isfogged }"></span>
+      <span v-show="showBack" class="iconfont icon-fanhui" @click="backToHome"></span>
+      <!-- 中间icon -->
       <div class="header_middlePart" @click.stop="ShowPopUp">
         <span class="iconfont icon-jindu_shalou"></span>
         <span class="iconfont icon-huohua"></span>
       </div>
-      <span class="iconfont icon-yezi"></span>
+      <!--  右侧icon -->
+      <span :class="rightIconStyle" @click="playMusic"></span>
     </div>
 
     <!-- 提示信息 -->
@@ -17,26 +20,33 @@
     </div>
 
     <!-- 环形进度条 -->
-    <CircleProgress @click.stop="ChangeSettings" @DragSettingTime="DragSetTime"></CircleProgress>
+    <CircleProgress class="showCircle" @click.stop="ChangeSettings" @DragSettingTime="DragSetTime"></CircleProgress>
 
-    <Trees @click.stop="ChangeSettings"  :isGone="isGone" :className="className"/>
-
+    <Trees @click.stop="ChangeSettings" :isGone="isGone" :className="className" />
 
     <!-- 标签 -->
     <div class="lable" @click.stop="ChangeSettings">
       <span class="littleCircle" :style="`background: ${state.labelColor}`"></span>
-      <span>{{state.label}}</span>
+      <span>{{ state.label }}</span>
     </div>
 
     <!-- 倒计时 -->
-    <div class="time" @click.stop="ChangeSettings">
+    <div v-show="showCountDown" class="time" @click.stop="ChangeSettings">
       <van-count-down :time="time" format="mm:ss" ref="countDown" :auto-start="false" />
     </div>
-
-    <div class="button">
-      <van-button type="primary" @click="start" size="small">开始</van-button>
+    
+    <!-- 开始按钮 -->
+    <div class="button" v-show="showStartBtn">
+      <van-button v-if="flag" class="btn1" type="primary" @click="start" size="small" color="#3bdcb4">开始</van-button>
+      <van-button v-else class="btn2" type="success" @click="abandon" size="mini" text="放弃"></van-button>
     </div>
   </div>
+
+  <van-dialog v-model:show="show" @confirm="confirmAbandon" title="你确定要放弃吗?" message="你的森林中会出现1颗枯萎的树" show-cancel-button confirmButtonText="放弃"
+    width="280px" theme="round-button" cancel-button-color="#999">
+
+  </van-dialog>
+
   <!-- 中间弹出框 -->
   <Middle_PopUp v-show="showPop" :class="Animate1"></Middle_PopUp>
   <!-- 左侧菜单 -->
@@ -45,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import Middle_PopUp from '../components/Middle_PopUp.vue';
 import LeftSort from '../components/LeftSort.vue';
 import MainSet from '../components/MainSet.vue';
@@ -53,12 +63,11 @@ import CircleProgress from '../components/CircleProgress.vue';
 import Trees from '../components/Trees.vue';
 import { useStore } from 'vuex';
 const store = useStore()
-
 const state = reactive({
-  label:'学习',
+  label: '学习',
   labelColor: ''
 })
-
+const show = ref(false)
 const showPop = ref(false)
 const isfogged = ref(false)
 const showLeft = ref(false)
@@ -66,47 +75,83 @@ const showMain = ref(false)
 const Animate1 = ref('')
 const Animate2 = ref('')
 const Animate3 = ref('')
-
+const flag = ref(true)
 const isGone = ref(false)
 const className = ref('')
+const showLeftIcon = ref(true)
+const showBack = ref(false)
+const showCountDown = ref(true)
+const showStartBtn = ref(true)
+const rightIconStyle = ref('iconfont icon-yezi')
+
 const time = ref(60 * 10 * 1000);
+
+const storetime = computed(() => store.state.storetime)
+console.log(storetime);
 
 
 // 通过滑动选择时间
-const SetTime = (res) =>{
-  time.value = (60 * res * 1000) 
+const SetTime = (res) => {
+  time.value = (60 * res * 1000)
 }
 
 // 通过拖拽调整时间
 const DragSetTime = (res) => {
-  const num = Math.floor(Math.round(res) / (100/22.5)) * 5 + 10
+  const num = Math.floor(Math.round(res) / (100 / 22.5)) * 5 + 10
   // console.log(Math.round(res));
   time.value = (60 * num * 1000)
 }
 
+// 设置标签
 const SetLabel = (res) => {
   state.label = res.name
-  state.labelColor  = res.color
+  state.labelColor = res.color
+
 }
 
 
 const countDown = ref(null);
 // 开始按钮
 const start = () => {
+  flag.value = false
   countDown.value.start();
   isGone.value = true
   className.value = 'gone'
   setTimeout(() => {
     store.commit('updateUrl', './src/assets/treesPic/shumiao.png')
     className.value = 'showUp'
-  },500)
-};
+  }, 500)
 
+  const showCircle = document.querySelector('.showCircle')
+  showCircle.style.opacity = 0
+
+  showLeftIcon.value = false
+  rightIconStyle.value = 'iconfont icon-18erji-3'
+};
+// 放弃按钮
+const abandon = () => {
+  // flag.value = true
+  // countDown.value.reset();
+  show.value = true
+}
+// 确认放弃
+const confirmAbandon = () => {
+  className.value = 'gone'
+  isGone.value = true
+  setTimeout(() => {
+    store.commit('updateUrl', './src/assets/treesPic/kushu.png')
+    className.value = 'showUp'
+  }, 500)
+
+  showBack.value = true
+  showCountDown.value = false
+  showStartBtn.value = false
+}
 
 // 控制中间弹出框
 const ShowPopUp = () => {
   showPop.value = true,
-  isfogged.value = true
+    isfogged.value = true
   Animate1.value = 'animate__animated  animate__bounceInDown  animate__delay-0.2s'
 }
 
@@ -130,10 +175,14 @@ const ChangeSettings = () => {
   Animate3.value = 'animate__animated  animate__slideInUp'
 }
 
+// 播放音乐
+const playMusic = () => {
+  rightIconStyle.value = 'iconfont icon-18erji-1'
+}
 
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
 .wrapper {
   background: #059f92;
   width: 100vw;
@@ -152,18 +201,45 @@ const ChangeSettings = () => {
     }
 
     .icon-fenlei {
-      margin-left: 0.6rem;
+      // margin-left: 0.6rem;
+      top: 0.5rem;
+      position: fixed;
+      left: 0.6rem;
+    }
+    .icon-fanhui{
+      top: 0.5rem;
+      position: fixed;
+      left: 0.6rem;
+      font-size: 0.7rem;
     }
 
     .icon-yezi {
-      margin-right: 0.5rem;
-      text-align: center;
+      // margin-right: 0.5rem;
+      position: fixed;
+      top: 0.5rem;
+      right: 0.5rem;
       font-size: 0.6rem;
       color: rgba(157, 191, 115);
+     
+    }
+    .icon-18erji-3{
+      position: fixed;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.7rem;
+    }
+    .icon-18erji-1{
+      position: fixed;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.7rem;
     }
 
     .header_middlePart {
       display: flex;
+      position: fixed;
+      top: 0.5rem;
+      left: 40%;
       justify-content: center;
       align-items: center;
       width: 2rem;
@@ -190,23 +266,22 @@ const ChangeSettings = () => {
   .hint {
     width: 3rem;
     height: 1rem;
-    margin: 1.5rem auto 0;
+    margin: 2rem auto 0;
+    line-height: 1rem;
     text-align: center;
     color: #fff;
     font-size: 0.4rem;
   }
 
-  // .circle {
-  //   margin: 1.2rem auto 0;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  // }
+  .showCircle {
+    opacity: 1;
+    transition: all 0.2s;
+  }
 
   .lable {
     width: 1.5rem;
     height: 0.65rem;
-    margin: 0.5rem auto;
+    margin: 0.7rem auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -222,7 +297,7 @@ const ChangeSettings = () => {
       margin-right: 0.2rem;
     }
   }
- 
+
 
 
   .time {
@@ -241,8 +316,18 @@ const ChangeSettings = () => {
   .button {
     margin-top: 0.5rem;
 
-    .van-button {
+    .btn1 {
       width: 2.5rem;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn2 {
+      width: 2rem;
+      height: 0.6rem;
+      background: #059f92;
+      border: 1.5px solid #fff;
       display: block;
       margin: 0 auto;
     }
@@ -250,6 +335,7 @@ const ChangeSettings = () => {
 
 
 }
+
 
 .fog {
   &::after {

@@ -16,6 +16,7 @@ import {
   Popup,  
   Switch,
   Picker,
+  Dialog,
 } from 'vant'
 
 
@@ -29,6 +30,6 @@ app.use(Button);
 app.use(Popup);
 app.use(Switch);
 app.use(Picker);
-
+app.use(Dialog )
 app.use(store)
 app.mount('#app')
