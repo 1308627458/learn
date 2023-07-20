@@ -52,8 +52,6 @@ const drag = (e) => {
   const startBtn = document.querySelector('.startBtn')
   startBtn.style.transform = `rotate(${finallAngle}deg)`
   
-  
- 
   // console.log(finallAngle);
   emit('DragSettingTime', rate.value)
   

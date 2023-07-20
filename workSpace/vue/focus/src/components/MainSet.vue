@@ -9,7 +9,8 @@
       <span class="title">树种 (最近使用)</span>
       <div class="treesBox">
         <div class="Box-wrapper">
-          <div class="item" @click="myChoice(item)" v-for="item in trees" :key="item.id" :class="{'highlight2': item.id === treeActiveId}"><img :src="item.url" alt=""></div>
+          <div class="item" @click="myChoice(item)" v-for="item in trees" :key="item.id"
+            :class="{ 'highlight2': item.id === treeActiveId }"><img :src="item.url" alt=""></div>
         </div>
       </div>
     </div>
@@ -45,15 +46,18 @@
     <!-- 底部 -->
     <div class="main-bottomBar">
       <div class="statusBar_wrapper">
+
         <div class="myTrees">
-          
+          <div class="soil"></div>
+          <div class="trees"><img :src="treeUrl" alt=""></div>
         </div>
-     
-      
+
+
         <div class="status">
+
           <div class="status_time">
             <span class="iconfont icon-jindu_shalou"></span>
-            <span class="time">{{time}}</span>
+            <span class="time">{{ time }}</span>
           </div>
           <div class="status_lable">
             <span class="littleCircle" :style="`background: ${labelColor}`"></span>
@@ -79,7 +83,7 @@ import { useStore } from 'vuex';
 
 const store = useStore()
 // import Trees from '../components/Trees.vue';
-
+const treeUrl = ref('./src/assets/treesPic/songshu.png')
 const LabelActiveId = ref(null)
 const treeActiveId = ref(null)
 // const myTree = ref('')
@@ -116,12 +120,12 @@ const columns = [
 ];
 
 const lables = [
-  { name: "学习", id: 1, color: 'orange'},
-  { name: "运动", id: 2, color: '#e4745e'},
-  { name: "其他", id: 3, color: '#d68651'},
-  { name: "娱乐", id: 4, color: '#e474f0' },
-  { name: "休息", id: 5, color: '#e4749e' },
-  { name: "社交", id: 6, color: '#ffc75a' },
+  { name: "学习", id: 1, color: 'orange' },
+  { name: "运动", id: 2, color: '#e4745e' },
+  { name: "其他", id: 3, color: '#d68651' },
+  { name: "娱乐", id: 4, color: '#a6c0f2' },
+  { name: "休息", id: 5, color: '#ef549e' },
+  { name: "社交", id: 6, color: '#ef4d8c' },
   { name: "工作", id: 7, color: 'lightpink' },
   { name: "未设置", id: 8, color: '#d8e1ec' },
 ]
@@ -146,13 +150,16 @@ const emit = defineEmits(['SettingTime', 'SettingLabel'])
 // 选择树种
 const myChoice = (res) => {
   treeActiveId.value = res.id
+  treeUrl.value = res.url
+  console.log(treeUrl.value);
   store.commit('updateUrl', res.url)
+  store.commit('backupUrl', res.url)
 }
 
 // 选择时间
 const choosed = ({ selectedOptions }) => {
   time.value = selectedOptions[0].text
-  
+
   // console.log(time.value);
   emit('SettingTime', selectedOptions[0].text)
 }
@@ -162,7 +169,7 @@ const chooseLabel = (res) => {
   LabelActiveId.value = res.id
   label.value = res.name
   labelColor.value = res.color
-  
+
   emit('SettingLabel', res)
 }
 
@@ -331,11 +338,29 @@ const chooseLabel = (res) => {
       align-items: center;
 
       .myTrees {
-        width: 1.5rem;
-        height: 1.5rem;
-        background: lightpink;
-        background-image: url(../assets/treesPic/main.png);
-        border-radius: 50px;
+        .soil {
+          width: 1.5rem;
+          height: 1.5rem;
+          background-image: url(../assets/treesPic/soil.png);
+          background-size: 3.3rem 2rem;
+          background-position: 2.48rem;
+          border-radius: 50px;
+        }
+
+        .trees {
+          position: fixed;
+          width: 1rem;
+          height: 1rem;
+          // background: lightblue;
+          top: 12.6rem;
+          left: 0.65rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
       }
 
       .status {
@@ -383,16 +408,17 @@ const chooseLabel = (res) => {
         width: 2.2rem;
         display: block;
         margin: 0 auto;
-        
+        box-shadow: 0px 2px 4px rgba(58, 161, 173, 0.486);
       }
     }
   }
 }
 
 .highlight {
-  background: rgba(191, 195, 201, 0.8)!important;
+  background: rgba(191, 195, 201, 0.8) !important;
 }
-.highlight2{
-  background: rgba(222, 225, 230,0.8);
+
+.highlight2 {
+  background: rgba(222, 225, 230, 0.8);
 }
 </style>
