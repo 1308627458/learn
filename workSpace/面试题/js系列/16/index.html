@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./index.js"></script>
+</head>
+<body>
+  <button onclick="getData">获取</button>
+
+  <!-- <script>
+    function getData() {
+      const xhr = new XMLHttpRequest(); // 创建实例
+      xhr.open(  // 配置请求 method url async user password
+        'GET', 
+        'https://www.fastmock.site/mock/7224291cf063beceaa27956d01e64560/keep/recommend',
+        true,
+        )
+        xhr.send() // 发送请求 data
+        xhr.onreadystatechange = function() { // 监听状态变化的
+          // 0: 请求还在准备中 1：请求还未发送 2: 拿到响应头和响应状态 3：正在加载响应体 4：响应体加载完毕
+          if (xhr.readyState == 4 && xhr.status == 200){ // 请求完成 0 1 2 3 4
+            console.log(xhr.responseText);
+          }
+
+        }
+
+    } 
+  </script> -->
+  <script>
+    function getData() {
+      ajax({
+        url:'https://www.fastmock.site/mock/7224291cf063beceaa27956d01e64560/keep/recommend',
+        data: {
+          id: 1,
+          name: 'Tom'
+        }
+      }).then(res => {
+        console.log(res);
+      })
+
+    }
+  </script>
+</body>
+</html>
