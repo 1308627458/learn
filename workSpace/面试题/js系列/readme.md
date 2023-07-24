@@ -160,3 +160,61 @@
   2. 封装get post... 等请求方式
   3. 处理参数的传递
   4. 监听请求对象的状态变化来获取响应数据
+
+# 17. 说说你对js的事件循环的理解
+  - 是什么
+  因为js是单线程的，单线程会存在 阻塞 问题，所有引入了一种循环执行机制，称之为event-loop
+
+  - event-loop
+  1. 判断同步和异步，执行同步代码(属于宏任务)
+  2. 调用栈空出来后，查找是否有异步任务需要执行
+  3. 执行异步中的 微任务
+  4. 渲染页面(有需要的情况下)
+  5. 执行宏任务(相当于是下一次的event-loop开始)
+
+  - 微任务：
+    1. Promise.then
+    2. await()
+    3. process.nextTick
+    4. MutationObserver
+
+  - 宏任务：
+  1. script
+  2. setTimeout / setInterval / setImmediate
+  3. ui-rendering
+  4. I/O
+  5. MessageChannel, postMessage
+
+# 18. 说说正则表达式
+  - 是什么
+    是一个可以匹配字符串的特殊对象，包含test, match, replace等方法
+
+  - 检验用书输入的账号，是否满足该种账号的特征
+
+# 19. 说说你对DOM的理解，常见的操作的有哪些？
+  - 是什么
+    DOM: 文档对象，主要定义了一种方式可以使从程序
+    把文档当成对象来看待
+    DOM的顶级是doucument
+    W3C的标准
+
+  - 节点类型：
+    1. 元素节点 createElement   createDocumentFragment
+    2. 属性节点 createAttribute
+    3. 文本节点 createTextNode  innerHTML  innerText
+
+# 20. 说说你对 BOM 的理解， 常见的BOM对象有哪些？
+  - 是什么
+    浏览器对象模型，是一个提供内容和浏览器窗口交互的对象
+    把浏览器当成对象来看待
+    BOM的顶级window
+    浏览器自己定义标准
+
+    - BOM包含：
+     1. window
+     2. location
+     3. navigator
+     4. screen
+     5. history
+
+# 21. 说说你对尾递归的理解
