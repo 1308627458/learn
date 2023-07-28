@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function request(url) {
+        return new Promise((resolve) => {
+          const callbackName =
+            '_cb_' + Math.random().toString(36).substring(2) + Date.now();
+          window[callbackName] = function (resp) {
+            resolve(resp);
+            script.remove();
+            delete window[callbackName];
+          };
+          const script = document.createElement('script');
+          script.src = url + '?callback=' + callbackName;
+          document.body.appendChild(script);
+        });
+      }
+
+      request('http://localhost:9527/jsonp').then((resp) => {
+        console.log('服务器的响应', resp);
+      });
+    </script>
+  </body>
+</html>
