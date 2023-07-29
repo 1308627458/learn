@@ -27,4 +27,42 @@
     - 单页应用的缺点
       1. 首次渲染速度慢
       2. 不利于搜索引擎的抓取    (ssr, 资源静态化)
-      3. 
+
+
+# 3. 说说你对双向绑定的理解
+  - 是什么
+    v-model实现了双向绑定，当Model层的数据变化时，View会更新，当View层的数据变化时，Model层状态会更新
+
+    - 原理(ViewModel)
+      1. 数据变化更新视图
+      2. 视图变化更新数据
+
+      监听器 (Observer)  解析器 (Compiler)
+
+
+# 4. 说说你对vue生命周期的理解
+  - Vue在组件从开始加载到渲染完成的这个时间段内提供的钩子函数
+  v2:
+    beforeCreate, created
+    beforeMount, mounted
+    beforeUpdate, updated,
+    beforeDestory, destoryed,
+    actived, deactivated (缓存)
+    errorCaptured (子组件)
+
+  v3: setup
+      onBeforeMount, onMounted
+      onBeforeUpdate, onUpdated
+      onBeforeUnmount, onUnmounted
+      onActivated, onDeactivated
+      onErrorCaptured
+
+
+# 5. 组件通讯的方式
+  1. props    (父子)
+  2. emit     (子父)
+  3. v-model  (子父)
+  4. refs     (子父)
+  5. provide/inject   (父子)
+  6. vuex/pinia
+  7. eventBus
