@@ -66,3 +66,51 @@
   5. provide/inject   (父子)
   6. vuex/pinia
   7. eventBus
+
+# 6. 说说Vue中的v-show和v-if有什么区别
+  - <Model v-show="false">
+  - <Model v-if="false">
+
+  1. 控制方式： v-show: display: none; v-if: 直接删除整个dom 元素
+  2. 编译过程： v-if：需要重新编译， v-show：不需要
+  3. v-if: 触发生命周期 v-show: 不触发
+
+# 7. v-if 和 v-for 同时使用会发生什么？
+  v2: v-for 的优先级要高于 v-if, vue的指令在编译时会转化为 render 函数。 这两个render函数会冲突， 会带来性能浪费
+
+# 8. data 一定要是一个函数？
+  是的
+
+# 9. vue给data中的对象添加新属性， 页面会更新吗
+  v2：不会 Object.defineProperty() 无法劫持到未来添加的属性
+  v3: 会 Proxy() 是能感知未来添加的属性
+
+# 10. nextTick 怎么理解？
+  Vue在更新DOM时异步执行的一个函数， 主要是爆炸内部逻辑会在DOM加载完毕之后再执行
+
+  1. nextTick 会将回调 push 到个callbacks数组中
+  2. 将数组中的函数放在 xxx.then()中执行
+  3. xxx 代表的是 挂载函数
+
+# 11. 说说什么是虚拟DOM
+  - 用js对象来描述真实的DOM
+
+  - 假设， 一次操作导致了 10 个 DOM需要修改
+    不使用VDOM的情况： 浏览器需要重新一个一个的构建这的DOM树， 每构建一个就会重新渲染一次
+
+    使用VDOM的情况： diff 会一次性把所有变更的的vnode都找出来，这个过程是不渲染的，全找完后一次性渲染
+
+  - 跨平台
+# 12. 说说你了解的diff 算法
+  - 用于比较VDOM 真实DOM之间的区别的一个同层比较的高效算法
+
+- diff: 深度优先
+
+  - pathVnode步骤：
+  1. 新节点是不是文本节点， 如果是直接更新dom的文本内容为新节点
+  2. 新旧节点，是否都有子节点， 比较子节点
+  3. 如果新节点有子节点， 老节点没有，直接新增dom
+  4. 如果老节点有子节点， 新节点没有，直接删除dom
+
+
+
