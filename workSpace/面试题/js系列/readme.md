@@ -1,13 +1,26 @@
 # 1.js 数组的常用方法有哪些？
   - 增删改
-  push, pop, unshift, shift, splice, concat
+  push, pop, shift, unshift, slice(从数组中截取指定位置的元素，返回一个新数组，不改变原数组), splice(返回被删除的元素组成的数组，改变原数组), concat
   - 遍历
-  forEach, reduce, filter, every, some, map, 
-  - 排序
-    sort, reverse
-  - 查找
-  indexOf, lastIndexOf, includes, findIndex, find
+  forEach     (没有返回值), 
+  filter    (用于筛选，过滤数组中满足条件的元素，返回一个新数组), 
+  every (判断数组中元素是否全部符合条件), 
+  some   (判断数组中有没有符合条件的,只要找到一个符合条件，就会返回true 并不会全部遍历，性能优良), 
+  map, (一一映射)
+  reduce(用于将数组中的所有元素按照指定规则进行归并计算，返回一个最终值，接受两个参数，一个回调函数，和一个初始值，回调函数接受四个参数，1-初始值或上一次回调函数叠加的值，2-本次回调将要执行的值，3-索引值， 4-数组本身),
 
+
+  - 排序
+    sort  (用于对数组进行排序，会直接修改原数组，可以传入自定义的比较函数来基于其他规则排序),  arr.sort((a, b) => a - b)---从小到大，   arr.sort((a, b) => b - a)--- 从大到小
+    reverse (用于反转数组中元素的顺序)
+  - 查找
+  indexOf   (返回第一个匹配项的下标，找不到返回 -1，可接收参数，从哪个位置开始查找), 
+  lastIndexOf   (查找某个元素最后一次出现的索引), 
+  includes    (检查数组中是否包含某个元素，有返回true，没有返回false), 
+  findIndex   (查找数组中满足条件元素的索引，找到返回第一个符合条件的元素下标，否则返回-1), 
+  find   (查找数组中满足条件的元素，并返回第一个符合条件的元素)
+
+  join(将数组中所有元素以指定的分隔符连接成一个字符串) , fill(填充一个数组中的所有元素，会直接修改原数组)
 # 2. js字符串的常用方法有哪些
   - 增: concat 
   - 删: slice, substr, substring, 

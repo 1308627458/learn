@@ -47,8 +47,9 @@
     beforeMount, mounted
     beforeUpdate, updated,
     beforeDestory, destoryed,
+
     actived, deactivated (缓存)
-    errorCaptured (子组件)
+    errorCaptured (子组件错误)
 
   v3: setup
       onBeforeMount, onMounted
@@ -65,7 +66,7 @@
   4. refs     (子父)
   5. provide/inject   (父子)
   6. vuex/pinia
-  7. eventBus
+  7. eventBus  (mitt)
 
 # 6. 说说Vue中的v-show和v-if有什么区别
   - <Model v-show="false">
@@ -80,13 +81,20 @@
 
 # 8. data 一定要是一个函数？
   是的
+  data写成函数，实际上是一个闭包的设计，vue是单页应用，会有很多的组件，通过闭包给每一个组件创建了私有域空间，每一个组件都有一个私有的作用域，保证组件的多个实例之间的数据不会相互影响
+
+  data() {
+    return {
+
+    }
+  }
 
 # 9. vue给data中的对象添加新属性， 页面会更新吗
   v2：不会 Object.defineProperty() 无法劫持到未来添加的属性
   v3: 会 Proxy() 是能感知未来添加的属性
 
 # 10. nextTick 怎么理解？
-  Vue在更新DOM时异步执行的一个函数， 主要是爆炸内部逻辑会在DOM加载完毕之后再执行
+  Vue在更新DOM时异步执行的一个函数， 主要是保证内部逻辑会在DOM加载完毕之后再执行
 
   1. nextTick 会将回调 push 到个callbacks数组中
   2. 将数组中的函数放在 xxx.then()中执行
@@ -112,5 +120,13 @@
   3. 如果新节点有子节点， 老节点没有，直接新增dom
   4. 如果老节点有子节点， 新节点没有，直接删除dom
 
+# 13. 权限划分
+
+# 14. 说说vue-router原理
+  - 前端路由
+    1. 修改url页面不刷新
+    2. 如何监听到url的变化
+    
+  - 
 
 
