@@ -127,6 +127,6 @@
     1. 修改url页面不刷新
     2. 如何监听到url的变化
     
-  - 
+  - 以hash模式为例： 当router被vue所use时, router中的install方法会接收到vue的实例对象，在install方法被调用时，借助provide将router实例挂载到vue实例上，在通过inject注入的方式，将router注入到各个组件。router-link，和router-view组件也在install中借助vue中的component方法注册为全局组件
 
 
