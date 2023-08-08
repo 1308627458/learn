@@ -1,0 +1,16 @@
+{
+  "name": "vite",
+  "version": "1.0.0",
+  "description": "- 浏览器里的javaScript没有一个很好的方式去引入其他的文件",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.14.2",
+    "vue": "^3.3.4"
+  }
+}
