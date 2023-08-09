@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1642343",
+      "name": "分享",
+      "font_class": "fenxiang",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "5387522",
+      "name": "关闭",
+      "font_class": "guanbi",
+      "unicode": "eaf2",
+      "unicode_decimal": 60146
+    },
+    {
+      "icon_id": "21085052",
+      "name": "右箭头",
+      "font_class": "youjiantou",
+      "unicode": "e73c",
+      "unicode_decimal": 59196
+    },
+    {
+      "icon_id": "26924328",
+      "name": "下箭头",
+      "font_class": "xiajiantou",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "29570655",
+      "name": "左箭头",
+      "font_class": "zuojiantou",
+      "unicode": "e6b6",
+      "unicode_decimal": 59062
+    },
+    {
       "icon_id": "3090891",
       "name": "金币",
       "font_class": "jinbi",
