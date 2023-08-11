@@ -30,6 +30,7 @@
           </van-button>
         </div>
       </van-form>
+      
     </div>
     <p class="register" @click="register">新用户？点击这里注册</p>
   </div>

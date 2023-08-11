@@ -90,7 +90,7 @@ const { show, showPop, isfogged, showMain, showLeft, Animate1, Animate2, Animate
 const time = ref(60 * 10 * 1000);
 
 const storetime = computed(() => store.state.storetime)
-console.log(storetime);
+// console.log(storetime);
 
 
 // 通过滑动选择时间
@@ -198,7 +198,10 @@ const ChangeSettings = () => {
 
 // 播放音乐
 const playMusic = () => {
-  rightIconStyle.value = 'iconfont icon-18erji-1'
+  
+  if(rightIconStyle.value == 'iconfont icon-yezi') return
+  rightIconStyle.value == 'iconfont icon-18erji-1' ? rightIconStyle.value = 'iconfont icon-18erji-3' : rightIconStyle.value = 'iconfont icon-18erji-1'
+
 }
 
 </script>
