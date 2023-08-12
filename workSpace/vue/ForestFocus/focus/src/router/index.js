@@ -25,6 +25,7 @@ const routes = [
     name : 'forest',
     component: () => import('@/views/Forest.vue')
   },
+
 ]
 
 

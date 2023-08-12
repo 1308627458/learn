@@ -11,7 +11,8 @@
 
     <div class="ForestBody">
       <div class="DWMY">
-        <p v-for="item in dateArray" :key="item.id" :class="{ 'selected': item.id === ActiveId }" @click="chooseDate(item)">
+        <p v-for="item in dateArray" :key="item.id" :class="{ 'selected': item.id === ActiveId }"
+          @click="chooseDate(item)">
           {{ item.date }}</p>
 
       </div>
@@ -44,6 +45,11 @@ import { computed } from 'vue';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import isoWeek from 'dayjs/plugin/isoWeek';
+import { watch } from 'vue';
+import axios from '../api'
+import { toRaw } from 'vue';
+
+
 dayjs.locale('zh-cn'); // 设置语言为中文
 dayjs.extend(isoWeek);
 
@@ -53,7 +59,12 @@ const state = reactive({
   firstDay: '',
   lastDay: '',
   day: '',
+  echartsXdata: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+  echartsYdata:''
 })
+
+
+
 const ActiveId = ref(1)
 
 const dateArray = [
@@ -76,29 +87,26 @@ state.year = currentDate.year();
 state.month = currentDate.month() + 1;
 state.day = currentDate.date();
 
+// 给week传递参数，动态获得日期当周的首天和最后一天
 const weekArgument = computed(() => {
   return `${state.year}-${state.month}-${state.day}`
 })
-console.log(weekArgument.value);
-
-
 
 
 // const weekNumber = currentDate.isoWeek(); // 第几周
 // const firstDayOfWeek = currentDate.startOf('isoWeek');
 // const lastDayOfWeek = currentDate.endOf('isoWeek');
 
-const weekNumber = dayjs(weekArgument.value).isoWeek(); // 第几周
-const firstDayOfWeek = dayjs(weekArgument.value).startOf('isoWeek');
-const lastDayOfWeek = dayjs(weekArgument.value).endOf('isoWeek');
+watch(() => {
+  const weekNumber = dayjs(weekArgument.value).isoWeek(); // 第几周
+  const firstDayOfWeek = dayjs(weekArgument.value).startOf('isoWeek');
+  const lastDayOfWeek = dayjs(weekArgument.value).endOf('isoWeek');
 
+  state.firstDay = firstDayOfWeek.format('DD') - 1
+  state.lastDay = lastDayOfWeek.format('DD') - 1
+})
 
-state.firstDay = firstDayOfWeek.format('DD') - 1
-state.lastDay = lastDayOfWeek.format('DD') - 1
-
-console.log(state.firstDay, state.lastDay);
-
-
+// console.log(state.firstDay, state.lastDay);
 
 const Time = computed(() => {
   if (ActiveId.value == 1) {
@@ -125,9 +133,9 @@ const beforeTime = () => {
   // 当选择的是 日 时，当天数小于1，月份减1，将日期变更为新月份的最后一天从新
   if (ActiveId.value == 1) {
     state.day = state.day - 1
-    if (state.day < 1) { 
-      state.month = state.month - 1 
-      state.day = new Date(state.year, state.month, 0).getDate()  
+    if (state.day < 1) {
+      state.month = state.month - 1
+      state.day = new Date(state.year, state.month, 0).getDate()
     }
     // console.log(state.day);
   }
@@ -138,10 +146,10 @@ const beforeTime = () => {
     if (state.firstDay < 1) {
       state.month = state.month - 1
       // console.log(state.firstDay);
-      state.firstDay = new Date(state.year, state.month, 0).getDate() + state.firstDay 
+      state.firstDay = new Date(state.year, state.month, 0).getDate() + state.firstDay
     }
-    if(state.lastDay < 1){
-      state.lastDay = new Date(state.year, state.month, 0).getDate() + state.lastDay 
+    if (state.lastDay < 1) {
+      state.lastDay = new Date(state.year, state.month, 0).getDate() + state.lastDay
     }
   }
 
@@ -155,10 +163,6 @@ const beforeTime = () => {
   if (ActiveId.value == 4) {
     state.year = state.year - 1
   }
-
-  console.log(state.firstDay, state.lastDay);
-  console.log(state.day);
-  console.log(weekArgument.value);
 
 }
 
@@ -183,7 +187,7 @@ const initEchart = () => {
     xAxis: [
       {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: state.echartsXdata,
         axisTick: {
           alignWithLabel: true
         }
@@ -196,10 +200,10 @@ const initEchart = () => {
     ],
     series: [
       {
-        name: 'Direct',
+        name: '时长',
         type: 'bar',
         barWidth: '60%',
-        data: [10, 52, 200, 334, 390, 330, 220]
+        data: state.echartsXdata,
       }
     ]
   };
@@ -207,9 +211,29 @@ const initEchart = () => {
   option && myChart.setOption(option);
 }
 
-nextTick(() => {
+nextTick(async () => {
   initEchart()
+  const { data } = await axios.post('/record/dayData', {
+    day: state.day,
+    month: state.month,
+    year: state.year
+  })
+  // console.log(data);
+
+  const arr = data.map((item) => {
+    return item.time
+  })
+
+   console.log(arr)
+
+  state.echartsYdata = arr
+  console.log(state.echartsYdata);
+  // console.log(state.echartsYdata.__v_raw);
+  // console.log(toRaw(state.echartsYdata));
+ 
+ 
 })
+
 
 
 </script>
@@ -310,4 +334,5 @@ nextTick(() => {
   background: white !important;
   color: black;
   border-radius: 5px;
-}</style>
+}
+</style>

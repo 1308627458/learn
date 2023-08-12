@@ -43,8 +43,34 @@ const userLogin = (username, password) => {
   return allService.query(_sql)
 }
 
+// 查找
+const userFind = (username) => {
+  let _sql = `select * from users where username="${username}";`
+  return allService.query(_sql)
+}
 
+// 注册
+const userRegister = (values) => {
+  let _sql = `insert into users set username=?,password=?,nickname=?;`
+  return allService.query(_sql, values)
+}
+
+//  查找日对应24小时列表
+const findHour = (day, month, year) => {
+  let _sql = `select * from hour where fromDay="${day}" and fromMonth="${month}" and fromYear="${year}";`
+  return allService.query(_sql)
+}
+
+// 查找周对应7天列表
+const findWeek = (firstDay, lastDay, month, year) => {
+  let _sql = `select * from day where fromDay>="${firstDay}" and fromDay<="${lastDay}" and fromMonth="${month}" and fromYear="${year}";`
+  return allService.query(_sql)
+}
 
 module.exports = {
-  userLogin
+  userLogin,
+  userFind,
+  userRegister,
+  findHour,
+  findWeek
 }
