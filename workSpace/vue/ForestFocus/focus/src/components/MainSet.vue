@@ -151,7 +151,7 @@ const emit = defineEmits(['SettingTime', 'SettingLabel'])
 const myChoice = (res) => {
   treeActiveId.value = res.id
   treeUrl.value = res.url
-  console.log(treeUrl.value);
+  // console.log(treeUrl.value);
   store.commit('updateUrl', res.url)
   store.commit('backupUrl', res.url)
 }

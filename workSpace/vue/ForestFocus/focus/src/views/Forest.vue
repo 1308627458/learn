@@ -24,14 +24,20 @@
       </div>
     </div>
 
-
+    <div class="ForestFoot">
+    </div>
   </div>
 
   <Garden></Garden>
+  <div class="FocusRecord">
+    <h1 class="text">专注时间统计</h1>
+    <p>累计专注时长:<span> 50 </span>分钟</p>
+    <div class="echart-container" ref="echartContainer">
 
-  <div class="echart-container" ref="echartContainer">
-
+    </div>
   </div>
+
+
 </template>
 
 <script setup>
@@ -52,20 +58,24 @@ import { toRaw } from 'vue';
 
 dayjs.locale('zh-cn'); // 设置语言为中文
 dayjs.extend(isoWeek);
-
+const Xdata1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
+const Xdata2 = ['周日', '周一', '周二', '周三', '周四', '周五', '周六',]
+const Xdata3 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+const Xdata4 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 const state = reactive({
   year: '',
   month: '',
   firstDay: '',
   lastDay: '',
   day: '',
-  echartsXdata: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
-  echartsYdata:''
+  echartsXdata: Xdata1,
+  echartsYdata: ''
 })
 
 
 
 const ActiveId = ref(1)
+
 
 const dateArray = [
   { date: '日', id: 1 },
@@ -124,8 +134,63 @@ const Time = computed(() => {
 })
 
 
-const chooseDate = (res) => {
+const chooseDate = async (res) => {
   ActiveId.value = res.id
+
+  if (ActiveId.value == 1) {
+    state.echartsXdata = Xdata1
+    const { data } = await axios.post('/record/dayData', {
+      day: state.day - 1,
+      month: state.month,
+      year: state.year
+    })
+    // console.log(data);
+
+    const arr = data.map((item) => {
+      return item.time
+    })
+
+    console.log(arr)
+    state.echartsYdata = arr
+    console.log([...state.echartsYdata]);
+
+    // console.log(state.echartsYdata.__v_raw);
+    // console.log(toRaw(state.echartsYdata));
+
+  }
+  if(ActiveId.value == 2) {
+    state.echartsXdata = Xdata2
+
+  }
+
+  if (ActiveId.value == 3) {
+    state.echartsXdata = Xdata3
+    const { data } = await axios.post('/record/monthData', {
+      month: state.month,
+      year: state.year
+    })
+    // console.log(data);
+    const arr = data.map((item) => {
+      return item.time
+    })
+
+    console.log(arr)
+  }
+
+  if (ActiveId.value == 4) {
+    state.echartsXdata = Xdata4
+    const { data } = await axios.post('/record/yearData', {
+      year: state.year
+    })
+    // console.log(data);
+    const arr = data.map((item) => {
+      return item.time
+    })
+
+    console.log(arr)
+
+  }
+
 }
 
 
@@ -167,7 +232,7 @@ const beforeTime = () => {
 }
 
 
-const echartContainer = ref(null)
+const echartContainer = ref(null) // 获取dom结构
 
 const initEchart = () => {
   const myChart = echarts.init(echartContainer.value)
@@ -179,9 +244,9 @@ const initEchart = () => {
       }
     },
     grid: {
-      left: '3%',
+      left: '4%',
       right: '4%',
-      bottom: '3%',
+      bottom: '4%',
       containLabel: true
     },
     xAxis: [
@@ -189,13 +254,18 @@ const initEchart = () => {
         type: 'category',
         data: state.echartsXdata,
         axisTick: {
-          alignWithLabel: true
-        }
+          alignWithLabel: true,
+          show: false,
+        },
+       axisLine: {
+        show: false, 
+       }
       }
     ],
     yAxis: [
       {
-        type: 'value'
+        type: 'value',
+        
       }
     ],
     series: [
@@ -204,34 +274,36 @@ const initEchart = () => {
         type: 'bar',
         barWidth: '60%',
         data: state.echartsXdata,
+        itemStyle: {
+          color: '#059f92',
+          barBorderRadius: 3,
+        }
       }
-    ]
+    ],
+    graphic: [
+    {
+      type: 'text',
+      left: 'center',
+      top: '55%',
+      style: {
+        text: '无数据',
+        fill: '#999',
+        fontSize: 16,
+        fontWeight: 'bold'
+      }
+    }
+  ],
   };
 
   option && myChart.setOption(option);
 }
 
 nextTick(async () => {
-  initEchart()
-  const { data } = await axios.post('/record/dayData', {
-    day: state.day,
-    month: state.month,
-    year: state.year
-  })
-  // console.log(data);
 
-  const arr = data.map((item) => {
-    return item.time
+  watch(() => {
+    initEchart()
   })
 
-   console.log(arr)
-
-  state.echartsYdata = arr
-  console.log(state.echartsYdata);
-  // console.log(state.echartsYdata.__v_raw);
-  // console.log(toRaw(state.echartsYdata));
- 
- 
 })
 
 
@@ -242,7 +314,7 @@ nextTick(async () => {
 .ForestWrapper {
 
   color: white;
-
+  
 
   .ForestHeader {
     background: #059f92;
@@ -279,7 +351,7 @@ nextTick(async () => {
 
   .ForestBody {
     background: #175f41;
-    height: 45vh;
+    height: 48vh;
     overflow: hidden;
     color: white;
 
@@ -323,12 +395,47 @@ nextTick(async () => {
       }
     }
   }
+  .ForestFoot{
+    height: 45.3vh;
+    background:#eee;
+  }
 }
 
-.echart-container {
-  width: 100%;
-  height: 30vh;
+.FocusRecord {
+  width: 95%;
+  height: 40vh;
+  background: #fff;
+  border-radius: 5px;
+  position: fixed;
+  top: 48%;
+  left: 2.5%;
+  h1{
+    font-size: 0.4rem;
+    font-weight: 800;
+    margin-left: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .text::after {
+  content: "";
+  position: absolute;
+  left: 3%;
+  top: 17%;
+  width: 94%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1); /* 设置半透明颜色 */
 }
+  p{
+    position: absolute;
+    font-size: 0.35rem;
+    margin-top: 0.7rem;
+    margin-left: 0.4rem;
+  }
+  .echart-container {
+    width: 98%;
+    height: 35vh;
+  }
+}
+
 
 .selected {
   background: white !important;

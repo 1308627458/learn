@@ -63,14 +63,29 @@ const findHour = (day, month, year) => {
 
 // 查找周对应7天列表
 const findWeek = (firstDay, lastDay, month, year) => {
-  let _sql = `select * from day where fromDay>="${firstDay}" and fromDay<="${lastDay}" and fromMonth="${month}" and fromYear="${year}";`
+  let _sql = `select * from day where day>="${firstDay}" and day<="${lastDay}" and fromMonth="${month}" and fromYear="${year}";`
   return allService.query(_sql)
 }
+
+// 查找月对应30天列表
+const findMonth = (month, year) => {
+  let _sql = `select * from day where fromMonth="${month}" and fromYear="${year}";`
+  return allService.query(_sql)
+}
+
+// 查找年对应12月列表
+const findYear = (year) => {
+  let _sql = `select * from month where fromYear="${year}"`
+  return allService.query(_sql)
+}
+
 
 module.exports = {
   userLogin,
   userFind,
   userRegister,
   findHour,
-  findWeek
+  findWeek,
+  findMonth,
+  findYear
 }
