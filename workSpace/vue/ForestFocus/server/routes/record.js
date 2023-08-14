@@ -20,7 +20,13 @@ try {
       data: result,
       msg: '查找成功'
     }
-  } 
+  } else {
+    ctx.body = {
+      code: '80000',
+      data: [],
+      msg: '无数据'
+    }
+  }
 } catch (error) {
   ctx.body = {
     code: '80002',
@@ -47,7 +53,13 @@ try {
       data: result,
       msg: '查找成功'
     }
-  } 
+  } else {
+    ctx.body = {
+      code: '80000',
+      data: [],
+      msg: '无数据'
+    }
+  }
 } catch (error) {
   ctx.body = {
     code: '80002',
@@ -74,7 +86,13 @@ try {
       data: result,
       msg: '查找成功'
     }
-  } 
+  } else {
+    ctx.body = {
+      code: '80000',
+      data: [],
+      msg: '无数据'
+    }
+  }
 } catch (error) {
   ctx.body = {
     code: '80002',
@@ -101,7 +119,13 @@ try {
       data: result,
       msg: '查找成功'
     }
-  } 
+  } else {
+    ctx.body = {
+      code: '80000',
+      data: [],
+      msg: '无数据'
+    }
+  }
 } catch (error) {
   ctx.body = {
     code: '80002',

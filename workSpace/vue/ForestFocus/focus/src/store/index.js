@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-
+import dayjs from 'dayjs';
 
 const store = createStore({
   state() {

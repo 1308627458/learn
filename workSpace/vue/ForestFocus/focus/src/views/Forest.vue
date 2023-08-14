@@ -20,7 +20,7 @@
       <div class="Date">
         <span class="iconfont icon-zuojiantou" @click="beforeTime"></span>
         <span class="date">{{ Time }}</span>
-        <span class="iconfont icon-youjiantou" @click="afterTime"></span>
+        <span v-show="flag" class="iconfont icon-youjiantou" @click="afterTime"></span>
       </div>
     </div>
 
@@ -31,13 +31,11 @@
   <Garden></Garden>
   <div class="FocusRecord">
     <h1 class="text">专注时间统计</h1>
-    <p>累计专注时长:<span> 50 </span>分钟</p>
+    <p>累计专注时长:<span> {{ state.totalTime }} </span>分钟</p>
     <div class="echart-container" ref="echartContainer">
 
     </div>
   </div>
-
-
 </template>
 
 <script setup>
@@ -62,6 +60,7 @@ const Xdata1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '1
 const Xdata2 = ['周日', '周一', '周二', '周三', '周四', '周五', '周六',]
 const Xdata3 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
 const Xdata4 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+
 const state = reactive({
   year: '',
   month: '',
@@ -69,7 +68,12 @@ const state = reactive({
   lastDay: '',
   day: '',
   echartsXdata: Xdata1,
-  echartsYdata: ''
+  echartsYdata: '',
+  echartsText: '',
+  totalTime: '',
+  min: null,
+  max: null,
+  flag:'',
 })
 
 
@@ -123,7 +127,11 @@ const Time = computed(() => {
     return `${state.year}年${state.month}月${state.day}日`
   }
   if (ActiveId.value == 2) {
-    return `${state.year}年${state.month}月${state.firstDay}日至${state.lastDay}日`
+    let arg
+    state.firstDay < state.lastDay ? arg = `${state.year}年${state.month}月${state.firstDay}日至${state.lastDay}日` : arg = `${state.year}年${state.month}月${state.firstDay}日至${state.month + 1}月${state.lastDay}日`
+    console.log(state.firstDay, state.lastDay);
+    return arg
+
   }
   if (ActiveId.value == 3) {
     return `${state.year}年${state.month}月`
@@ -137,30 +145,60 @@ const Time = computed(() => {
 const chooseDate = async (res) => {
   ActiveId.value = res.id
 
+  dataAxios()
+
+}
+
+// 更具日期请求数据
+const dataAxios = async () => {
   if (ActiveId.value == 1) {
     state.echartsXdata = Xdata1
     const { data } = await axios.post('/record/dayData', {
-      day: state.day - 1,
+      day: state.day,
       month: state.month,
       year: state.year
     })
-    // console.log(data);
 
-    const arr = data.map((item) => {
+    if (data.length == 0) {
+      // 设置图表正中心文字内容
+      state.echartsText = '无数据'
+      state.min = 0
+      state.max = 25
+    } else {
+      state.echartsText = ''
+      state.min = null
+      state.max = null
+      // 得到echarts图表的Y轴数据
+    }
+
+    state.echartsYdata = data.map((item) => {
       return item.time
     })
+    // 计算累计时长 
+    state.totalTime = [...state.echartsYdata].reduce((acc, cur) => {
+      return +acc + parseInt(cur)
+    }, 0)
 
-    console.log(arr)
-    state.echartsYdata = arr
-    console.log([...state.echartsYdata]);
-
-    // console.log(state.echartsYdata.__v_raw);
-    // console.log(toRaw(state.echartsYdata));
+    // console.log(state.totalTime);
 
   }
-  if(ActiveId.value == 2) {
+
+  if (ActiveId.value == 2) {
     state.echartsXdata = Xdata2
 
+    if (data.length == 0) {
+      state.echartsText = '无数据'
+      state.min = 0
+      state.max = 25
+    } else {
+      state.echartsText = ''
+      state.min = null
+      state.max = null
+
+    }
+    state.totalTime = [...state.echartsYdata].reduce((acc, cur) => {
+      return +acc + parseInt(cur)
+    }, 0)
   }
 
   if (ActiveId.value == 3) {
@@ -169,12 +207,24 @@ const chooseDate = async (res) => {
       month: state.month,
       year: state.year
     })
-    // console.log(data);
-    const arr = data.map((item) => {
+
+    if (data.length == 0) {
+      state.echartsText = '无数据'
+      state.min = 0
+      state.max = 25
+    } else {
+      state.echartsText = ''
+      state.min = null
+      state.max = null
+
+    }
+    state.echartsYdata = data.map((item) => {
       return item.time
     })
+    state.totalTime = [...state.echartsYdata].reduce((acc, cur) => {
+      return +acc + parseInt(cur)
+    }, 0)
 
-    console.log(arr)
   }
 
   if (ActiveId.value == 4) {
@@ -182,18 +232,29 @@ const chooseDate = async (res) => {
     const { data } = await axios.post('/record/yearData', {
       year: state.year
     })
-    // console.log(data);
-    const arr = data.map((item) => {
+
+    if (data.length == 0) {
+      state.echartsText = '无数据'
+      state.min = 0
+      state.max = 25
+    } else {
+      state.echartsText = ''
+      state.min = null
+      state.max = null
+
+    }
+    state.echartsYdata = data.map((item) => {
       return item.time
     })
+    state.totalTime = [...state.echartsYdata].reduce((acc, cur) => {
+      return +acc + parseInt(cur)
+    }, 0)
 
-    console.log(arr)
+    // console.log([...state.echartsYdata])
 
   }
-
 }
-
-
+// 左箭头
 const beforeTime = () => {
   // 当选择的是 日 时，当天数小于1，月份减1，将日期变更为新月份的最后一天从新
   if (ActiveId.value == 1) {
@@ -229,10 +290,50 @@ const beforeTime = () => {
     state.year = state.year - 1
   }
 
+  dataAxios()
+
 }
 
+// 右箭头
+const afterTime = () => {
+  if (ActiveId.value == 1) {
+    state.day = state.day + 1
+    if (state.day > new Date(state.year, state.month, 0).getDate()) {
+      state.month = state.month + 1
+      state.day = 1
+    }
+    // console.log(state.day);
+  }
+  if (ActiveId.value == 2) {
+    state.firstDay = state.firstDay + 7
+    state.lastDay = state.lastDay + 7
+    if (state.firstDay < new Date(state.year, state.month, 0).getDate() && state.lastDay > new Date(state.year, state.month, 0).getDate()) {
+      state.lastDay = state.lastDay - new Date(state.year, state.month, 0).getDate()
+    }
+    if (state.firstDay > new Date(state.year, state.month, 0).getDate()) {
+      console.log(state.firstDay);
+      state.firstDay = state.firstDay - new Date(state.year, state.month, 0).getDate()
+      console.log(state.firstDay, new Date(state.year, state.month, 0).getDate());
+      state.month = state.month + 1
+    }
+  }
+  if (ActiveId.value == 3) {
+    state.month = state.month + 1
+    if (state.month > 12) {
+      state.year = state.year + 1
+      state.month = 1
+    }
+  }
+  if (ActiveId.value == 4) {
+    state.year = state.year + 1
+  }
+
+  dataAxios()
+
+}
 
 const echartContainer = ref(null) // 获取dom结构
+
 
 const initEchart = () => {
   const myChart = echarts.init(echartContainer.value)
@@ -257,15 +358,16 @@ const initEchart = () => {
           alignWithLabel: true,
           show: false,
         },
-       axisLine: {
-        show: false, 
-       }
+        axisLine: {
+          show: false,
+        }
       }
     ],
     yAxis: [
       {
         type: 'value',
-        
+        min: state.min,
+        max: state.max,
       }
     ],
     series: [
@@ -273,30 +375,31 @@ const initEchart = () => {
         name: '时长',
         type: 'bar',
         barWidth: '60%',
-        data: state.echartsXdata,
+        data: toRaw(state.echartsYdata),
         itemStyle: {
           color: '#059f92',
-          barBorderRadius: 3,
+          barBorderRadius: 1.5,
         }
       }
     ],
     graphic: [
-    {
-      type: 'text',
-      left: 'center',
-      top: '55%',
-      style: {
-        text: '无数据',
-        fill: '#999',
-        fontSize: 16,
-        fontWeight: 'bold'
+      {
+        type: 'text',
+        left: 'center',
+        top: '55%',
+        style: {
+          text: state.echartsText,
+          fill: '#999',
+          fontSize: 16,
+          fontWeight: 'bold'
+        }
       }
-    }
-  ],
+    ],
   };
 
   option && myChart.setOption(option);
 }
+
 
 nextTick(async () => {
 
@@ -304,7 +407,10 @@ nextTick(async () => {
     initEchart()
   })
 
+  dataAxios()
 })
+
+
 
 
 
@@ -314,10 +420,10 @@ nextTick(async () => {
 .ForestWrapper {
 
   color: white;
-  
+
 
   .ForestHeader {
-    background: #059f92;
+    background: #0f8077;
     height: 1.2rem;
     display: flex;
     justify-content: space-between;
@@ -376,28 +482,33 @@ nextTick(async () => {
     .Date {
       margin-top: 0.5rem;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      
 
       .icon-zuojiantou {
+        position: fixed;
         font-size: 0.6rem;
-        margin-left: 0.15rem;
+        left: 2%;
       }
 
       .icon-youjiantou {
+        position: fixed;
         font-size: 0.6rem;
         font-weight: 600;
-        margin-right: 0.15rem;
+        right: 2%;
       }
 
       .date {
-        font-size: 0.38rem
+        font-size: 0.38rem;
+        margin: 0 auto;
       }
     }
   }
-  .ForestFoot{
+
+  .ForestFoot {
     height: 45.3vh;
-    background:#eee;
+    background: #eee;
   }
 }
 
@@ -409,27 +520,38 @@ nextTick(async () => {
   position: fixed;
   top: 48%;
   left: 2.5%;
-  h1{
+
+  h1 {
     font-size: 0.4rem;
     font-weight: 800;
     margin-left: 0.4rem;
     margin-top: 0.5rem;
   }
+
   .text::after {
-  content: "";
-  position: absolute;
-  left: 3%;
-  top: 17%;
-  width: 94%;
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1); /* 设置半透明颜色 */
-}
-  p{
+    content: "";
+    position: absolute;
+    left: 3%;
+    top: 17%;
+    width: 94%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    /* 设置半透明颜色 */
+  }
+
+  span {
+    color: #059f92;
+    font-weight: bold;
+    margin: 0 0.15rem 0 0.2rem;
+  }
+
+  p {
     position: absolute;
     font-size: 0.35rem;
     margin-top: 0.7rem;
     margin-left: 0.4rem;
   }
+
   .echart-container {
     width: 98%;
     height: 35vh;
