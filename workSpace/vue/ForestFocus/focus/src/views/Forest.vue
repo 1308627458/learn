@@ -20,7 +20,7 @@
       <div class="Date">
         <span class="iconfont icon-zuojiantou" @click="beforeTime"></span>
         <span class="date">{{ Time }}</span>
-        <span v-show="flag" class="iconfont icon-youjiantou" @click="afterTime"></span>
+        <span class="iconfont icon-youjiantou" @click="afterTime"></span>
       </div>
     </div>
 
@@ -52,6 +52,9 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import { watch } from 'vue';
 import axios from '../api'
 import { toRaw } from 'vue';
+import { onMounted } from 'vue';
+// import { formamteWeek } from '../utils'
+
 
 
 dayjs.locale('zh-cn'); // 设置语言为中文
@@ -73,7 +76,7 @@ const state = reactive({
   totalTime: '',
   min: null,
   max: null,
-  flag:'',
+  weekNumber: '',
 })
 
 
@@ -101,26 +104,37 @@ state.year = currentDate.year();
 state.month = currentDate.month() + 1;
 state.day = currentDate.date();
 
-// 给week传递参数，动态获得日期当周的首天和最后一天
+
 const weekArgument = computed(() => {
-  return `${state.year}-${state.month}-${state.day}`
+  return `${state.year}-${state.month}-${state.day + 1}`
 })
 
-
-// const weekNumber = currentDate.isoWeek(); // 第几周
-// const firstDayOfWeek = currentDate.startOf('isoWeek');
-// const lastDayOfWeek = currentDate.endOf('isoWeek');
+state.weekNumber = dayjs(weekArgument.value).isoWeek(); // 第几周
+console.log(state.weekNumber);
 
 watch(() => {
-  const weekNumber = dayjs(weekArgument.value).isoWeek(); // 第几周
-  const firstDayOfWeek = dayjs(weekArgument.value).startOf('isoWeek');
-  const lastDayOfWeek = dayjs(weekArgument.value).endOf('isoWeek');
 
-  state.firstDay = firstDayOfWeek.format('DD') - 1
-  state.lastDay = lastDayOfWeek.format('DD') - 1
+// 一个可以根据数据源改变而改变的参数
+
+
+const firstDayOfWeek = dayjs().isoWeek(state.weekNumber).startOf('isoWeek');
+const lastDayOfWeek = dayjs().isoWeek(state.weekNumber).endOf('isoWeek');
+
+
+state.firstDay = Number(firstDayOfWeek.format('DD')) - 1
+// state.month = firstDayOfWeek.format('MM')
+
+state.lastDay = Number(lastDayOfWeek.format('DD')) - 1
+
+state.lastDay == 0 ? state.lastDay = 30 : state.lastDay 
+console.log(state.lastDay);
+// Number(firstDayOfWeek.format('MM'))
+console.log(state.firstDay, state.lastDay);
+
 })
 
-// console.log(state.firstDay, state.lastDay);
+
+
 
 const Time = computed(() => {
   if (ActiveId.value == 1) {
@@ -129,7 +143,7 @@ const Time = computed(() => {
   if (ActiveId.value == 2) {
     let arg
     state.firstDay < state.lastDay ? arg = `${state.year}年${state.month}月${state.firstDay}日至${state.lastDay}日` : arg = `${state.year}年${state.month}月${state.firstDay}日至${state.month + 1}月${state.lastDay}日`
-    console.log(state.firstDay, state.lastDay);
+    // console.log(state.firstDay, state.lastDay);
     return arg
 
   }
@@ -140,7 +154,6 @@ const Time = computed(() => {
     return `${state.year}年`
   }
 })
-
 
 const chooseDate = async (res) => {
   ActiveId.value = res.id
@@ -185,6 +198,12 @@ const dataAxios = async () => {
 
   if (ActiveId.value == 2) {
     state.echartsXdata = Xdata2
+    const { data } = await axios.post('/record/weekData', {
+      firstDay: state.firstDay,
+      lastDay: state.lastDay,
+      month: state.month,
+      year: state.year
+    })
 
     if (data.length == 0) {
       state.echartsText = '无数据'
@@ -194,8 +213,12 @@ const dataAxios = async () => {
       state.echartsText = ''
       state.min = null
       state.max = null
-
     }
+
+    state.echartsYdata = data.map((item) => {
+      return item.time
+    })
+    // console.log([...state.echartsYdata]);
     state.totalTime = [...state.echartsYdata].reduce((acc, cur) => {
       return +acc + parseInt(cur)
     }, 0)
@@ -266,17 +289,18 @@ const beforeTime = () => {
     // console.log(state.day);
   }
   if (ActiveId.value == 2) {
+    state.weekNumber = state.weekNumber - 1
     // 当选择的是 周 时，本周首天和最后一天减7，首天当天数小于1，月份-1，并计算下月天数，最后一天小于1，计算下月天数
-    state.firstDay = state.firstDay - 7
-    state.lastDay = state.lastDay - 7
-    if (state.firstDay < 1) {
-      state.month = state.month - 1
-      // console.log(state.firstDay);
-      state.firstDay = new Date(state.year, state.month, 0).getDate() + state.firstDay
-    }
-    if (state.lastDay < 1) {
-      state.lastDay = new Date(state.year, state.month, 0).getDate() + state.lastDay
-    }
+  //   state.firstDay = state.firstDay - 7
+  //   state.lastDay = state.lastDay - 7
+  //   if (state.firstDay < 1) {
+  //     state.month = state.month - 1
+  //     // console.log(state.firstDay);
+  //     state.firstDay = new Date(state.year, state.month, 0).getDate() + state.firstDay
+  //   }
+  //   if (state.lastDay < 1) {
+  //     state.lastDay = new Date(state.year, state.month, 0).getDate() + state.lastDay
+  //   }
   }
 
   if (ActiveId.value == 3) {
@@ -296,6 +320,7 @@ const beforeTime = () => {
 
 // 右箭头
 const afterTime = () => {
+
   if (ActiveId.value == 1) {
     state.day = state.day + 1
     if (state.day > new Date(state.year, state.month, 0).getDate()) {
@@ -305,17 +330,28 @@ const afterTime = () => {
     // console.log(state.day);
   }
   if (ActiveId.value == 2) {
-    state.firstDay = state.firstDay + 7
-    state.lastDay = state.lastDay + 7
-    if (state.firstDay < new Date(state.year, state.month, 0).getDate() && state.lastDay > new Date(state.year, state.month, 0).getDate()) {
-      state.lastDay = state.lastDay - new Date(state.year, state.month, 0).getDate()
+
+    state.weekNumber = state.weekNumber + 1
+    
+    if(state.firstDay > state.lastDay) {
+      state.month  = state.month + 1
     }
-    if (state.firstDay > new Date(state.year, state.month, 0).getDate()) {
-      console.log(state.firstDay);
-      state.firstDay = state.firstDay - new Date(state.year, state.month, 0).getDate()
-      console.log(state.firstDay, new Date(state.year, state.month, 0).getDate());
-      state.month = state.month + 1
-    }
+    state.lastDay == 0 ? state.lastDay = 30 : state.lastDay 
+    
+    console.log(state.weekNumber);
+    // console.log(state.firstDay, state.lastDay)
+
+    // state.firstDay = state.firstDay + 7
+    // state.lastDay = state.firstDay + 14
+    // if (state.firstDay < new Date(state.year, state.month, 0).getDate() && state.lastDay > new Date(state.year, state.month, 0).getDate()) {
+    //   state.lastDay = state.lastDay - new Date(state.year, state.month, 0).getDate()
+    // }
+    // if (state.firstDay > new Date(state.year, state.month, 0).getDate()) {
+    //   console.log(state.firstDay);
+    //   state.firstDay = state.firstDay - new Date(state.year, state.month, 0).getDate()
+    //   console.log(state.firstDay, new Date(state.year, state.month, 0).getDate());
+    //   state.month = state.month + 1
+    // }
   }
   if (ActiveId.value == 3) {
     state.month = state.month + 1
@@ -331,6 +367,7 @@ const afterTime = () => {
   dataAxios()
 
 }
+
 
 const echartContainer = ref(null) // 获取dom结构
 
@@ -484,7 +521,7 @@ nextTick(async () => {
       display: flex;
       justify-content: center;
       align-items: center;
-      
+
 
       .icon-zuojiantou {
         position: fixed;

@@ -43,10 +43,10 @@ router.post('/weekData', async(ctx, next) => {
   console.log(ctx.request.body);
   const { firstDay, lastDay, month, year} = ctx.request.body
   // 去hour库中找日期对应的数据
-
+  console.log(firstDay, lastDay, month, year);
 try {
   const result = await userService.findWeek(firstDay, lastDay, month, year)
-  // console.log(result);
+  console.log(result);
   if(result.length) {
     ctx.body = {
       code: '80000',
