@@ -136,6 +136,154 @@ try {
 
 })
 
+// 上传hour记录接口
+router.post('/hourRecord', async(ctx, next) => {
+  console.log(ctx.request.body);
+  const {time, hour, fromDay, fromMonth, fromYear} = ctx.request.body
 
+  try {
+    const findHourRes = await userService.hourFind(hour,fromDay, fromMonth, fromYear)
+    if(findHourRes.length) {
+      await userService.updateHourRecord(time,hour, fromDay, fromMonth, fromYear)
+      .then(res => {
+        if (res.affectedRows !== 0) {
+          ctx.body = {
+            code: '80000',
+            data: 'ok',
+            msg: '更新成功'
+          }
+        } else {
+          ctx.body = {
+            code: '80004',
+            data: 'error',
+            msg: '更新失败'
+          }
+        }
+      })
+      .catch(err => {
+        ctx.body = {
+          code: '80002',
+          data: err,
+          msg: '服务器异常'
+        }
+      })
+    } else{
+
+     await userService.hourRecord([time, hour, fromDay, fromMonth, fromYear])
+     
+     .then(res => {
+       if (res.affectedRows !== 0) {
+         ctx.body = {
+           code: '80000',
+           data: 'ok',
+           msg: '上传成功'
+         }
+       } else {
+         ctx.body = {
+           code: '80004',
+           data: 'error',
+           msg: '上传失败'
+         }
+       }
+     })
+     .catch(err => {
+       ctx.body = {
+         code: '80002',
+         data: err,
+         msg: '服务器异常'
+       }
+     })
+   }
+}
+   catch (error) {
+    ctx.body = {
+      code: '80002',
+      data: error,
+      msg: '服务器异常'
+    }
+  }
+})
+
+
+
+router.post('/dayRecord', async(ctx, next) => {
+  console.log(ctx.request.body);
+  const {time, day, fromMonth, fromYear} = ctx.request.body
+
+  try {
+     await userService.dayRecord([time, day, fromMonth, fromYear])
+     
+     .then(res => {
+       if (res.affectedRows !== 0) {
+         ctx.body = {
+           code: '80000',
+           data: 'ok',
+           msg: '上传成功'
+         }
+       } else {
+         ctx.body = {
+           code: '80004',
+           data: 'error',
+           msg: '上传失败'
+         }
+       }
+     })
+     .catch(err => {
+       ctx.body = {
+         code: '80002',
+         data: err,
+         msg: '服务器异常'
+       }
+     })
+   }
+
+   catch (error) {
+    ctx.body = {
+      code: '80002',
+      data: error,
+      msg: '服务器异常'
+    }
+  }
+})
+
+router.post('/monthRecord', async(ctx, next) => {
+  console.log(ctx.request.body);
+  const {time, month,  fromYear} = ctx.request.body
+
+  try {
+     await userService.monthRecord([time, month, fromYear])
+     
+     .then(res => {
+       if (res.affectedRows !== 0) {
+         ctx.body = {
+           code: '80000',
+           data: 'ok',
+           msg: '上传成功'
+         }
+       } else {
+         ctx.body = {
+           code: '80004',
+           data: 'error',
+           msg: '上传失败'
+         }
+       }
+     })
+     .catch(err => {
+       ctx.body = {
+         code: '80002',
+         data: err,
+         msg: '服务器异常'
+       }
+     })
+   }
+
+   catch (error) {
+    ctx.body = {
+      code: '80002',
+      data: error,
+      msg: '服务器异常'
+    }
+  }
+})
 
 module.exports = router

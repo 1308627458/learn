@@ -32,8 +32,8 @@
     </div>
 
     <!-- 倒计时 -->
-    <div v-show="showCountDown" class="time" @click.stop="ChangeSettings">
-      <van-count-down :time="time" format="mm:ss" ref="countDown" :auto-start="false" />
+    <div v-show="showCountDown" class="time" @click.stop="ChangeSettings" >
+      <van-count-down :time="time" format="mm:ss" ref="countDown" :auto-start="false" @finish="onFinish" @change="onChange" />
     </div>
 
     <!-- 开始按钮 -->
@@ -45,8 +45,9 @@
 
   <van-dialog v-model:show="show" @confirm="confirmAbandon" title="你确定要放弃吗?" message="你的森林中会出现1颗枯萎的树" show-cancel-button
     confirmButtonText="放弃" width="280px" theme="round-button" cancel-button-color="#999">
-
   </van-dialog>
+
+
 
   <!-- 中间弹出框 -->
   <Middle_PopUp v-show="showPop" :class="Animate1"></Middle_PopUp>
@@ -64,11 +65,25 @@ import MainSet from '../components/MainSet.vue';
 import CircleProgress from '../components/CircleProgress.vue';
 import Trees from '../components/Trees.vue';
 import { useStore } from 'vuex';
+import dayjs from 'dayjs';
+import axios from '../api'
 const store = useStore()
 const state = reactive({
   label: '学习',
-  labelColor: ''
+  labelColor: '',
+  studyTime: '',
+  year: '',
+  month: '',
+  day: '',
+  hour: ''
 })
+
+const currentDate = dayjs();
+state.year = currentDate.year();
+// 获取当前月份（注意月份从0开始，所以要加1）
+state.month = currentDate.month() + 1;
+state.day = currentDate.date();
+state.hour = currentDate.format('HH')
 const { show, showPop, isfogged, showMain, showLeft, Animate1, Animate2, Animate3, flag, isGone, className, showLeftIcon, showBack, showCountDown, showStartBtn, rightIconStyle, isMasked } = useHome()
 // const show = ref(false)
 // const showPop = ref(false)
@@ -89,9 +104,8 @@ const { show, showPop, isfogged, showMain, showLeft, Animate1, Animate2, Animate
 
 const time = ref(60 * 10 * 1000);
 
-const storetime = computed(() => store.state.storetime)
+console.log(time.value);
 // console.log(storetime);
-
 
 // 通过滑动选择时间
 const SetTime = (res) => {
@@ -134,6 +148,7 @@ const start = () => {
   showLeftIcon.value = false
   rightIconStyle.value = 'iconfont icon-18erji-3'
 };
+
 // 放弃按钮
 const abandon = () => {
   // flag.value = true
@@ -153,6 +168,7 @@ const confirmAbandon = () => {
   showCountDown.value = false
   showStartBtn.value = false
   rightIconStyle.value = 'iconfont icon-yezi'
+
 
 }
 // 返回
@@ -203,7 +219,33 @@ const playMusic = () => {
   rightIconStyle.value == 'iconfont icon-18erji-1' ? rightIconStyle.value = 'iconfont icon-18erji-3' : rightIconStyle.value = 'iconfont icon-18erji-1'
 
 }
+// 倒计时结束事件
+const onFinish = () => {
+  
+}
 
+const onChange = (res) => {
+  state.studyTime =(time.value / 60000) - Math.floor(res.total / 60000) - 1 
+  console.log(state.studyTime );
+}
+
+const uploadAxios = async() => {
+ 
+const { data } = await axios.post('/record/hourRecord', {
+      time: state.studyTime,
+      hour: state.hour,
+      fromDay: state.day,
+      fromMonth: state.month,
+      fromYear: state.year
+    })
+    console.log(data);
+
+  
+} 
+
+
+
+console.log(state.day, state.month, state.year,state.hour);
 </script>
 
 <style lang="less" >

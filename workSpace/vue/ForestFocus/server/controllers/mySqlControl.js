@@ -80,6 +80,38 @@ const findYear = (year) => {
 
 }
 
+// 查表中是否有当前时刻的记录
+const hourFind = (hour,fromDay, fromMonth, fromYear) => {
+let _sql = `select * from hour where hour="${hour}" and fromDay="${fromDay}" and fromMonth="${fromMonth}" and fromYear="${fromYear}";`
+return allService.query(_sql)
+}
+// 插入hour表记录
+const hourRecord = (values) => {
+  let hour_sql = `insert into hour set time=?,hour=?,fromDay=?,fromMonth=?,fromYear=?;`
+  return allService.query(hour_sql, values)
+}
+// 如果有该时刻的更新hour数据
+const updateHourRecord = (time,hour,fromDay, fromMonth, fromYear) => {
+  let _sql = `update hour set time= time + ? where hour = ? and  fromDay = ? and fromMonth = ? and fromYear = ?;`
+  return allService.query(_sql, [time, hour,fromDay, fromMonth, fromYear])
+}
+
+const dayFind = (day, fromMonth, fromYear) => {
+  let _sql = `select * from day where day="${day}"  and fromMonth="${fromMonth}" and fromYear="${fromYear}";`
+  return allService.query(_sql)
+  }
+// 插入day表记录
+const dayRecord = (values) => {
+  let day_sql = `insert into day set time=?,day=?,fromMonth=?,fromYear=?;`
+  return allService.query(day_sql, values)
+}
+// 插入month表记录
+const monthRecord = (values) => {
+  let month_sql = `insert into month set time=?,month=?,fromYear=?;`
+  return allService.query(month_sql, values)
+}
+
+
 
 module.exports = {
   userLogin,
@@ -88,5 +120,12 @@ module.exports = {
   findHour,
   findWeek,
   findMonth,
-  findYear
+  findYear,
+  hourFind,
+  hourRecord,
+  updateHourRecord,
+  dayRecord,
+  monthRecord,
+  
+
 }

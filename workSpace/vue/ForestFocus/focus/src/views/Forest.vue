@@ -97,71 +97,6 @@ const backToHome = () => {
   router.push('/Home')
 }
 
-
-const currentDate = dayjs();
-state.year = currentDate.year();
-// 获取当前月份（注意月份从0开始，所以要加1）
-state.month = currentDate.month() + 1;
-state.day = currentDate.date();
-
-
-const weekArgument = computed(() => {
-  return `${state.year}-${state.month}-${state.day + 1}`
-})
-
-state.weekNumber = dayjs(weekArgument.value).isoWeek(); // 第几周
-console.log(state.weekNumber);
-
-watch(() => {
-
-// 一个可以根据数据源改变而改变的参数
-
-
-const firstDayOfWeek = dayjs().isoWeek(state.weekNumber).startOf('isoWeek');
-const lastDayOfWeek = dayjs().isoWeek(state.weekNumber).endOf('isoWeek');
-
-
-state.firstDay = Number(firstDayOfWeek.format('DD')) - 1
-// state.month = firstDayOfWeek.format('MM')
-
-state.lastDay = Number(lastDayOfWeek.format('DD')) - 1
-
-state.lastDay == 0 ? state.lastDay = 30 : state.lastDay 
-console.log(state.lastDay);
-// Number(firstDayOfWeek.format('MM'))
-console.log(state.firstDay, state.lastDay);
-
-})
-
-
-
-
-const Time = computed(() => {
-  if (ActiveId.value == 1) {
-    return `${state.year}年${state.month}月${state.day}日`
-  }
-  if (ActiveId.value == 2) {
-    let arg
-    state.firstDay < state.lastDay ? arg = `${state.year}年${state.month}月${state.firstDay}日至${state.lastDay}日` : arg = `${state.year}年${state.month}月${state.firstDay}日至${state.month + 1}月${state.lastDay}日`
-    // console.log(state.firstDay, state.lastDay);
-    return arg
-
-  }
-  if (ActiveId.value == 3) {
-    return `${state.year}年${state.month}月`
-  }
-  if (ActiveId.value == 4) {
-    return `${state.year}年`
-  }
-})
-
-const chooseDate = async (res) => {
-  ActiveId.value = res.id
-
-  dataAxios()
-
-}
-
 // 更具日期请求数据
 const dataAxios = async () => {
   if (ActiveId.value == 1) {
@@ -218,7 +153,8 @@ const dataAxios = async () => {
     state.echartsYdata = data.map((item) => {
       return item.time
     })
-    // console.log([...state.echartsYdata]);
+
+    // console.log(data);
     state.totalTime = [...state.echartsYdata].reduce((acc, cur) => {
       return +acc + parseInt(cur)
     }, 0)
@@ -277,6 +213,79 @@ const dataAxios = async () => {
 
   }
 }
+
+
+
+const currentDate = dayjs();
+state.year = currentDate.year();
+// 获取当前月份（注意月份从0开始，所以要加1）
+state.month = currentDate.month() + 1;
+state.day = currentDate.date();
+
+
+const weekArgument = computed(() => {
+  return `${state.year}-${state.month}-${state.day + 1}`
+})
+
+
+state.weekNumber = dayjs(weekArgument.value).isoWeek(); // 第几周
+
+
+watch(() => {
+
+
+// 一个可以根据数据源改变而改变的参数
+const firstDayOfWeek = dayjs().isoWeek(state.weekNumber).startOf('isoWeek');
+const lastDayOfWeek = dayjs().isoWeek(state.weekNumber).endOf('isoWeek');
+
+state.firstDay = Number(firstDayOfWeek.format('DD')) - 1
+if(ActiveId.value == 2) {
+  state.month = Number(firstDayOfWeek.format('MM'))
+}
+
+state.lastDay = Number(lastDayOfWeek.format('DD')) - 1
+
+state.lastDay == 0 ? state.lastDay = 30 : state.lastDay 
+state.firstDay == 0 ? state.firstDay = 30 : state.firstDay
+
+
+dataAxios()
+// console.log(state.month);
+// Number(firstDayOfWeek.format('MM'))
+// console.log(state.firstDay, state.lastDay);
+
+})
+
+
+
+
+const Time = computed(() => {
+  if (ActiveId.value == 1) {
+    return `${state.year}年${state.month}月${state.day}日`
+  }
+  if (ActiveId.value == 2) {
+    let arg
+    state.firstDay < state.lastDay ? arg = `${state.year}年${state.month}月${state.firstDay}日至${state.lastDay}日` : arg = `${state.year}年${state.month}月${state.firstDay}日至${state.month + 1}月${state.lastDay}日`
+    // console.log(state.firstDay, state.lastDay);
+    return arg
+
+  }
+  if (ActiveId.value == 3) {
+    return `${state.year}年${state.month}月`
+  }
+  if (ActiveId.value == 4) {
+    return `${state.year}年`
+  }
+})
+
+
+const chooseDate = async (res) => {
+  ActiveId.value = res.id
+
+  // dataAxios()
+
+}
+
 // 左箭头
 const beforeTime = () => {
   // 当选择的是 日 时，当天数小于1，月份减1，将日期变更为新月份的最后一天从新
@@ -290,17 +299,7 @@ const beforeTime = () => {
   }
   if (ActiveId.value == 2) {
     state.weekNumber = state.weekNumber - 1
-    // 当选择的是 周 时，本周首天和最后一天减7，首天当天数小于1，月份-1，并计算下月天数，最后一天小于1，计算下月天数
-  //   state.firstDay = state.firstDay - 7
-  //   state.lastDay = state.lastDay - 7
-  //   if (state.firstDay < 1) {
-  //     state.month = state.month - 1
-  //     // console.log(state.firstDay);
-  //     state.firstDay = new Date(state.year, state.month, 0).getDate() + state.firstDay
-  //   }
-  //   if (state.lastDay < 1) {
-  //     state.lastDay = new Date(state.year, state.month, 0).getDate() + state.lastDay
-  //   }
+
   }
 
   if (ActiveId.value == 3) {
@@ -314,9 +313,10 @@ const beforeTime = () => {
     state.year = state.year - 1
   }
 
-  dataAxios()
+ 
 
 }
+
 
 // 右箭头
 const afterTime = () => {
@@ -336,35 +336,24 @@ const afterTime = () => {
     if(state.firstDay > state.lastDay) {
       state.month  = state.month + 1
     }
-    state.lastDay == 0 ? state.lastDay = 30 : state.lastDay 
     
-    console.log(state.weekNumber);
-    // console.log(state.firstDay, state.lastDay)
-
-    // state.firstDay = state.firstDay + 7
-    // state.lastDay = state.firstDay + 14
-    // if (state.firstDay < new Date(state.year, state.month, 0).getDate() && state.lastDay > new Date(state.year, state.month, 0).getDate()) {
-    //   state.lastDay = state.lastDay - new Date(state.year, state.month, 0).getDate()
-    // }
-    // if (state.firstDay > new Date(state.year, state.month, 0).getDate()) {
-    //   console.log(state.firstDay);
-    //   state.firstDay = state.firstDay - new Date(state.year, state.month, 0).getDate()
-    //   console.log(state.firstDay, new Date(state.year, state.month, 0).getDate());
-    //   state.month = state.month + 1
-    // }
+   
   }
+
   if (ActiveId.value == 3) {
+    
     state.month = state.month + 1
     if (state.month > 12) {
       state.year = state.year + 1
       state.month = 1
     }
+    console.log(state.month);
   }
   if (ActiveId.value == 4) {
     state.year = state.year + 1
   }
 
-  dataAxios()
+  
 
 }
 
@@ -437,14 +426,13 @@ const initEchart = () => {
   option && myChart.setOption(option);
 }
 
-
 nextTick(async () => {
 
   watch(() => {
     initEchart()
   })
 
-  dataAxios()
+  // dataAxios()
 })
 
 
