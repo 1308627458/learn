@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" @click="ClickOtherPlace" :class="{ fog: isfogged, mask : isMasked }">
+  <div class="wrapper" @click="ClickOtherPlace" :class="{ fog: isfogged, mask: isMasked }">
     <!-- 头部 -->
     <div class="header">
       <!-- 左侧icon -->
@@ -15,10 +15,9 @@
       <span :class="rightIconStyle" @click="playMusic"></span>
     </div>
 
+
     <!-- 提示信息 -->
-    <div class="hint">
-      专注! 专注！
-    </div>
+    <p>{{ state.text }}</p>
 
     <!-- 环形进度条 -->
     <CircleProgress class="showCircle" @click.stop="ChangeSettings" @DragSettingTime="DragSetTime"></CircleProgress>
@@ -32,8 +31,9 @@
     </div>
 
     <!-- 倒计时 -->
-    <div v-show="showCountDown" class="time" @click.stop="ChangeSettings" >
-      <van-count-down :time="time" format="mm:ss" ref="countDown" :auto-start="false" @finish="onFinish" @change="onChange" />
+    <div v-show="showCountDown" class="time" @click.stop="ChangeSettings">
+      <van-count-down :time="time" format="mm:ss" ref="countDown" :auto-start="false" @finish="onFinish"
+        @change="onChange" />
     </div>
 
     <!-- 开始按钮 -->
@@ -41,6 +41,10 @@
       <van-button v-if="flag" class="btn1" type="primary" @click="start" size="small" color="#3bdcb4">开始</van-button>
       <van-button v-else class="btn2" type="success" @click="abandon" size="mini" text="放弃"></van-button>
     </div>
+
+    <h1 v-show="toTheForest" @click="toForest"> TO THE <br> FOREST</h1>
+       
+  
   </div>
 
   <van-dialog v-model:show="show" @confirm="confirmAbandon" title="你确定要放弃吗?" message="你的森林中会出现1颗枯萎的树" show-cancel-button
@@ -50,7 +54,7 @@
 
 
   <!-- 中间弹出框 -->
-  <Middle_PopUp v-show="showPop" :class="Animate1"></Middle_PopUp>
+  <Middle_PopUp v-if="showPop" :class="Animate1"></Middle_PopUp>
   <!-- 左侧菜单 -->
   <LeftSort v-show="showLeft" :class="Animate2"></LeftSort>
   <MainSet v-show="showMain" :class="Animate3" @SettingTime="SetTime" @SettingLabel="SetLabel"></MainSet>
@@ -67,8 +71,10 @@ import Trees from '../components/Trees.vue';
 import { useStore } from 'vuex';
 import dayjs from 'dayjs';
 import axios from '../api'
+import router from '../router';
 const store = useStore()
 const state = reactive({
+  text: '开始种树吧！',
   label: '学习',
   labelColor: '',
   studyTime: '',
@@ -84,7 +90,7 @@ state.year = currentDate.year();
 state.month = currentDate.month() + 1;
 state.day = currentDate.date();
 state.hour = currentDate.format('HH')
-const { show, showPop, isfogged, showMain, showLeft, Animate1, Animate2, Animate3, flag, isGone, className, showLeftIcon, showBack, showCountDown, showStartBtn, rightIconStyle, isMasked } = useHome()
+const { show, showPop, isfogged, showMain, showLeft, Animate1, Animate2, Animate3, flag, isGone, className, showLeftIcon, showBack, showCountDown, showStartBtn, rightIconStyle, isMasked,toTheForest } = useHome()
 // const show = ref(false)
 // const showPop = ref(false)
 // const isfogged = ref(false)
@@ -131,11 +137,11 @@ const countDown = ref(null);
 // 开始按钮
 const start = () => {
   flag.value = false
-  
+  state.text = '专注！ 专注！'
   countDown.value.start();
   isGone.value = true
   className.value = 'gone'
-  
+
   setTimeout(() => {
     store.commit('updateUrl', './src/assets/treesPic/shumiao.png')
     className.value = 'showUp'
@@ -151,14 +157,14 @@ const start = () => {
 
 // 放弃按钮
 const abandon = () => {
-  // flag.value = true
-  // countDown.value.reset();
   show.value = true
 }
 // 确认放弃
 const confirmAbandon = () => {
+  countDown.value.reset();
   className.value = 'gone'
   isGone.value = true
+  toTheForest.value = true
   setTimeout(() => {
     store.commit('updateUrl', './src/assets/treesPic/kushu.png')
     className.value = 'showUp'
@@ -168,7 +174,8 @@ const confirmAbandon = () => {
   showCountDown.value = false
   showStartBtn.value = false
   rightIconStyle.value = 'iconfont icon-yezi'
-
+  state.text = '太可惜了，下次再努力吧！'
+  uploadAxios()
 
 }
 // 返回
@@ -183,6 +190,8 @@ const backToHome = () => {
   showLeftIcon.value = true
   showBack.value = false
   isMasked.value = false
+  toTheForest.value = false
+  state.text = '开始种树吧！'
 }
 
 // 控制中间弹出框
@@ -205,6 +214,7 @@ const ClickOtherPlace = () => {
   Animate2.value = 'animate__animated  animate__slideOutLeft'
   Animate3.value = 'animate__animated  animate__fadeOutDown'
 }
+
 // 控制MainSet.vue的出现
 const ChangeSettings = () => {
   showMain.value = true
@@ -214,38 +224,72 @@ const ChangeSettings = () => {
 
 // 播放音乐
 const playMusic = () => {
-  
-  if(rightIconStyle.value == 'iconfont icon-yezi') return
+
+  if (rightIconStyle.value == 'iconfont icon-yezi') return
   rightIconStyle.value == 'iconfont icon-18erji-1' ? rightIconStyle.value = 'iconfont icon-18erji-3' : rightIconStyle.value = 'iconfont icon-18erji-1'
 
 }
 // 倒计时结束事件
 const onFinish = () => {
-  
+  countDown.value.reset();
+  className.value = 'gone'
+  isGone.value = true
+  toTheForest.value = true
+  state.text = '太棒了, 你在森林中种植了1颗健康的树!'
+  setTimeout(() => {
+    store.commit('replantUrl', state.backupUrl)
+    className.value = 'showUp'
+  }, 500)
+
+  showBack.value = true
+  showCountDown.value = false
+  showStartBtn.value = false
+  rightIconStyle.value = 'iconfont icon-yezi'
+
+  uploadAxios()
 }
 
+// 倒计时改变，计算专注了多长时间
 const onChange = (res) => {
-  state.studyTime =(time.value / 60000) - Math.floor(res.total / 60000) - 1 
-  console.log(state.studyTime );
+  if((time.value / 60000) - Math.floor(res.total / 60000) - 1 >= 5) {
+  state.studyTime = (time.value / 60000) - Math.floor(res.total / 60000) - 1
+  }
+  console.log(state.studyTime);
 }
 
-const uploadAxios = async() => {
- 
-const { data } = await axios.post('/record/hourRecord', {
-      time: state.studyTime,
-      hour: state.hour,
-      fromDay: state.day,
-      fromMonth: state.month,
-      fromYear: state.year
-    })
-    console.log(data);
+// 上传数据接口请求
+const uploadAxios = async () => {
 
-  
-} 
+  await axios.post('/record/hourRecord', {
+    time: state.studyTime,
+    hour: state.hour,
+    fromDay: state.day,
+    fromMonth: state.month,
+    fromYear: state.year
+  })
+
+  await axios.post('/record/dayRecord', {
+    time: state.studyTime,
+    day: state.day,
+    fromMonth: state.month,
+    fromYear: state.year
+  })
+
+  await axios.post('record/monthRecord', {
+    time: state.studyTime,
+    month: state.month,
+    fromYear: state.year
+  })
 
 
 
-console.log(state.day, state.month, state.year,state.hour);
+}
+
+const toForest = () => {
+  router.push('/forest')
+}
+
+
 </script>
 
 <style lang="less" >
@@ -335,8 +379,8 @@ console.log(state.day, state.month, state.year,state.hour);
     }
   }
 
-  .hint {
-    width: 3rem;
+  p {
+    width: 8rem;
     height: 1rem;
     margin: 2rem auto 0;
     line-height: 1rem;
@@ -395,7 +439,7 @@ console.log(state.day, state.month, state.year,state.hour);
       margin: 0 auto;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 
-      
+
     }
 
     .btn2 {
@@ -407,6 +451,19 @@ console.log(state.day, state.month, state.year,state.hour);
       margin: 0 auto;
       z-index: 3;
     }
+  }
+
+  h1 {
+    position: absolute;
+    top: 75%;
+    left: 22.5%;
+    z-index: 3;
+    color: #e6e6e6;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 1px -1px #fff, -1px 1px #999, -7px 7px 5px #80808080;
   }
 
 
@@ -425,6 +482,7 @@ console.log(state.day, state.month, state.year,state.hour);
     background-color: rgba(0, 0, 0, 0.3);
   }
 }
+
 .mask {
   &::after {
     content: '';

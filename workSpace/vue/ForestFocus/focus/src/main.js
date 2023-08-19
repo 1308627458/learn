@@ -20,6 +20,8 @@ import {
   Form, 
   Field, 
   CellGroup,
+  Swipe, 
+  SwipeItem
 } from 'vant'
 
 const app = createApp(App)
@@ -36,6 +38,7 @@ app.use(Dialog );
 app.use(Form);
 app.use(Field);
 app.use(CellGroup);
-
+app.use(Swipe);
+app.use(SwipeItem);
 app.use(store)
 app.mount('#app')

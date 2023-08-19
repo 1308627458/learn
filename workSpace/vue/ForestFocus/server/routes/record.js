@@ -204,13 +204,39 @@ router.post('/hourRecord', async(ctx, next) => {
   }
 })
 
-
-
+// 上传day记录接口
 router.post('/dayRecord', async(ctx, next) => {
   console.log(ctx.request.body);
   const {time, day, fromMonth, fromYear} = ctx.request.body
 
   try {
+
+    const findDayRes = await userService.dayFind(day, fromMonth, fromYear)
+    if(findDayRes.length) {
+      await userService.updateDayRecord(time, day, fromMonth, fromYear)
+      .then(res => {
+        if (res.affectedRows !== 0) {
+          ctx.body = {
+            code: '80000',
+            data: 'ok',
+            msg: '更新成功'
+          }
+        } else {
+          ctx.body = {
+            code: '80004',
+            data: 'error',
+            msg: '更新失败'
+          }
+        }
+      })
+      .catch(err => {
+        ctx.body = {
+          code: '80002',
+          data: err,
+          msg: '服务器异常'
+        }
+      })
+    }else {
      await userService.dayRecord([time, day, fromMonth, fromYear])
      
      .then(res => {
@@ -236,7 +262,7 @@ router.post('/dayRecord', async(ctx, next) => {
        }
      })
    }
-
+}
    catch (error) {
     ctx.body = {
       code: '80002',
@@ -246,11 +272,38 @@ router.post('/dayRecord', async(ctx, next) => {
   }
 })
 
+// 上传month记录接口
 router.post('/monthRecord', async(ctx, next) => {
   console.log(ctx.request.body);
   const {time, month,  fromYear} = ctx.request.body
 
   try {
+    const findMonthRes = await userService.monthFind(month, fromYear)
+    if(findMonthRes.length) {
+      await userService.updateMonthRecord(time, month, fromYear)
+      .then(res => {
+        if (res.affectedRows !== 0) {
+          ctx.body = {
+            code: '80000',
+            data: 'ok',
+            msg: '更新成功'
+          }
+        } else {
+          ctx.body = {
+            code: '80004',
+            data: 'error',
+            msg: '更新失败'
+          }
+        }
+      })
+      .catch(err => {
+        ctx.body = {
+          code: '80002',
+          data: err,
+          msg: '服务器异常'
+        }
+      })
+    } else {
      await userService.monthRecord([time, month, fromYear])
      
      .then(res => {
@@ -276,7 +329,7 @@ router.post('/monthRecord', async(ctx, next) => {
        }
      })
    }
-
+}
    catch (error) {
     ctx.body = {
       code: '80002',

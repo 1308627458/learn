@@ -19,7 +19,8 @@ export default function () {
   const showStartBtn = ref(true)
   const rightIconStyle = ref('iconfont icon-yezi')
   const isMasked = ref(false)
+  const toTheForest = ref(false)
   return {
-    show, showPop, isfogged, showMain, showLeft, Animate1, Animate2, Animate3, flag, isGone, className, showLeftIcon, showBack, showCountDown, showStartBtn, rightIconStyle, isMasked
+    show, showPop, isfogged, showMain, showLeft, Animate1, Animate2, Animate3, flag, isGone, className, showLeftIcon, showBack, showCountDown, showStartBtn, rightIconStyle, isMasked,toTheForest
   }
 }

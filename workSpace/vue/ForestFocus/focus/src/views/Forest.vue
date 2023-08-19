@@ -1,4 +1,5 @@
 <template>
+  
   <div class="ForestWrapper">
     <div class="ForestHeader">
       <span class="iconfont icon-guanbi" @click="backToHome"></span>
@@ -28,7 +29,7 @@
     </div>
   </div>
 
-  <Garden></Garden>
+  
   <div class="FocusRecord">
     <h1 class="text">专注时间统计</h1>
     <p>累计专注时长:<span> {{ state.totalTime }} </span>分钟</p>
@@ -36,12 +37,14 @@
 
     </div>
   </div>
+  
+
 </template>
 
 <script setup>
 
 import { nextTick } from 'vue';
-import Garden from '../components/Garden.vue'
+
 import router from '../router';
 import * as echarts from 'echarts';
 import { ref, reactive } from 'vue'
@@ -52,9 +55,7 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import { watch } from 'vue';
 import axios from '../api'
 import { toRaw } from 'vue';
-import { onMounted } from 'vue';
-// import { formamteWeek } from '../utils'
-
+// import { onMounted } from 'vue';
 
 
 dayjs.locale('zh-cn'); // 设置语言为中文
@@ -62,7 +63,7 @@ dayjs.extend(isoWeek);
 const Xdata1 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
 const Xdata2 = ['周日', '周一', '周二', '周三', '周四', '周五', '周六',]
 const Xdata3 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
-const Xdata4 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+const Xdata4 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 
 const state = reactive({
   year: '',
@@ -91,13 +92,7 @@ const dateArray = [
   { date: '年', id: 4 },
 ]
 
-
-const backToHome = () => {
-  console.log(123);
-  router.push('/Home')
-}
-
-// 更具日期请求数据
+据
 const dataAxios = async () => {
   if (ActiveId.value == 1) {
     state.echartsXdata = Xdata1
@@ -130,6 +125,12 @@ const dataAxios = async () => {
     // console.log(state.totalTime);
 
   }
+const backToHome = () => {
+  console.log(123);
+  router.push('/Home')
+}
+
+// 更具日期请求数
 
   if (ActiveId.value == 2) {
     state.echartsXdata = Xdata2
