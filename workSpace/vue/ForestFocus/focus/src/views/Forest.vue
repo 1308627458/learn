@@ -1,8 +1,7 @@
 <template>
-  
   <div class="ForestWrapper">
     <div class="ForestHeader">
-      <span class="iconfont icon-guanbi" @click="backToHome"></span>
+      <span class="iconfont icon-guanbi" @click="goToHome"></span>
       <div class="ForestOverview">
         <span class="text">总览</span>
         <span class="iconfont icon-xiajiantou"></span>
@@ -15,30 +14,38 @@
         <p v-for="item in dateArray" :key="item.id" :class="{ 'selected': item.id === ActiveId }"
           @click="chooseDate(item)">
           {{ item.date }}</p>
-
       </div>
+
+
 
       <div class="Date">
         <span class="iconfont icon-zuojiantou" @click="beforeTime"></span>
         <span class="date">{{ Time }}</span>
         <span class="iconfont icon-youjiantou" @click="afterTime"></span>
       </div>
+
+      <div class="icon">
+        <span @click="goToThreeForest"><img src="../assets/treesPic/platform.png" alt=""></span>
+        <p class="p1">进入森林</p>
+        <p class="p2">(建议横屏效果更佳)</p>
+      </div>
+
     </div>
+
 
     <div class="ForestFoot">
     </div>
   </div>
 
-  
+
   <div class="FocusRecord">
     <h1 class="text">专注时间统计</h1>
     <p>累计专注时长:<span> {{ state.totalTime }} </span>分钟</p>
+
     <div class="echart-container" ref="echartContainer">
 
     </div>
   </div>
-  
-
 </template>
 
 <script setup>
@@ -55,6 +62,7 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import { watch } from 'vue';
 import axios from '../api'
 import { toRaw } from 'vue';
+
 // import { onMounted } from 'vue';
 
 
@@ -92,8 +100,8 @@ const dateArray = [
   { date: '年', id: 4 },
 ]
 
-据
-const dataAxios = async () => {
+// 专注记录的接口请求
+const dataAxios = async () => {  // 根据日期请求数
   if (ActiveId.value == 1) {
     state.echartsXdata = Xdata1
     const { data } = await axios.post('/record/dayData', {
@@ -125,13 +133,6 @@ const dataAxios = async () => {
     // console.log(state.totalTime);
 
   }
-const backToHome = () => {
-  console.log(123);
-  router.push('/Home')
-}
-
-// 更具日期请求数
-
   if (ActiveId.value == 2) {
     state.echartsXdata = Xdata2
     const { data } = await axios.post('/record/weekData', {
@@ -216,6 +217,13 @@ const backToHome = () => {
 }
 
 
+const goToHome = () => {
+  router.push('/Home')
+}
+
+const goToThreeForest = () => {
+  router.push('/threeForest')
+}
 
 const currentDate = dayjs();
 state.year = currentDate.year();
@@ -235,25 +243,25 @@ state.weekNumber = dayjs(weekArgument.value).isoWeek(); // 第几周
 watch(() => {
 
 
-// 一个可以根据数据源改变而改变的参数
-const firstDayOfWeek = dayjs().isoWeek(state.weekNumber).startOf('isoWeek');
-const lastDayOfWeek = dayjs().isoWeek(state.weekNumber).endOf('isoWeek');
+  // 一个可以根据数据源改变而改变的参数
+  const firstDayOfWeek = dayjs().isoWeek(state.weekNumber).startOf('isoWeek');
+  const lastDayOfWeek = dayjs().isoWeek(state.weekNumber).endOf('isoWeek');
 
-state.firstDay = Number(firstDayOfWeek.format('DD')) - 1
-if(ActiveId.value == 2) {
-  state.month = Number(firstDayOfWeek.format('MM'))
-}
+  state.firstDay = Number(firstDayOfWeek.format('DD')) - 1
+  if (ActiveId.value == 2) {
+    state.month = Number(firstDayOfWeek.format('MM'))
+  }
 
-state.lastDay = Number(lastDayOfWeek.format('DD')) - 1
+  state.lastDay = Number(lastDayOfWeek.format('DD')) - 1
 
-state.lastDay == 0 ? state.lastDay = 30 : state.lastDay 
-state.firstDay == 0 ? state.firstDay = 30 : state.firstDay
+  state.lastDay == 0 ? state.lastDay = 30 : state.lastDay
+  state.firstDay == 0 ? state.firstDay = 30 : state.firstDay
 
 
-dataAxios()
-// console.log(state.month);
-// Number(firstDayOfWeek.format('MM'))
-// console.log(state.firstDay, state.lastDay);
+  dataAxios()
+  // console.log(state.month);
+  // Number(firstDayOfWeek.format('MM'))
+  // console.log(state.firstDay, state.lastDay);
 
 })
 
@@ -314,7 +322,7 @@ const beforeTime = () => {
     state.year = state.year - 1
   }
 
- 
+
 
 }
 
@@ -333,16 +341,16 @@ const afterTime = () => {
   if (ActiveId.value == 2) {
 
     state.weekNumber = state.weekNumber + 1
-    
-    if(state.firstDay > state.lastDay) {
-      state.month  = state.month + 1
+
+    if (state.firstDay > state.lastDay) {
+      state.month = state.month + 1
     }
-    
-   
+
+
   }
 
   if (ActiveId.value == 3) {
-    
+
     state.month = state.month + 1
     if (state.month > 12) {
       state.year = state.year + 1
@@ -354,7 +362,7 @@ const afterTime = () => {
     state.year = state.year + 1
   }
 
-  
+
 
 }
 
@@ -493,6 +501,7 @@ nextTick(async () => {
       border-radius: 5px;
       margin-top: 0.4rem;
 
+
       p {
         text-align: center;
         width: 2.3rem;
@@ -502,6 +511,27 @@ nextTick(async () => {
         background: rgba(1, 14, 4, 0.2);
         line-height: 0.6rem;
 
+      }
+    }
+
+    .icon {
+      img{
+        width: 8rem;
+        margin-left: 0.95rem;
+       
+      } 
+      .p1{
+          position: absolute;
+          top: 32%;
+          left: 43%;
+          font-size: 0.3rem;
+          font-weight: bold;
+      }
+      .p2{
+        position: absolute;
+          top: 34%;
+          left: 36%;
+          font-size: 0.3rem;
       }
     }
 

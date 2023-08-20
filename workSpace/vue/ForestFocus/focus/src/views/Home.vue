@@ -251,8 +251,10 @@ const onFinish = () => {
 
 // 倒计时改变，计算专注了多长时间
 const onChange = (res) => {
-  if((time.value / 60000) - Math.floor(res.total / 60000) - 1 >= 5) {
+  if((time.value / 60000) - Math.floor(res.total / 60000) - 1 >= 3) {
   state.studyTime = (time.value / 60000) - Math.floor(res.total / 60000) - 1
+  }else {
+    start.studyTime = start.studyTime
   }
   console.log(state.studyTime);
 }
