@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  img{
+    display: block;
+    height: 300px;
+    margin-bottom: 50px;
+  }
+</style>
+<body>
+  <img lazy="true" src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img lazy="true" src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img lazy="true" src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img lazy="true" src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img lazy="true" src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+  <img src="https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="" >  
+
+
+  <script>
+    // 哪些图片出现在可视区域内
+      let viewHeight = document.documentElement.clientHeight // 可视区域的高
+      
+      function lazyLoad() {
+        let eles = document.querySelectorAll('img[lazy][]')
+        eles.forEach(() => {
+          let rect = item.getBoundingClientRect()
+          if(rect.bottom > o && rect.top < viewHeight) {
+            (function () {
+              let img = new Image();
+              img.src = item.dataset.origin
+              img.onload = function(){
+                item.src = img.src
+              }
+              item.removeAttribute('lazy')
+              item.removeAttribute('data-origin')
+             })()
+          }
+        })
+     
+      }
+
+      lazyLoad()
+      document.addEventListener('scroll', lazyLoad())
+  </script>
+</body>
+</html>

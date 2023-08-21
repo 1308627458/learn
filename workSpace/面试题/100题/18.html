@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  #a{
+    width: 300px;
+    height: 300px;
+    background: lightpink;
+  }
+  #b{
+    width: 100px;
+    height: 100px;
+    background:lightblue ;
+  }
+</style>
+<body>
+
+
+  <div id="a">
+    <div id="b">
+      b
+    </div>
+  </div>
+  <script>
+    let myEvent = new CustomEvent('test')
+
+    window.addEventListener('test', (e) => { // 订阅
+      console.log(`test事件被触发`);
+    })
+
+    document.getElementById('b').addEventListener('click', () => {
+      window.dispatchEvent(myEvent)
+    })
+
+
+  </script>
+</body>
+</html>
