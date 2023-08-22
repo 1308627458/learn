@@ -18,7 +18,7 @@ const props = defineProps({
   className: String,
 })
 
-console.log(props.isGone);
+// console.log(props.isGone);
 
 
 const store = useStore()

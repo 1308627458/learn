@@ -23,7 +23,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
-
 const canvasDom = ref(null)
 // 场景
 const scene = new THREE.Scene()

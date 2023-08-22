@@ -3,7 +3,7 @@
     <h1>登录</h1>
     <div class="login-wrapper">
       <div class="avatar">
-        <img src="https://ts1.cn.mm.bing.net/th/id/R-C.d0cdb390350600169835c8343480b0af?rik=gLkyDf9xwbXdQg&riu=http%3a%2f%2finews.gtimg.com%2fnewsapp_match%2f0%2f15103659087%2f0&ehk=zK0MTj34tChhjHcpXaZER22pNZjchBBOnrkMTllNa0w%3d&risl=&pid=ImgRaw&r=0" alt="">
+        <img src="../assets/treesPic//headPhoto.jpeg" alt="">
       </div>
 
       <van-form @submit="onSubmit">
