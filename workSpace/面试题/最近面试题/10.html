@@ -1,0 +1,26 @@
+<script>
+
+  function request(url, body, successCB, errorCB, maxCount = 3) {
+  
+    fetch(url,body)
+      .then(res => res.json())
+      .then(data => successCB(data))
+      .catch(err => {
+        if(maxCount <= 0)  return errorCB('请求次数达到上限')         
+          request(url, body, successCB, errorCB, --maxCount)
+      })
+
+}
+
+
+request(
+  'https://www.fastmock.site/mock/39ac87de3060aa2bb2ba20a0ff375c81/cat-movie/hot',
+  {method: 'GET', headers: {}},
+  (res) => {
+    console.log(res);
+  },
+  (err) => {
+    console.log(err);
+  }
+  ) 
+</script>

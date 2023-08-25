@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  
+  <script>
+    let canvas = document.getElementById("canvas")
+    canvas.width = 400
+    canvas.height = 400
+
+    let mctx = canvas.getContext("2d")
+    drawPolygon(mctx) // 绘制多边形
+
+    function drawPolygon(ctx) {
+      ctx.save()
+      ctx.strokeStyle =  '#b8b8b8'
+      let r = 150/ 6
+
+      for(let i = 0; i < 6; i++) {
+        ctx.beginPath()
+
+        let currR = r * (i + 1)
+        for(let j = 0; j < 6; j++) {
+          let x = 200 + currR * Math.cos(Math.PI * 2 / 6 * j)
+          let y = 200 + currR * Math.sin(Math.PI * 2 / 6 * j)
+          ctx.lineTo(x, y)
+        }
+        ctx.closePath()
+        ctx.stroke()
+      }
+      
+      ctx.restore()
+      
+    }
+
+  </script>
+</body>
+</html>

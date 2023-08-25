@@ -30,6 +30,7 @@
   3. 调用toString(), 如果能转成原始类型，就返回原始类型的值
   4. 否则，就报错
 
+
 - 四则运算
   + 为数字和字符串准备的
 
@@ -147,7 +148,7 @@
   2. 用户的交互事件
   3. js 脚本执行这件事 (同步代码script)
   4. 网络请求， 文件读写
-  5. setTimeout, setInterval, setImmdiate, I/O
+  5. setTimeout, setInterval, setImmediate, I/O
 
 - 微任务：
   

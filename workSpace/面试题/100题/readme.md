@@ -65,3 +65,22 @@ DNS劫持是一种隐蔽且危险的攻击技术，用户可能不会察觉到�
   2. defer属性：当脚本标记为defer时，浏览器会延迟脚本的执行，直到页面的解析完成。脚本的加载是异步的，但是脚本的执行会在DOMContentLoaded事件之前按照它们在页面中的顺序执行。defer属性适用于那些需要在文档后才能执行的完全解析脚本，因为它们可以访问并操作页面的DOM结构。
   - async 让js的加载和html的渲染并行进行，当js加载完毕后，此时html的渲染需要等待
   - defer 让js的加载和html的渲染并行进行，当js加载完毕后，等待html渲染完成才 执行js 
+
+
+# 31. locaStorage 过期时间？
+
+# 32. let, const 
+  - const 的本质只是保证变量的内存地址不得改动
+  - Object.freeze()  == Object.defineProperty  + Object.seal()
+
+# 33. 事件模型
+  1. DOM0级 事件模型   <btutton  onclick='add()'>   只有冒泡   this指向window
+  2. IE事件模型  attachEvent('onclick', function() {})     detachEvent('onclick', function() {})            只有冒泡   this指向window
+  3. DOM2 事件模型   addEventListener('click', function() {})   有捕获和冒泡     this指向被绑定的元素
+
+  事件流. e.stopImmediatePropagation() 不仅阻止事件，还能阻止自身容器的其他事件
+
+  事件委托
+
+# 34. 如何判断js脚本是否加载完毕了
+  - 用js创建一个script标签，用来加载js 脚本，然监听该标签上的onload事件
