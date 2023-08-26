@@ -3,7 +3,7 @@ import Home from '@/views/Home.vue'
 const routes = [
   { // 重定向
     path: '/',
-    redirect: '/home'
+    redirect: '/login'
   },
   {
     path: '/home',
@@ -16,16 +16,42 @@ const routes = [
     component: () => import('@/views/Login.vue')
   },
   {
+    path: '/register',
+    name : 'register',
+    component: () => import('@/views/Register.vue')
+  },
+  {
     path: '/forest',
     name : 'forest',
     component: () => import('@/views/Forest.vue')
   },
+  {
+    path: '/threeForest',
+    name: 'threeForest',
+    component: () => import('@/views/ThreeForest.vue')
+  }
+
 ]
 
 
 const router = createRouter({
   routes,
   history: createWebHistory()
+})
+
+
+// 路由守卫
+const whiteList = ['/login', '/register']
+router.beforeEach((to, from, next) => {
+  if (!whiteList.includes(to.path)) {
+    if (!sessionStorage.getItem('userInfo')) {
+      router.push('/login')
+      return
+    }
+    next()
+    return
+  }
+  next()
 })
 
 export default router

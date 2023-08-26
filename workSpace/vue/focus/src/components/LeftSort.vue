@@ -20,7 +20,7 @@
 import router from '../router';
 
 const goToForest = () => {
-  router.push('/Forest')
+  router.push('/forest')
 }
 </script>
 

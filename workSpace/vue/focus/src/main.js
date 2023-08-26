@@ -17,8 +17,12 @@ import {
   Switch,
   Picker,
   Dialog,
+  Form, 
+  Field, 
+  CellGroup,
+  Swipe, 
+  SwipeItem
 } from 'vant'
-
 
 const app = createApp(App)
 app.use(router)
@@ -30,6 +34,11 @@ app.use(Button);
 app.use(Popup);
 app.use(Switch);
 app.use(Picker);
-app.use(Dialog )
+app.use(Dialog );
+app.use(Form);
+app.use(Field);
+app.use(CellGroup);
+app.use(Swipe);
+app.use(SwipeItem);
 app.use(store)
 app.mount('#app')
