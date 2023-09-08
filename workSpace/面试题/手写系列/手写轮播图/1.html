@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;padding: 0;
+    }
+    ol li,
+    ul li {
+      list-style: none;
+    }
+    .swiper{
+      width: 700px;
+      height: 450px;
+      overflow: hidden;
+      margin: 20px;
+      position: relative;
+    }
+    ul {
+      width: 600%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    li, img{
+      width: 700px;
+      height: 450px;
+    }
+    li{
+      float: left;
+    }
+    .arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: #fff;
+      width: 30px;
+      height: 40px;
+      line-height: 40px;
+      z-index: 2;
+    }
+    .arrow:hover{
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .arrow-l{
+      left: 0;
+    }
+    .arrow-r{
+      right: 0;
+    }
+    .cirbox{
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+    }
+    .cirbox li{
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      margin: 10px;
+      border-radius: 50%;
+    }
+    .cirbox li.active{
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="swiper">
+    <a href="javascript:;" class="arrow arrow-l">&lt;</a>
+    <a href="javascript:;" class="arrow arrow-r">&gt;</a>
+    <ul id="ul">
+      <li class="swiper-item"><img src="https://img0.baidu.com/it/u=4167836184,3069690856&fm=253&fmt=auto&app=120&f=JPEG?w=1200&h=800" alt=""></li>
+      <li class="swiper-item"><img src="https://img0.baidu.com/it/u=741268616,1401664941&fm=253&fmt=auto&app=138&f=JPEG?w=748&h=500" alt=""></li>
+      <li class="swiper-item"><img src="https://img0.baidu.com/it/u=3999518822,3110929376&fm=253&fmt=auto&app=138&f=JPEG?w=749&h=500" alt=""></li>
+      <li class="swiper-item"><img src="https://img2.baidu.com/it/u=90440760,3623469995&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800" alt=""></li>
+      <li class="swiper-item"><img src="https://img2.baidu.com/it/u=726620871,4203188840&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800" alt=""></li>
+    </ul>
+
+    <ol class="cirbox">
+      
+    </ol>
+  </div>
+
+  <script>
+    let arrowL = document.querySelector('.arrow-l');
+    let arrowR = document.querySelector('.arrow-r');
+    let swiper = document.querySelector('.swiper')
+    let ul = document.querySelector('#ul')
+    let num = 0 // 图片下标
+    let circle = 0 // 面板显示点
+    
+
+
+
+
+    function animate(obj, target, callback) {
+      clearInterval(obj.timer)
+
+      obj.timer = setInterval(function() {
+        // console.log(obj.offsetLeft);
+        let step = (target - obj.offsetLeft) / 10
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+        if (obj.offsetLeft === target) {
+          clearInterval(obj.timer)
+          if (callback) {
+            callback()
+          }
+        }
+        obj.style.left = obj.offsetLeft + step + 'px'
+      }, 15);
+    }
+
+    // 面板指示点
+    let ol = document.querySelector('.cirbox')
+    for (let i = 0; i < ul.children.length; i++) { 
+      let lis = document.createElement('li');
+      lis.setAttribute('index', i);
+      ol.appendChild(lis);
+      ol.children[0].className = 'active'
+
+      lis.addEventListener('click', function() {
+        for (let i = 0; i < ol.children.length; i++) {
+          ol.children[i].className = ''
+        }
+        let index = this.getAttribute('index')
+        num = index
+        circle = index
+        this.className = 'active'
+        let target = -index * swiper.offsetWidth
+        console.log(target);
+        animate(ul, target)
+      })
+    }
+
+    let firstImg = ul.children[0].cloneNode(true)
+    ul.appendChild(firstImg)
+
+
+    arrowL.addEventListener('click', function() {
+      console.log(num, ul.children.length);
+
+      if (num === ul.children.length - 1) { // 到最后一张
+        ul.style.left = 0
+        num = 0
+      }
+      num++
+      circle++
+      for (let i = 0; i < ol.children.length; i++) {
+        ol.children[i].className = ''
+      }
+      if (circle === ol.children.length) {
+        circle = 0
+      }
+      ol.children[circle].className = 'active'
+
+      animate(ul, -num * swiper.offsetWidth)
+    })
+
+
+    arrowR.addEventListener('click', function() {
+      if (num === 0) {
+        num = ul.children.length - 1
+        ul.style.left = -num * swiper.offsetWidth + 'px'
+      }
+      num--
+      circle--
+      for (let i = 0; i < ol.children.length; i++) {
+        ol.children[i].className = ''
+      }
+      if (circle < 0) {
+        circle = ol.children.length - 1
+      }
+      ol.children[circle].className = 'active'
+
+      animate(ul, -num * swiper.offsetWidth)
+    })
+
+
+      
+    let timer = setInterval(function() {
+      arrowL.click()
+    }, 2000)
+
+  </script>
+</body>
+</html>
