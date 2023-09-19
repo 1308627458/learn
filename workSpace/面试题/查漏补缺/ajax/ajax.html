@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./ajax.js"></script>
+  <script>
+    ajax({
+      method: 'get',
+      url: 'https://www.fastmock.site/mock/39ac87de3060aa2bb2ba20a0ff375c81/cat-movie/mostLike',
+      data: {id: 1},
+      async: true,
+      dataType: 'json',
+      success(res) {
+        console.log(res);
+      },
+      fail() {
+
+      }
+    })
+  </script>
+</body>
+</html>
